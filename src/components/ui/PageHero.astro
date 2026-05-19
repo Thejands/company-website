@@ -1,0 +1,54 @@
+---
+import PlugIcon from "./PlugIcon.astro";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  align?: "left" | "center";
+  showBrandIcon?: boolean;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  align = "left",
+  showBrandIcon = false,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "fade-in is-visible max-w-[var(--max-width-content)]",
+    align === "center" && "mx-auto text-center",
+  ]}
+>
+  {
+    (eyebrow || showBrandIcon) && (
+      <div
+        class:list={[
+          "mb-4 flex items-center gap-2.5",
+          align === "center" && "justify-center",
+        ]}
+      >
+        {showBrandIcon && <PlugIcon size={24} class="text-ink" />}
+        {eyebrow && <p class="text-body-sm font-medium text-mute">{eyebrow}</p>}
+      </div>
+    )
+  }
+  <h1 class="font-display text-display-xl text-ink">{title}</h1>
+  {
+    subtitle && (
+      <p
+        class:list={[
+          "mt-4 text-body-md text-body",
+          align === "center" && "mx-auto max-w-[var(--max-width-prose)]",
+        ]}
+      >
+        {subtitle}
+      </p>
+    )
+  }
+  <slot />
+</div>

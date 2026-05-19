@@ -1,0 +1,87 @@
+---
+import Button from "./Button.astro";
+interface Props {
+  name: string;
+  description: string;
+  price: string;
+  cta: { label: string; href: string };
+  features: readonly string[];
+  dark?: boolean;
+  includes?: string;
+}
+
+const {
+  name,
+  description,
+  price,
+  cta,
+  features,
+  dark = false,
+  includes,
+} = Astro.props;
+---
+
+<article
+  class:list={[
+    "flex flex-col rounded-lg border p-8",
+    dark
+      ? "border-transparent bg-surface-dark text-on-dark"
+      : "border-hairline bg-canvas text-ink",
+  ]}
+>
+  <img
+    src="/logo.svg"
+    alt=""
+    width={32}
+    height={12}
+    class="mb-4 h-3 w-auto opacity-90"
+    aria-hidden="true"
+  />
+  <h3 class="font-display text-heading-md">{name}</h3>
+  <p
+    class:list={["mt-1 text-body-sm", dark ? "text-on-dark-mute" : "text-body"]}
+  >
+    {description}
+  </p>
+  <p class="font-display mt-6 text-display-lg">{price}</p>
+  <div class="mt-6">
+    <Button href={cta.href} variant={dark ? "on-dark" : "primary"}>
+      {cta.label}
+    </Button>
+  </div>
+  <hr
+    class:list={[
+      "my-6 border-0 border-t",
+      dark ? "border-white/20" : "border-hairline",
+    ]}
+  />
+  {
+    includes && (
+      <p
+        class:list={[
+          "mb-3 text-body-sm font-medium",
+          dark ? "text-on-dark" : "text-ink",
+        ]}
+      >
+        {includes}
+      </p>
+    )
+  }
+  <ul class="flex flex-col gap-2">
+    {
+      features.map((f) => (
+        <li
+          class:list={[
+            "flex gap-2 text-body-sm",
+            dark ? "text-on-dark-mute" : "text-charcoal",
+          ]}
+        >
+          <span class={dark ? "text-on-dark" : "text-ink"} aria-hidden="true">
+            ✓
+          </span>
+          {f}
+        </li>
+      ))
+    }
+  </ul>
+</article>

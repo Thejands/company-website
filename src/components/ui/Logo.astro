@@ -1,0 +1,41 @@
+---
+import { siteConfig } from "@/config/site";
+
+interface Props {
+  class?: string;
+  height?: number;
+  showWordmark?: boolean;
+}
+
+const { class: className = "", height = 32, showWordmark = true } = Astro.props;
+const currentPath = Astro.url.pathname;
+const logoWidth = Math.round(height * 2.68);
+---
+
+<a
+  href="/"
+  class:list={[
+    "inline-flex items-center gap-2.5 shrink-0 transition-opacity hover:opacity-85",
+    className,
+  ]}
+  aria-label="Thejands home"
+  aria-current={currentPath === "/" ? "page" : undefined}
+>
+  <img
+    src={siteConfig.logo}
+    alt="Thejands logo"
+    width={logoWidth}
+    height={height}
+    class="h-auto w-auto object-contain"
+    style={`height: ${height}px; width: auto; max-width: min(${logoWidth}px, 42vw);`}
+    loading="eager"
+    decoding="async"
+  />
+  {
+    showWordmark && (
+      <span class="font-display text-lg font-semibold tracking-tight text-ink">
+        Thejands
+      </span>
+    )
+  }
+</a>

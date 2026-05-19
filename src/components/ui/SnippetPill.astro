@@ -1,0 +1,21 @@
+---
+interface Props {
+  href: string;
+  label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group flex min-h-12 w-full max-w-full items-center justify-between gap-3 rounded-full bg-surface-soft px-5 py-3 font-mono text-code-md text-ink transition-colors hover:bg-hairline/60 sm:w-auto"
+>
+  <span class="truncate">{label}</span>
+  <span
+    class="shrink-0 text-body-sm text-mute group-hover:text-charcoal"
+    aria-hidden="true"
+  >
+    ↗
+  </span>
+</a>

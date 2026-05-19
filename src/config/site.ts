@@ -1,26 +1,38 @@
-import ogImage from "@/assets/og-image.png";
+import { getSocialLinks, getTwitterHandle } from "@/config/site-env";
 
 export const siteConfig = {
-  name: "Astro Starter Pro",
+  name: "Thejands",
+  tagline: "We build products for you",
+  title: "Thejands - Product development for web, mobile & software",
   description:
-    "Starter template optimized for SEO and performance. A solid foundation to start your projects with best practices.",
-  url: "https://astrostarterpro.com",
+    "Thejands is a product studio that designs and builds web apps, mobile apps, and custom software - from first sketch to launch and beyond.",
+  url: "https://thejands.in",
   lang: "en",
-  locale: "en_US",
-  author: "Devgelo",
-  twitter: "@Devgelo",
-  ogImage: ogImage,
-  socialLinks: {
-    twitter: "https://twitter.com",
-    github: "https://github.com/devgelo-labs/astro-starter-pro",
-    discord: "https://discord.com",
+  locale: "en_IN",
+  author: "Thejands",
+  twitter: getTwitterHandle() ?? "",
+  logo: "/logo.svg",
+  favicon: "/favicon.svg",
+  ogImage: "/og-image.svg",
+  appleTouchIcon: "/logo.svg",
+  contact: {
+    email: "hello@thejands.in",
+    phones: ["+91 8807825309", "+91 9345416994"],
   },
+  socialLinks: getSocialLinks(),
   navLinks: [
-    { text: "Home", href: "/" },
-    { text: "About", href: "/about" },
     { text: "Services", href: "/services" },
-    { text: "Blog", href: "/blog" },
+    { text: "Process", href: "/process" },
+    { text: "About", href: "/about" },
     { text: "Contact", href: "/contact" },
-    { text: "Widgets", href: "/widgets" },
   ],
-};
+  footerLinks: [
+    { text: "Services", href: "/services" },
+    { text: "Process", href: "/process" },
+    { text: "About", href: "/about" },
+    { text: "Contact", href: "/contact" },
+    { text: "Privacy", href: "/privacy" },
+    { text: "Terms", href: "/terms" },
+    { text: "Cookies", href: "/cookies" },
+  ],
+} as const;

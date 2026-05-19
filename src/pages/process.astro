@@ -1,0 +1,88 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import TerminalCard from "@/components/ui/TerminalCard.astro";
+import CtaBand from "@/components/ui/CtaBand.astro";
+import { processPage } from "@/config/content";
+---
+
+<BaseLayout
+  title="Our process"
+  description="How Thejands builds products - from discovery to launch and beyond."
+>
+  <section class="section-spacing border-b border-hairline">
+    <div class="container-page">
+      <PageHero
+        title={processPage.title}
+        subtitle={processPage.subtitle}
+        showBrandIcon
+      />
+    </div>
+  </section>
+
+  <section class="section-spacing">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-[1fr_340px] lg:items-start">
+        <ol class="relative space-y-0">
+          {
+            processPage.steps.map((step, i) => (
+              <li
+                class="fade-in relative grid grid-cols-[auto_1fr] gap-6 pb-12 last:pb-0"
+                data-process-step
+              >
+                {i < processPage.steps.length - 1 && (
+                  <span
+                    class="absolute left-[1.125rem] top-10 bottom-0 w-px bg-hairline"
+                    aria-hidden="true"
+                  />
+                )}
+                <span class="relative z-10 flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-canvas font-mono text-caption-sm font-medium text-ink">
+                  {step.number}
+                </span>
+                <div class="pt-0.5">
+                  <h2 class="font-display text-heading-md text-ink">
+                    {step.title}
+                  </h2>
+                  <p class="mt-1 text-body-sm font-medium text-charcoal">
+                    {step.summary}
+                  </p>
+                  <p class="mt-3 text-body-md text-body">{step.body}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <aside class="fade-in lg:sticky lg:top-24">
+          <TerminalCard lines={processPage.terminal.lines} />
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-spacing border-t border-hairline pb-20">
+    <div class="container-page">
+      <CtaBand
+        title="See how this fits your timeline"
+        body="Walk through discovery with Linga or Somu - 30 minutes, no obligation."
+        button={{ label: "Book a call", href: "/contact" }}
+        dark
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll("[data-process-step]").forEach((step) => {
+    step.addEventListener("mouseenter", () => {
+      step.classList.add("bg-surface-soft/50", "-mx-4", "px-4", "rounded-lg");
+    });
+    step.addEventListener("mouseleave", () => {
+      step.classList.remove(
+        "bg-surface-soft/50",
+        "-mx-4",
+        "px-4",
+        "rounded-lg",
+      );
+    });
+  });
+</script>

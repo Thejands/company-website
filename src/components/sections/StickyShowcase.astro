@@ -1,0 +1,112 @@
+---
+import { stickyShowcase } from "@/config/content";
+---
+
+<section
+  class="section-spacing border-y border-hairline/80"
+  data-sticky-showcase
+  aria-labelledby="sticky-showcase-title"
+>
+  <div class="container-page">
+    <div class="lg:grid lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
+      <!-- Sticky panel -->
+      <div class="lg:sticky lg:top-24 lg:self-start lg:pb-8">
+        <h2
+          id="sticky-showcase-title"
+          class="fade-in is-visible font-display text-display-lg text-ink"
+        >
+          {stickyShowcase.title}
+        </h2>
+        <p class="fade-in is-visible mt-4 text-body-md text-body">
+          {stickyShowcase.subtitle}
+        </p>
+        <nav
+          class="mt-8 hidden flex-col gap-2 lg:flex"
+          aria-label="Showcase steps"
+          data-sticky-nav
+        >
+          {
+            stickyShowcase.items.map((item, i) => (
+              <button
+                type="button"
+                class="sticky-nav-btn text-left rounded-lg px-3 py-2.5 text-body-sm font-medium transition-colors"
+                data-sticky-target={item.id}
+                data-active={i === 0 ? "true" : "false"}
+              >
+                <span class="font-mono text-caption-sm text-mute mr-2">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {item.title}
+              </button>
+            ))
+          }
+        </nav>
+      </div>
+
+      <!-- Scrolling cards -->
+      <div class="mt-10 space-y-6 lg:mt-0 lg:space-y-8">
+        {
+          stickyShowcase.items.map((item) => (
+            <article
+              id={item.id}
+              class="sticky-scroll-card card-interactive scroll-mt-28 p-8 md:p-10"
+              data-sticky-card={item.id}
+            >
+              <h3 class="font-display text-heading-md text-ink">
+                {item.title}
+              </h3>
+              <p class="mt-3 text-body-md text-body">{item.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.querySelector("[data-sticky-showcase]");
+  if (!section) {
+    /* noop */
+  } else {
+    const cards = section.querySelectorAll("[data-sticky-card]");
+    const navBtns = section.querySelectorAll(
+      "[data-sticky-nav] .sticky-nav-btn",
+    );
+
+    const setActive = (id: string) => {
+      navBtns.forEach((btn) => {
+        const active = btn.getAttribute("data-sticky-target") === id;
+        btn.setAttribute("data-active", String(active));
+      });
+      cards.forEach((card) => {
+        card.classList.toggle(
+          "is-active",
+          card.getAttribute("data-sticky-card") === id,
+        );
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-sticky-card");
+            if (id) setActive(id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -45% 0px", threshold: 0 },
+    );
+
+    cards.forEach((card) => observer.observe(card));
+
+    navBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-sticky-target");
+        const target = id && section.querySelector(`#${id}`);
+        target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  }
+</script>

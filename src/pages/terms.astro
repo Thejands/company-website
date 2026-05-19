@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms governing use of the Thejands website and services."
+>
+  <article
+    class="section-spacing mx-auto max-w-[var(--max-width-content)] px-6"
+  >
+    <h1 class="font-display text-display-lg text-ink">Terms of Service</h1>
+    <p class="mt-4 text-body-md text-body">
+      Last updated: May 2026. By using {siteConfig.url}, you agree to these
+      terms. Project-specific engagements are governed by separate statements of
+      work or agreements signed with {siteConfig.name}.
+    </p>
+    <h2 class="font-display mt-8 text-heading-md text-ink">Services</h2>
+    <p class="mt-2 text-body-md text-body">
+      We provide product design and development services. Recommendations are
+      made in good faith based on available information; final vendor selection
+      remains your decision.
+    </p>
+    <h2 class="font-display mt-8 text-heading-md text-ink">Limitation</h2>
+    <p class="mt-2 text-body-md text-body">
+      Website content is provided as-is for general information. We are not
+      liable for indirect damages arising from use of this site.
+    </p>
+    <p class="mt-8 text-body-md text-body">
+      Contact: <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="text-ink underline">{siteConfig.contact.email}</a
+      >
+    </p>
+  </article>
+</BaseLayout>

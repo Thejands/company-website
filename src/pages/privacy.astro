@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="How Thejands collects, uses, and protects your information."
+>
+  <article
+    class="section-spacing mx-auto max-w-[var(--max-width-content)] px-6 prose prose-neutral"
+  >
+    <h1 class="font-display text-display-lg text-ink">Privacy Policy</h1>
+    <p class="text-body-md text-body">
+      Last updated: May 2026. Thejands ("we") respects your privacy. This policy
+      explains what we collect when you contact us or use our website.
+    </p>
+    <h2 class="font-display text-heading-md text-ink">
+      Information we collect
+    </h2>
+    <p class="text-body-md text-body">
+      When you submit our contact form or email us, we receive your name, email,
+      message content, and any details you choose to share about your project.
+    </p>
+    <h2 class="font-display text-heading-md text-ink">How we use it</h2>
+    <p class="text-body-md text-body">
+      We use this information solely to respond to inquiries, scope work, and
+      coordinate introductions within our vetted network. We do not sell
+      personal data.
+    </p>
+    <h2 class="font-display text-heading-md text-ink">Contact</h2>
+    <p class="text-body-md text-body">
+      Questions? Email <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="text-ink underline">{siteConfig.contact.email}</a
+      >.
+    </p>
+  </article>
+</BaseLayout>

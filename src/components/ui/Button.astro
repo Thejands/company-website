@@ -1,54 +1,39 @@
 ---
 interface Props {
-  variant?: "primary" | "secondary" | "tertiary";
-  size?: "sm" | "md" | "lg";
   href?: string;
-  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "on-dark";
+  type?: "button" | "submit";
   class?: string;
-  "aria-label"?: string;
-  [key: string]: unknown;
 }
 
 const {
-  variant = "primary",
-  size = "md",
   href,
+  variant = "primary",
   type = "button",
   class: className = "",
-  "aria-label": ariaLabel,
-  ...rest
 } = Astro.props;
 
-const baseStyles =
-  "inline-flex items-center justify-center font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-xl";
+const base =
+  "inline-flex h-9 items-center justify-center rounded-full px-5 text-[0.875rem] font-medium leading-none transition-colors";
 
 const variants = {
-  primary:
-    "bg-foreground text-background hover:bg-foreground/90 transform hover:scale-105 shadow-lg shadow-primary/20",
-  secondary: "bg-muted text-foreground border border-border hover:bg-muted/80",
-  tertiary:
-    "bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
+  primary: "bg-primary text-on-primary hover:bg-ink-deep active:bg-ink-deep",
+  secondary:
+    "border border-hairline-strong bg-canvas text-ink hover:border-charcoal active:bg-surface-soft",
+  "on-dark": "bg-canvas text-ink hover:bg-surface-soft active:bg-surface-soft",
 };
 
-const sizes = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
-};
-
-const classes = [baseStyles, variants[variant], sizes[size], className].join(
-  " ",
-);
-
-const Tag = href ? "a" : "button";
+const classes = `${base} ${variants[variant]} ${className}`;
 ---
 
-<Tag
-  type={href ? undefined : type}
-  href={href}
-  class={classes}
-  aria-label={ariaLabel}
-  {...rest}
->
-  <slot />
-</Tag>
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes}>
+      <slot />
+    </button>
+  )
+}

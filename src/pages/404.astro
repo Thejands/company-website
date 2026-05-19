@@ -1,31 +1,26 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Hero from "@/components/widgets/Hero.astro";
-
-const metadata = {
-  title: "404 - Page Not Found",
-  description: "The page you're looking for doesn't exist.",
-  ignoreTitleTemplate: true,
-};
+import Button from "@/components/ui/Button.astro";
 ---
 
-<BaseLayout {metadata}>
-  <Hero
-    title={`<h1 class="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent text-[12rem] font-extrabold tracking-tighter mb-4">404</h1>`}
-    description="We're sorry, we can't find the page you're looking for. It may have been moved or deleted."
-    actions={[
-      {
-        variant: "primary",
-        text: "Back to Home",
-        href: "/",
-        icon: "lucide:home",
-      },
-      {
-        variant: "secondary",
-        text: "Contact",
-        href: "/contact",
-        icon: "lucide:phone",
-      },
-    ]}
-  />
+<BaseLayout
+  title="Page not found"
+  description="This page does not exist on Thejands."
+>
+  <section class="section-spacing">
+    <div class="container-page text-center">
+      <p class="font-mono text-caption-sm text-mute">404</p>
+      <h1 class="mt-4 font-display text-display-xl text-ink">
+        This page isn't here.
+      </h1>
+      <p class="mx-auto mt-4 max-w-md text-body-md text-body">
+        The link may be outdated - head home or tell us what you were looking
+        for.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href="/">Home</Button>
+        <Button href="/contact" variant="secondary">Contact</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

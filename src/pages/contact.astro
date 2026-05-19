@@ -1,66 +1,78 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import Features from "@/components/widgets/Features.astro";
-import Content from "@/components/widgets/Content.astro";
-import Form from "@/components/ui/Form.astro";
-
-const metadata = {
-  title: "Contact",
-  description: "Get in touch with us to discuss your next project.",
-};
-
-const visionText = ["Get in touch with us to discuss your next project."];
+import PageHero from "@/components/ui/PageHero.astro";
+import ContactForm from "@/components/ui/ContactForm.astro";
+import FaqAccordion from "@/components/ui/FaqAccordion.astro";
+import { contactPage, faq, testimonials } from "@/config/content";
+import { siteConfig } from "@/config/site";
 ---
 
-<BaseLayout {metadata}>
-  <Content tagline="Contact" title="Contact" description={visionText} />
-  <div
-    class="reveal mx-auto max-w-xl bg-card border border-border rounded-3xl p-8 shadow-sm mb-12 md:mb-16"
-  >
-    <Form />
-  </div>
-  <Features
-    tagline="Contact Means"
-    title="We are here to help you"
-    subtitle="Choose the communication channel you prefer. We respond in less than 24 hours."
-    classes={{ container: "pt-0 md:pt-0" }}
-    features={[
-      {
-        title: "Phone",
-        description: "+123 456 7890",
-        icon: "lucide:phone",
-        iconClass: "bg-green-500/10 text-green-400",
-      },
-      {
-        title: "Email",
-        description: "contact@company.com",
-        icon: "lucide:mail",
-        iconClass: "bg-yellow-500/10 text-yellow-400",
-      },
-      {
-        title: "Location",
-        description: "City, Country",
-        icon: "lucide:map-pin",
-        iconClass: "bg-red-500/10 text-red-400",
-      },
-      {
-        title: "Personalized Attention",
-        description: "We understand your needs to offer tailored solutions.",
-        icon: "lucide:user-check",
-        iconClass: "bg-blue-500/10 text-blue-400",
-      },
-      {
-        title: "Technical Support",
-        description: "We resolve any doubt or technical incident quickly.",
-        icon: "lucide:wrench",
-        iconClass: "bg-purple-500/10 text-purple-400",
-      },
-      {
-        title: "Strategic Consulting",
-        description: "We advise you to ensure the success of your project.",
-        icon: "lucide:briefcase",
-        iconClass: "bg-pink-500/10 text-pink-400",
-      },
-    ]}
-  />
+<BaseLayout
+  title="Contact"
+  description="Start your product with Thejands - talk to Linga, Somu, and the team."
+>
+  <section class="section-spacing border-b border-hairline">
+    <div class="container-page">
+      <PageHero
+        title={contactPage.title}
+        subtitle={contactPage.subtitle}
+        showBrandIcon
+      />
+      <p class="fade-in mt-2 max-w-lg text-body-sm text-mute">
+        {contactPage.formNote}
+      </p>
+    </div>
+  </section>
+
+  <section class="section-spacing">
+    <div class="container-page grid gap-16 lg:grid-cols-[1fr_1.1fr]">
+      <div class="fade-in space-y-8">
+        <div>
+          <h2 class="font-display text-heading-md text-ink">Direct line</h2>
+          <ul class="mt-4 space-y-3 text-body-md">
+            <li>
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                class="text-ink underline underline-offset-4"
+              >
+                {siteConfig.contact.email}
+              </a>
+            </li>
+            {
+              siteConfig.contact.phones.map((phone) => (
+                <li>
+                  <a
+                    href={`tel:${phone.replace(/\s/g, "")}`}
+                    class="text-ink underline underline-offset-4"
+                  >
+                    {phone}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <blockquote class="card-interactive p-6">
+          <p class="text-body-md text-body">"{testimonials[0].quote}"</p>
+          <footer class="mt-3 text-body-sm text-mute">
+            - {testimonials[0].name}, {testimonials[0].role}
+          </footer>
+        </blockquote>
+      </div>
+
+      <div class="fade-in card-interactive p-8 md:p-10">
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-spacing border-t border-hairline pb-20">
+    <div class="container-page max-w-3xl">
+      <h2 class="fade-in font-display text-display-lg text-ink">{faq.title}</h2>
+      <div class="mt-8">
+        <FaqAccordion items={faq.items} />
+      </div>
+    </div>
+  </section>
 </BaseLayout>

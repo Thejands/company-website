@@ -1,0 +1,38 @@
+---
+interface Line {
+  type: "comment" | "command" | "output";
+  text: string;
+}
+
+interface Props {
+  lines: readonly Line[];
+}
+
+const { lines } = Astro.props;
+---
+
+<div
+  class="rounded-lg border border-hairline bg-canvas p-4"
+  role="img"
+  aria-label="Example product build workflow in a terminal"
+>
+  <div class="mb-3 flex gap-1.5" aria-hidden="true">
+    <span class="size-3 rounded-full bg-terminal-red"></span>
+    <span class="size-3 rounded-full bg-terminal-yellow"></span>
+    <span class="size-3 rounded-full bg-terminal-green"></span>
+  </div>
+  <pre
+    class="font-mono text-code-sm leading-[1.43] whitespace-pre-wrap">
+    {
+      lines.map((line) => (
+        <div class:list={[
+            line.type === "comment" && "text-mute",
+            line.type === "command" && "text-ink",
+            line.type === "output" && "text-charcoal",
+          ]}>
+          {line.text}
+        </div>
+      ))
+    }
+  </pre>
+</div>

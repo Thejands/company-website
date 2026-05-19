@@ -1,0 +1,229 @@
+---
+import Button from "./Button.astro";
+import { siteConfig } from "@/config/site";
+
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+---
+
+<form
+  id="contact-form"
+  class="space-y-5"
+  data-contact-form
+  data-mailto-email={siteConfig.contact.email}
+  data-recaptcha-key={recaptchaSiteKey ?? ""}
+  data-has-api="true"
+>
+  <div
+    id="form-status"
+    class="hidden rounded-lg border p-4 text-body-sm"
+    role="status"
+  >
+  </div>
+
+  <div>
+    <label
+      for="contact-name"
+      class="mb-1.5 block text-body-sm font-medium text-ink">Name</label
+    >
+    <input
+      id="contact-name"
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md backdrop-blur-sm transition-colors focus:border-ink"
+      placeholder="Your name"
+    />
+  </div>
+  <div>
+    <label
+      for="contact-email"
+      class="mb-1.5 block text-body-sm font-medium text-ink">Email</label
+    >
+    <input
+      id="contact-email"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md backdrop-blur-sm transition-colors focus:border-ink"
+      placeholder="you@company.com"
+    />
+  </div>
+  <div>
+    <label
+      for="contact-message"
+      class="mb-1.5 block text-body-sm font-medium text-ink"
+      >What are you building?</label
+    >
+    <textarea
+      id="contact-message"
+      name="message"
+      required
+      rows="5"
+      class="w-full resize-y rounded-xl border border-hairline bg-canvas/90 px-4 py-3 text-body-md backdrop-blur-sm transition-colors focus:border-ink"
+      placeholder="Tell us about your product idea, timeline, and what success looks like…"
+    ></textarea>
+  </div>
+
+  {
+    recaptchaSiteKey ? (
+      <div>
+        <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} />
+        <p class="mt-2 text-caption-sm text-mute">
+          Protected by reCAPTCHA.{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            class="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Privacy
+          </a>{" "}
+          &{" "}
+          <a
+            href="https://policies.google.com/terms"
+            class="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Terms
+          </a>
+          .
+        </p>
+      </div>
+    ) : (
+      <p class="rounded-lg border border-hairline bg-surface-soft/80 p-4 text-body-sm text-body">
+        Set <code class="font-mono text-ink">PUBLIC_RECAPTCHA_SITE_KEY</code> to
+        enable spam protection. Or email{" "}
+        <a
+          href={`mailto:${siteConfig.contact.email}`}
+          class="text-ink underline"
+        >
+          {siteConfig.contact.email}
+        </a>
+      </p>
+    )
+  }
+
+  <Button type="submit" id="contact-submit">Send message</Button>
+</form>
+
+{
+  recaptchaSiteKey && (
+    <script src="https://www.google.com/recaptcha/api.js" async defer />
+  )
+}
+
+<script>
+  const form = document.getElementById(
+    "contact-form",
+  ) as HTMLFormElement | null;
+  const statusEl = document.getElementById("form-status");
+  const submitBtn = document.getElementById(
+    "contact-submit",
+  ) as HTMLButtonElement | null;
+
+  const showStatus = (message: string, isError: boolean) => {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.remove(
+      "hidden",
+      "border-hairline",
+      "bg-surface-soft",
+      "border-red-300",
+      "bg-red-50",
+      "text-ink",
+    );
+    if (isError) {
+      statusEl.classList.add("border-red-300", "bg-red-50", "text-ink");
+    } else {
+      statusEl.classList.add("border-hairline", "bg-surface-soft", "text-body");
+    }
+  };
+
+  const getRecaptchaToken = (): string | null => {
+    const g = (
+      window as unknown as { grecaptcha?: { getResponse: () => string } }
+    ).grecaptcha;
+    if (!g) return null;
+    const token = g.getResponse();
+    return token || null;
+  };
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const siteKey = form.dataset.recaptchaKey;
+    const email = form.dataset.mailtoEmail ?? "hello@thejands.in";
+
+    if (siteKey) {
+      const token = getRecaptchaToken();
+      if (!token) {
+        showStatus("Please complete the reCAPTCHA checkbox.", true);
+        return;
+      }
+    }
+
+    const name = (form.querySelector('[name="name"]') as HTMLInputElement)
+      .value;
+    const userEmail = (form.querySelector('[name="email"]') as HTMLInputElement)
+      .value;
+    const message = (
+      form.querySelector('[name="message"]') as HTMLTextAreaElement
+    ).value;
+
+    submitBtn?.setAttribute("disabled", "true");
+    if (submitBtn) submitBtn.textContent = "Sending…";
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email: userEmail,
+          message,
+          ...(siteKey ? { recaptchaToken: getRecaptchaToken() } : {}),
+        }),
+      });
+
+      const data = (await res.json()) as {
+        ok?: boolean;
+        message?: string;
+        error?: string;
+      };
+
+      if (res.ok && data.ok) {
+        showStatus(
+          data.message ?? "Message sent. We'll be in touch soon.",
+          false,
+        );
+        form.reset();
+        (
+          window as unknown as { grecaptcha?: { reset: () => void } }
+        ).grecaptcha?.reset();
+        if (typeof window.dataLayer !== "undefined") {
+          window.dataLayer.push({
+            event: "contact_form_submit",
+            formLocation: "contact_page",
+          });
+        }
+        return;
+      }
+
+      showStatus(
+        data.error ?? "Something went wrong. Please email us directly.",
+        true,
+      );
+    } catch {
+      const subject = encodeURIComponent(`Thejands inquiry from ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${userEmail}\n\n${message}`,
+      );
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    } finally {
+      submitBtn?.removeAttribute("disabled");
+      if (submitBtn) submitBtn.textContent = "Send message";
+    }
+  });
+</script>

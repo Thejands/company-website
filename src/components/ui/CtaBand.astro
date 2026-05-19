@@ -1,0 +1,49 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  body: string;
+  button: { label: string; href: string };
+  dark?: boolean;
+}
+
+const { title, body, button, dark = false } = Astro.props;
+---
+
+<section
+  class:list={[
+    "fade-in rounded-lg px-8 py-10 md:px-12 md:py-12",
+    dark
+      ? "bg-surface-dark text-on-dark"
+      : "border border-hairline bg-surface-soft",
+  ]}
+>
+  <div
+    class:list={[
+      "flex flex-col gap-6 md:flex-row md:items-center md:justify-between",
+    ]}
+  >
+    <div class="max-w-xl">
+      <h2
+        class:list={[
+          "font-display text-heading-lg",
+          dark ? "text-on-dark" : "text-ink",
+        ]}
+      >
+        {title}
+      </h2>
+      <p
+        class:list={[
+          "mt-2 text-body-md",
+          dark ? "text-on-dark-mute" : "text-body",
+        ]}
+      >
+        {body}
+      </p>
+    </div>
+    <Button href={button.href} variant={dark ? "on-dark" : "primary"}>
+      {button.label}
+    </Button>
+  </div>
+</section>

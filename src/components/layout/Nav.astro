@@ -1,0 +1,116 @@
+---
+import Logo from "@/components/ui/Logo.astro";
+import PlugIcon from "@/components/ui/PlugIcon.astro";
+import Button from "@/components/ui/Button.astro";
+import { siteConfig } from "@/config/site";
+
+const path = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return path === "/";
+  return path === href || path.startsWith(href + "/");
+}
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-hairline/80 bg-canvas/80 backdrop-blur-xl supports-[backdrop-filter]:bg-canvas/70"
+>
+  <div class="container-page flex h-16 items-center justify-between gap-6">
+    <div class="flex items-center gap-2.5">
+      <PlugIcon size={20} eager />
+      <Logo height={32} />
+    </div>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        siteConfig.navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="nav-link"
+            data-active={isActive(link.href) ? "true" : "false"}
+            aria-current={isActive(link.href) ? "page" : undefined}
+          >
+            {link.text}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <Button href="/contact" class="hidden sm:inline-flex">
+        Start a project
+      </Button>
+      <button
+        type="button"
+        class="inline-flex size-10 items-center justify-center rounded-full border border-hairline text-ink transition-colors hover:bg-surface-soft md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        id="menu-toggle"
+        aria-label="Open menu"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-nav"
+    class="hidden border-t border-hairline bg-canvas md:hidden"
+    aria-label="Mobile"
+  >
+    <ul class="container-page flex flex-col gap-1 py-4">
+      {
+        siteConfig.navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="block rounded-lg px-3 py-2.5 text-body-sm font-medium text-ink hover:bg-surface-soft"
+              data-close-menu
+            >
+              {link.text}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2">
+        <Button href="/contact" class="w-full justify-center"
+          >Start a project</Button
+        >
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const panel = document.getElementById("mobile-nav");
+
+  const setOpen = (open: boolean) => {
+    if (!toggle || !panel) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    panel.classList.toggle("hidden", !open);
+  };
+
+  toggle?.addEventListener("click", () => {
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.querySelectorAll("[data-close-menu]").forEach((el) => {
+    el.addEventListener("click", () => setOpen(false));
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") setOpen(false);
+  });
+</script>

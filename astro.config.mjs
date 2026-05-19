@@ -1,37 +1,31 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
-import mdx from "@astrojs/mdx";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import icon from "astro-icon";
-import remarkReadingTime from "remark-reading-time";
+
+import react from "@astrojs/react";
 
 export default defineConfig({
-  site: "https://astrostarterpro.com/",
-  integrations: [sitemap(), icon(), mdx()],
-  markdown: {
-    remarkPlugins: [
-      remarkReadingTime,
-      () => {
-        return function (tree, file) {
-          file.data.astro.frontmatter.minutesRead =
-            file.data.readingTime.minutes;
-        };
-      },
-    ],
-  },
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "es"],
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
+  site: "https://thejands.in",
+  output: "static",
+  adapter: vercel(),
+  trailingSlash: "never",
+  compressHTML: true,
+  integrations: [icon(), sitemap({
+    filter: (page) =>
+      !page.includes("/blog") &&
+      !page.includes("/widgets"),
+    changefreq: "weekly",
+    priority: 0.7,
+    lastmod: new Date(),
+  }), react()],
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
   build: {
-    inlineStylesheets: "always",
+    inlineStylesheets: "auto",
   },
   vite: {
     plugins: [tailwindcss()],

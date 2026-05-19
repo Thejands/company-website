@@ -1,86 +1,90 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getImage } from "astro:assets";
-import Content2 from "@/components/widgets/Content2.astro";
-import Values from "@/components/widgets/Values.astro";
-import aboutImage from "@/assets/images/about-office.webp";
-
-const metadata = {
-  title: "About us",
-  description:
-    "Learn more about our vision, values, and the team behind Astro Starter Pro.",
-};
-
-const values = [
-  {
-    title: "Innovation",
-    description:
-      "Curabitur dignissim, felis non sollicitudin molestie, urna mauris pellentesque velit, ut eleifend.",
-  },
-  {
-    title: "Commitment",
-    description:
-      "Aenean condimentum finibus mauris, a fermentum justo pan eget. Sed ultricies, neque quis.",
-  },
-  {
-    title: "Quality",
-    description:
-      "Donec sed orci tincidunt, aliquam nisl a, condimentum nunc. Nulla varius ex nec ante feugiat.",
-  },
-  {
-    title: "Transparency",
-    description:
-      "Phasellus tristique, elit dapibus cursus facilisis, lorem augue fringilla nunc, vitae fermentum.",
-  },
-  {
-    title: "Teamwork",
-    description:
-      "In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et.",
-  },
-  {
-    title: "Excellence",
-    description:
-      "Fusce at massa nec sapien auctor gravida in in tellus. Vivamus a tristique metus, et molestie.",
-  },
-];
-
-const optimizedImage = await getImage({
-  src: aboutImage,
-  format: "webp",
-});
+import PageHero from "@/components/ui/PageHero.astro";
+import CtaBand from "@/components/ui/CtaBand.astro";
+import { aboutPage } from "@/config/content";
 ---
 
-<BaseLayout {metadata}>
-  <link slot="head" rel="preload" href={optimizedImage.src} as="image" />
-  <Content2
-    title="Our Vision"
-    description={[
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    ]}
-    tagline="About"
-    image={aboutImage}
-    imageAlt="Modern web development office"
-    actions={[
-      {
-        text: "Contact Us",
-        href: "/contact",
-        variant: "primary",
-        icon: "lucide:mail",
-      },
-      {
-        text: "View Details",
-        href: "#",
-        variant: "secondary",
-        icon: "lucide:arrow-right",
-      },
-    ]}
-  />
-  <Values
-    items={values}
-    columns={3}
-    tagline="Our Values"
-    title="What Defines Us"
-    subtitle="Principles that guide our daily work"
-  />
+<BaseLayout
+  title="About"
+  description="Meet Thejands - a product studio founded by Linga and Somu."
+>
+  <section class="section-spacing border-b border-hairline">
+    <div class="container-page">
+      <PageHero
+        title={aboutPage.title}
+        subtitle={aboutPage.subtitle}
+        showBrandIcon
+      />
+    </div>
+  </section>
+
+  <section class="section-spacing">
+    <div class="container-page grid gap-16 lg:grid-cols-2">
+      <div class="fade-in max-w-[var(--max-width-prose)]">
+        <h2 class="font-display text-heading-lg text-ink">
+          {aboutPage.story.title}
+        </h2>
+        {
+          aboutPage.story.paragraphs.map((p) => (
+            <p class="mt-4 text-body-md text-body">{p}</p>
+          ))
+        }
+      </div>
+      <ul class="space-y-4">
+        {
+          aboutPage.values.map((v) => (
+            <li class="card-interactive fade-in p-6">
+              <h3 class="font-display text-heading-sm text-ink">{v.title}</h3>
+              <p class="mt-2 text-body-sm text-body">{v.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-spacing bg-surface-soft">
+    <div class="container-page">
+      <h2 class="fade-in text-center font-display text-display-lg text-ink">
+        Meet Linga & Somu
+      </h2>
+      <p
+        class="fade-in mx-auto mt-3 max-w-lg text-center text-body-md text-body"
+      >
+        Co-founders on every project - strategy, design, and engineering in one
+        room.
+      </p>
+      <div class="mt-12 grid gap-8 md:grid-cols-2">
+        {
+          aboutPage.founders.map((f) => (
+            <article class="card-interactive fade-in flex flex-col p-8">
+              <div class="mb-6 flex size-14 items-center justify-center rounded-full bg-ink font-display text-xl font-semibold text-on-primary">
+                {f.name.charAt(0)}
+              </div>
+              <h3 class="font-display text-heading-md text-ink">{f.name}</h3>
+              <p class="mt-1 text-body-sm font-medium text-mute">{f.role}</p>
+              <p class="mt-4 flex-1 text-body-md text-body">{f.bio}</p>
+              <ul class="mt-6 space-y-2 border-t border-hairline pt-6">
+                {f.strengths.map((s) => (
+                  <li class="text-body-sm text-charcoal">✓ {s}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-spacing pb-20">
+    <div class="container-page">
+      <CtaBand
+        title={aboutPage.cta.title}
+        body={aboutPage.cta.body}
+        button={aboutPage.cta.button}
+        dark
+      />
+    </div>
+  </section>
 </BaseLayout>

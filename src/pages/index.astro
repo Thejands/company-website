@@ -1,134 +1,125 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/ui/Button.astro";
+import PlugIcon from "@/components/ui/PlugIcon.astro";
+import SnippetPill from "@/components/ui/SnippetPill.astro";
+import CtaBand from "@/components/ui/CtaBand.astro";
+import HomeBento from "@/components/sections/HomeBento.astro";
+import StickyShowcase from "@/components/sections/StickyShowcase.astro";
+import { home, testimonials, techStack } from "@/config/content";
 import { siteConfig } from "@/config/site";
-import Hero from "@/components/widgets/Hero.astro";
-import Features from "@/components/widgets/Features.astro";
-import devImg from "@/assets/images/dev_balanced.png";
-import openSourceImg from "@/assets/images/open-source.png";
-import Content2 from "@/components/widgets/Content2.astro";
-const metadata = {
-  title: `${siteConfig.name} — The next step for your project`,
-  description:
-    "A modern and professional template for your web projects with Astro and Tailwind CSS. Boost your development with a solid foundation.",
-  ignoreTitleTemplate: true,
-};
 ---
 
-<BaseLayout {metadata}>
-  <Hero
-    title={`Starter Template for <br class="hidden md:block" /> <span class="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Web Developers</span>`}
-    tagline="Astro v5 + Tailwind v4"
-    description={`${siteConfig.description}`}
-    actions={[
-      {
-        text: "Get Started",
-        href: "https://github.com/devgelo-labs/astro-starter-pro",
-        variant: "primary",
-        icon: "lucide:github",
-      },
-      {
-        text: "Our Services",
-        href: "/services",
-        variant: "secondary",
-        icon: "lucide:arrow-right",
-        ariaLabel: "Learn more about our services",
-      },
-    ]}
-  />
-  <Features
-    tagline="Features"
-    title="What's Included"
-    subtitle="A selection of tools and configurations to streamline your workflow."
-    features={[
-      {
-        title: "Optimized SEO",
-        description:
-          "Base configuration for Meta tags, Open Graph, and Sitemap generation.",
-        icon: "lucide:scan-search",
-        iconClass: "bg-blue-500/10 text-blue-400",
-      },
-      {
-        title: "High Performance",
-        description: "Lightweight structure for fast load times.",
-        icon: "lucide:zap",
-        iconClass: "bg-purple-500/10 text-purple-400",
-      },
-      {
-        title: "Tailwind v4",
-        description:
-          "Integrated configuration with the latest version of Tailwind CSS.",
-        icon: "lucide:palette",
-        iconClass: "bg-pink-500/10 text-pink-400",
-      },
-    ]}
-  />
-  <Content2
-    items={[
-      {
-        title: "Responsive Design",
-        description:
-          "Base configuration for Meta tags, Open Graph, and Sitemap generation.",
-        icon: "lucide:scan-search",
-        iconClass: "bg-blue-500/10 text-blue-400",
-      },
-      {
-        title: "High Performance",
-        description: "Lightweight structure for fast load times.",
-        icon: "lucide:zap",
-        iconClass: "bg-purple-500/10 text-purple-400",
-      },
-      {
-        title: "Tailwind v4",
-        description:
-          "Integrated configuration with the latest version of Tailwind CSS.",
-        icon: "lucide:palette",
-        iconClass: "bg-pink-500/10 text-pink-400",
-      },
-    ]}
-    image={devImg}
-    imageAlt="Development"
-  >
-    <Fragment>
-      <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Development
-      </h3>
-      We provide a solid foundation to start your projects with best practices.
-    </Fragment>
-  </Content2>
-  <Content2
-    items={[
-      {
-        title: "Open Source",
-        description:
-          "Developed under the MIT license, free for personal and commercial use.",
-        icon: "lucide:github",
-        iconClass: "bg-indigo-500/10 text-indigo-400",
-      },
-      {
-        title: "Community Driven",
-        description:
-          "Built with the feedback and contributions of the developer community.",
-        icon: "lucide:users",
-        iconClass: "bg-orange-500/10 text-orange-400",
-      },
-      {
-        title: "Regular Updates",
-        description:
-          "Continuously improved with the latest technologies and best practices.",
-        icon: "lucide:refresh-cw",
-        iconClass: "bg-teal-500/10 text-teal-400",
-      },
-    ]}
-    image={openSourceImg}
-    imageAlt="Community and Open Source"
-    isReversed={true}
-  >
-    <Fragment>
-      <h3 class="text-2xl font-bold tracking-tight sm:text-3xl mb-2">
-        Open Source & Community
-      </h3>
-      Join the revolution of modern web development. This project is open for everyone
-      to use, learn from, and contribute to.
-    </Fragment>
-  </Content2>
+<BaseLayout
+  title={siteConfig.title}
+  description={siteConfig.description}
+  ignoreTitleTemplate={true}
+>
+  <!-- Hero -->
+  <section class="section-spacing border-b border-hairline/60">
+    <div class="container-page">
+      <p
+        class="fade-in is-visible mb-4 inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas/80 px-4 py-1.5 text-caption-sm font-medium text-charcoal backdrop-blur-sm"
+      >
+        <PlugIcon size={18} class="text-charcoal" />
+        {home.eyebrow}
+      </p>
+      <h1
+        class="fade-in is-visible font-display text-display-xl max-w-3xl text-ink"
+      >
+        {home.headline}
+      </h1>
+      <p
+        class="fade-in is-visible mt-5 max-w-[var(--max-width-prose)] text-body-md text-body"
+      >
+        {home.subhead}
+      </p>
+      <div class="fade-in is-visible mt-6 max-w-md">
+        <SnippetPill
+          href={`mailto:${siteConfig.contact.email}`}
+          label={siteConfig.contact.email}
+        />
+      </div>
+      <div class="fade-in is-visible mt-8 flex flex-wrap items-center gap-3">
+        <Button href={home.primaryCta.href}>{home.primaryCta.label}</Button>
+        <Button href={home.secondaryCta.href} variant="secondary">
+          {home.secondaryCta.label}
+        </Button>
+      </div>
+      <ul
+        class="fade-in is-visible mt-10 flex flex-wrap gap-x-8 gap-y-2 border-t border-hairline/80 pt-8"
+      >
+        {
+          home.proof.map((item) => (
+            <li class="flex items-center gap-2 text-body-sm text-charcoal">
+              <span class="text-ink" aria-hidden="true">
+                ✓
+              </span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <HomeBento />
+
+  <StickyShowcase />
+
+  <!-- Testimonials -->
+  <section class="section-spacing">
+    <div class="container-page">
+      <h2 class="fade-in font-display text-display-lg text-ink">
+        What clients say
+      </h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
+        {
+          testimonials.map((t) => (
+            <blockquote class="card-interactive fade-in flex flex-col p-6 backdrop-blur-sm">
+              <p class="flex-1 text-body-md text-ink">"{t.quote}"</p>
+              <footer class="mt-4 text-body-sm">
+                <span class="font-medium text-ink">{t.name}</span>
+                <span class="text-mute"> · {t.role}</span>
+              </footer>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech -->
+  <section class="section-spacing border-t border-hairline/60">
+    <div class="container-page text-center">
+      <h2 class="fade-in mx-auto font-display text-display-lg text-ink">
+        {techStack.title}
+      </h2>
+      <p class="fade-in mx-auto mt-3 max-w-lg text-body-md text-body">
+        {techStack.subtitle}
+      </p>
+      <div
+        class="fade-in mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2"
+      >
+        {
+          techStack.items.map((name) => (
+            <span class="rounded-full border border-hairline bg-canvas/80 px-4 py-2 text-body-sm text-charcoal backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-ink hover:text-ink hover:shadow-sm">
+              {name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-spacing pb-24">
+    <div class="container-page">
+      <CtaBand
+        title="Ready to build?"
+        body={`Share your idea at ${siteConfig.contact.email} - we'll respond with honest next steps.`}
+        button={{ label: "Start your project", href: "/contact" }}
+        dark
+      />
+    </div>
+  </section>
 </BaseLayout>
