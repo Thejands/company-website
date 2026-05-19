@@ -1,0 +1,68 @@
+---
+export const prerender = false;
+
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { isAdminRequest } from "@/lib/auth/admin-session";
+
+const authed = await isAdminRequest(Astro.request);
+if (authed) {
+  return Astro.redirect("/admin/submissions");
+}
+---
+
+<AdminLayout title="Sign in">
+  <div class="mx-auto max-w-sm">
+    <h1 class="font-display text-heading-lg text-ink">Admin sign in</h1>
+    <p class="mt-2 text-body-sm text-body">
+      Contact submissions, jobs, and applications.
+    </p>
+    <form id="admin-login" class="mt-8 space-y-4">
+      <div>
+        <label for="password" class="mb-1.5 block text-body-sm font-medium"
+          >Password</label
+        >
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          autocomplete="current-password"
+          class="h-11 w-full rounded-lg border border-hairline px-3 text-body-md"
+        />
+      </div>
+      <p id="login-error" class="hidden text-body-sm text-red-600" role="alert">
+      </p>
+      <button
+        type="submit"
+        class="h-10 w-full rounded-full bg-ink text-body-sm font-medium text-on-primary"
+      >
+        Sign in
+      </button>
+    </form>
+  </div>
+</AdminLayout>
+
+<script>
+  const form = document.getElementById("admin-login") as HTMLFormElement;
+  const err = document.getElementById("login-error");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const password = (form.querySelector("#password") as HTMLInputElement)
+      .value;
+    const res = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password }),
+    });
+    if (res.ok) {
+      window.location.href = "/admin/submissions";
+      return;
+    }
+    const data = (await res.json()) as { error?: string };
+    if (err) {
+      err.textContent = data.error ?? "Sign in failed.";
+      err.classList.remove("hidden");
+    }
+  });
+</script>

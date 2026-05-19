@@ -143,12 +143,68 @@ Footer icons and JSON-LD `sameAs` appear only for URLs set in env.
 
 ---
 
+## Contact form (Resend + Google Sheets)
+
+First-party pipeline at `POST /api/contact` (no Formspree).
+
+### Resend setup
+
+1. Create account at [resend.com](https://resend.com)
+2. Add domain `thejands.in` and verify DNS (SPF + DKIM)
+3. Set in Vercel production:
+   - `RESEND_API_KEY`
+   - `RESEND_FROM_EMAIL=Thejands <hello@thejands.in>`
+   - `CONTACT_NOTIFY_EMAIL=hello@thejands.in`
+4. Emails only send when `PUBLIC_SITE_ENV=production`
+
+### Google Sheets setup
+
+1. Create a spreadsheet with tabs:
+   - `contact_submissions` - headers: `id`, `submitted_at`, `name`, `email`, `message`, `page_url`, `environment`, `status`
+   - `errors` - headers: `occurred_at`, `context`, `submission_id`, `error`, `environment`
+2. [Google Cloud Console](https://console.cloud.google.com) - enable **Google Sheets API**
+3. Create a **service account**, download JSON key
+4. Share the spreadsheet with the service account email (Editor)
+5. Set in Vercel:
+   - `GOOGLE_SERVICE_ACCOUNT_JSON` - paste JSON or base64-encoded JSON
+   - `GOOGLE_SHEETS_SPREADSHEET_ID` - from the sheet URL
+   - `GOOGLE_SHEETS_TAB_NAME=contact_submissions`
+   - `GOOGLE_SHEETS_ERRORS_TAB_NAME=errors`
+
+### Optional rate limiting
+
+- [Upstash Redis](https://upstash.com) - set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (5 submissions/hour per IP)
+
+### Admin contact inbox
+
+- [ ] Set `ADMIN_PASSWORD` in Vercel
+- [ ] Visit `/admin` - view submissions at `/admin/submissions`
+
+---
+
+## ATS / Careers (Supabase)
+
+1. Create a [Supabase](https://supabase.com) project
+2. Run SQL from `supabase/migrations/001_ats_schema.sql` in the SQL editor
+3. Create Storage bucket `resumes` (private recommended; service role uploads)
+4. Set env vars:
+   - `PUBLIC_SUPABASE_URL`
+   - `PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+5. Publish jobs at `/admin/jobs` (status: published)
+6. Public careers: `/careers` and `/careers/[slug]`
+7. Pipeline: `/admin/applications`
+
+---
+
 ## Thejands-specific deployment
 
 - [ ] `site` in `astro.config.mjs` is `https://thejands.in`
 - [ ] Custom domain + HTTPS on Vercel
 - [ ] `PUBLIC_RECAPTCHA_SITE_KEY` + `RECAPTCHA_SECRET_KEY` on production (contact form)
-- [ ] `PUBLIC_CONTACT_FORM_URL` optional (Formspree/Getform)
+- [ ] Resend + Google Sheets env vars configured (see above)
+- [ ] Supabase env vars configured if using careers
+- [ ] `ADMIN_PASSWORD` set for `/admin`
 - [ ] `hello@thejands.in` MX records live
 - [ ] Phone numbers in `site.ts` verified
 - [ ] Legal pages reviewed: `/privacy`, `/terms`, `/cookies`

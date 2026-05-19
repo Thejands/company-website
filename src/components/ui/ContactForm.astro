@@ -183,6 +183,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           name,
           email: userEmail,
           message,
+          pageUrl: window.location.href,
           ...(siteKey ? { recaptchaToken: getRecaptchaToken() } : {}),
         }),
       });
@@ -195,7 +196,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
       if (res.ok && data.ok) {
         showStatus(
-          data.message ?? "Message sent. We'll be in touch soon.",
+          data.message ??
+            "Message sent. Check your inbox for a confirmation email.",
           false,
         );
         form.reset();

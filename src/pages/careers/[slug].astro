@@ -1,0 +1,67 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ApplyForm from "@/components/careers/ApplyForm.astro";
+import Button from "@/components/ui/Button.astro";
+import { getSupabasePublic } from "@/lib/supabase/server";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+const supabase = getSupabasePublic();
+
+if (!supabase || !slug) {
+  return Astro.redirect("/careers");
+}
+
+const { data: job } = await supabase
+  .from("jobs")
+  .select("*")
+  .eq("slug", slug)
+  .eq("status", "published")
+  .maybeSingle();
+
+if (!job) {
+  return Astro.redirect("/careers");
+}
+---
+
+<BaseLayout
+  title={job.title}
+  description={`Apply for ${job.title} at Thejands.`}
+>
+  <section class="section-spacing border-b border-hairline">
+    <div class="container-page max-w-3xl">
+      <p class="text-body-sm text-mute">
+        <a href="/careers" class="underline underline-offset-2">Careers</a>
+      </p>
+      <h1 class="mt-4 font-display text-display-lg text-ink">{job.title}</h1>
+      <p class="mt-2 text-body-sm text-mute">
+        {
+          [job.department, job.location, job.employment_type]
+            .filter(Boolean)
+            .join(" · ")
+        }
+      </p>
+    </div>
+  </section>
+
+  <section class="section-spacing">
+    <div class="container-page grid gap-12 lg:grid-cols-[1fr_1fr]">
+      <article class="prose prose-neutral max-w-none text-body-md text-body">
+        <div set:html={job.description.replace(/\n/g, "<br />")} />
+      </article>
+      <div class="card-interactive p-8">
+        <h2 class="font-display text-heading-md text-ink">Apply</h2>
+        <div class="mt-6">
+          <ApplyForm jobSlug={job.slug} jobTitle={job.title} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-spacing border-t border-hairline pb-20">
+    <div class="container-page">
+      <Button href="/careers" variant="secondary">All open roles</Button>
+    </div>
+  </section>
+</BaseLayout>

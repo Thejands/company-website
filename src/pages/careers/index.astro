@@ -1,0 +1,77 @@
+---
+export const prerender = false;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import Button from "@/components/ui/Button.astro";
+import { getSupabasePublic } from "@/lib/supabase/server";
+
+const supabase = getSupabasePublic();
+const { data: jobs } = supabase
+  ? await supabase
+      .from("jobs")
+      .select(
+        "slug, title, department, location, employment_type, published_at",
+      )
+      .eq("status", "published")
+      .order("published_at", { ascending: false })
+  : { data: [] };
+
+const openRoles = jobs ?? [];
+---
+
+<BaseLayout
+  title="Careers"
+  description="Join Thejands - build products with Linga, Somu, and the team."
+>
+  <section class="section-spacing border-b border-hairline">
+    <div class="container-page">
+      <PageHero
+        title="Work with us"
+        subtitle="We're a small product studio. When we hire, we look for people who care about craft and shipping."
+        showBrandIcon
+      />
+    </div>
+  </section>
+
+  <section class="section-spacing pb-20">
+    <div class="container-page max-w-3xl">
+      {
+        openRoles.length === 0 ? (
+          <div class="card-interactive p-8 text-center">
+            <p class="text-body-md text-body">
+              No open roles right now. Send your portfolio to{" "}
+              <a href="mailto:hello@thejands.in" class="text-ink underline">
+                hello@thejands.in
+              </a>{" "}
+              and we'll keep you in mind.
+            </p>
+            <div class="mt-6">
+              <Button href="/contact">Get in touch</Button>
+            </div>
+          </div>
+        ) : (
+          <ul class="space-y-4">
+            {openRoles.map((job) => (
+              <li>
+                <a
+                  href={`/careers/${job.slug}`}
+                  class="card-interactive block p-6 transition-colors hover:border-ink/30"
+                >
+                  <h2 class="font-display text-heading-md text-ink">
+                    {job.title}
+                  </h2>
+                  <p class="mt-1 text-body-sm text-mute">
+                    {[job.department, job.location, job.employment_type]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

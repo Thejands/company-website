@@ -1,0 +1,55 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Admin" } = Astro.props;
+const fullTitle = `${title} | Thejands Admin`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{fullTitle}</title>
+  </head>
+  <body class="min-h-screen bg-canvas text-ink antialiased">
+    <header class="border-b border-hairline bg-canvas/90 backdrop-blur-sm">
+      <div
+        class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4"
+      >
+        <a href="/admin" class="font-display text-lg font-semibold"
+          >Thejands Admin</a
+        >
+        <nav class="flex flex-wrap items-center gap-4 text-body-sm">
+          <a href="/admin/submissions" class="hover:underline">Contact</a>
+          <a href="/admin/jobs" class="hover:underline">Jobs</a>
+          <a href="/admin/applications" class="hover:underline">Applications</a>
+          <a href="/" class="text-mute hover:text-ink">Site</a>
+          <button
+            type="button"
+            id="admin-logout"
+            class="text-mute hover:text-ink"
+          >
+            Log out
+          </button>
+        </nav>
+      </div>
+    </header>
+    <main class="mx-auto max-w-5xl px-4 py-8">
+      <slot />
+    </main>
+    <script>
+      document
+        .getElementById("admin-logout")
+        ?.addEventListener("click", async () => {
+          await fetch("/api/admin/logout", { method: "POST" });
+          window.location.href = "/admin";
+        });
+    </script>
+  </body>
+</html>

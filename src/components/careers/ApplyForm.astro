@@ -1,0 +1,154 @@
+---
+interface Props {
+  jobSlug: string;
+  jobTitle: string;
+}
+
+const { jobSlug, jobTitle } = Astro.props;
+---
+
+<form id="apply-form" class="space-y-5" enctype="multipart/form-data">
+  <input type="hidden" name="jobSlug" value={jobSlug} />
+  <p class="text-body-sm text-body">
+    Applying for <strong class="text-ink">{jobTitle}</strong>
+  </p>
+  <div
+    id="apply-status"
+    class="hidden rounded-lg border p-4 text-body-sm"
+    role="status"
+  >
+  </div>
+
+  <div>
+    <label for="fullName" class="mb-1.5 block text-body-sm font-medium text-ink"
+      >Full name</label
+    >
+    <input
+      id="fullName"
+      name="fullName"
+      type="text"
+      required
+      autocomplete="name"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md"
+    />
+  </div>
+  <div>
+    <label
+      for="apply-email"
+      class="mb-1.5 block text-body-sm font-medium text-ink">Email</label
+    >
+    <input
+      id="apply-email"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md"
+    />
+  </div>
+  <div>
+    <label for="phone" class="mb-1.5 block text-body-sm font-medium text-ink"
+      >Phone (optional)</label
+    >
+    <input
+      id="phone"
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md"
+    />
+  </div>
+  <div>
+    <label
+      for="linkedinUrl"
+      class="mb-1.5 block text-body-sm font-medium text-ink"
+      >LinkedIn (optional)</label
+    >
+    <input
+      id="linkedinUrl"
+      name="linkedinUrl"
+      type="url"
+      class="h-11 w-full rounded-full border border-hairline bg-canvas/90 px-4 text-body-md"
+      placeholder="https://linkedin.com/in/..."
+    />
+  </div>
+  <div>
+    <label for="resume" class="mb-1.5 block text-body-sm font-medium text-ink"
+      >Resume (PDF or Word, max 5 MB)</label
+    >
+    <input
+      id="resume"
+      name="resume"
+      type="file"
+      accept=".pdf,.doc,.docx,application/pdf"
+      class="w-full text-body-sm"
+    />
+  </div>
+  <div>
+    <label
+      for="coverLetter"
+      class="mb-1.5 block text-body-sm font-medium text-ink"
+      >Cover letter (optional)</label
+    >
+    <textarea
+      id="coverLetter"
+      name="coverLetter"
+      rows="5"
+      class="w-full resize-y rounded-xl border border-hairline bg-canvas/90 px-4 py-3 text-body-md"
+    ></textarea>
+  </div>
+  <button
+    type="submit"
+    id="apply-submit"
+    class="inline-flex h-10 items-center justify-center rounded-full bg-ink px-6 text-body-sm font-medium text-on-primary"
+  >
+    Submit application
+  </button>
+</form>
+
+<script>
+  const form = document.getElementById("apply-form") as HTMLFormElement;
+  const statusEl = document.getElementById("apply-status");
+  const submitBtn = document.getElementById(
+    "apply-submit",
+  ) as HTMLButtonElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting…";
+
+    try {
+      const res = await fetch("/api/careers/apply", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const data = (await res.json()) as {
+        ok?: boolean;
+        message?: string;
+        error?: string;
+      };
+
+      if (res.ok && data.ok) {
+        statusEl!.textContent =
+          data.message ?? "Application submitted. Check your email.";
+        statusEl!.className =
+          "rounded-lg border border-hairline bg-surface-soft p-4 text-body-sm text-body";
+        form.reset();
+        return;
+      }
+
+      statusEl!.textContent = data.error ?? "Submission failed.";
+      statusEl!.className =
+        "rounded-lg border border-red-300 bg-red-50 p-4 text-body-sm text-ink";
+    } catch {
+      statusEl!.textContent = "Network error. Please try again.";
+      statusEl!.className =
+        "rounded-lg border border-red-300 bg-red-50 p-4 text-body-sm text-ink";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit application";
+      statusEl?.classList.remove("hidden");
+    }
+  });
+</script>

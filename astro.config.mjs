@@ -13,9 +13,10 @@ export default defineConfig({
   trailingSlash: "never",
   compressHTML: true,
   integrations: [icon(), sitemap({
-    filter: (page) =>
-      !page.includes("/blog") &&
-      !page.includes("/widgets"),
+      filter: (page) =>
+        !page.includes("/blog") &&
+        !page.includes("/widgets") &&
+        !page.includes("/admin"),
     changefreq: "weekly",
     priority: 0.7,
     lastmod: new Date(),

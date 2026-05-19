@@ -1,0 +1,158 @@
+---
+export const prerender = false;
+
+import AdminLayout from "@/layouts/AdminLayout.astro";
+import { isAdminRequest } from "@/lib/auth/admin-session";
+
+if (!(await isAdminRequest(Astro.request))) {
+  return Astro.redirect("/admin");
+}
+
+const stages = [
+  "applied",
+  "screening",
+  "interview",
+  "offer",
+  "hired",
+  "rejected",
+];
+---
+
+<AdminLayout title="Applications">
+  <h1 class="font-display text-heading-lg text-ink">Applications</h1>
+  <p class="mt-2 text-body-sm text-body">Pipeline view - newest first.</p>
+
+  <div class="mt-8 grid gap-4 lg:grid-cols-3">
+    {
+      stages.map((stage) => (
+        <section class="rounded-lg border border-hairline p-4">
+          <h2 class="font-display text-heading-sm capitalize text-ink">
+            {stage}
+          </h2>
+          <ul id={`col-${stage}`} class="mt-3 space-y-2" data-stage={stage} />
+        </section>
+      ))
+    }
+  </div>
+
+  <div
+    id="detail-panel"
+    class="mt-8 hidden rounded-lg border border-hairline p-6"
+  >
+    <h2 class="font-display text-heading-sm text-ink">Application detail</h2>
+    <div id="detail-body" class="mt-4 space-y-3 text-body-sm"></div>
+    <div class="mt-4 flex flex-wrap gap-2">
+      <label class="text-body-sm">Move to</label>
+      <select
+        id="stage-select"
+        class="h-9 rounded-lg border border-hairline px-2"
+      >
+        {stages.map((s) => <option value={s}>{s}</option>)}
+      </select>
+      <button
+        type="button"
+        id="stage-save"
+        class="rounded-full bg-ink px-4 py-1.5 text-body-sm text-on-primary"
+      >
+        Update stage
+      </button>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  const stages = [
+    "applied",
+    "screening",
+    "interview",
+    "offer",
+    "hired",
+    "rejected",
+  ];
+  let selectedId: string | null = null;
+
+  type AppRow = {
+    id: string;
+    stage: string;
+    cover_letter: string | null;
+    resume_url: string | null;
+    created_at: string;
+    jobs: { title: string; slug: string } | null;
+    candidates: {
+      full_name: string;
+      email: string;
+      phone: string | null;
+      linkedin_url: string | null;
+    } | null;
+  };
+
+  async function load() {
+    const res = await fetch("/api/admin/applications");
+    if (res.status === 401) {
+      window.location.href = "/admin";
+      return;
+    }
+    const data = (await res.json()) as { applications?: AppRow[] };
+    const apps = data.applications ?? [];
+
+    for (const stage of stages) {
+      const col = document.getElementById(`col-${stage}`);
+      if (!col) continue;
+      const items = apps.filter((a) => a.stage === stage);
+      col.innerHTML =
+        items
+          .map(
+            (a) => `
+        <li>
+          <button type="button" data-id="${a.id}" class="w-full rounded-md border border-hairline bg-canvas p-3 text-left text-body-sm hover:bg-surface-soft">
+            <p class="font-medium">${a.candidates?.full_name ?? "Unknown"}</p>
+            <p class="text-caption-sm text-mute">${a.jobs?.title ?? ""}</p>
+          </button>
+        </li>
+      `,
+          )
+          .join("") || "<li class='text-caption-sm text-mute'>None</li>";
+    }
+
+    document.querySelectorAll("[data-id]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = (btn as HTMLElement).dataset.id;
+        if (id) showDetail(id, apps);
+      });
+    });
+  }
+
+  function showDetail(id: string, apps: AppRow[]) {
+    selectedId = id;
+    const app = apps.find((a) => a.id === id);
+    if (!app) return;
+    const panel = document.getElementById("detail-panel");
+    const body = document.getElementById("detail-body");
+    const select = document.getElementById("stage-select") as HTMLSelectElement;
+    panel?.classList.remove("hidden");
+    if (select) select.value = app.stage;
+    if (body) {
+      body.innerHTML = `
+        <p><strong>${app.candidates?.full_name}</strong> · ${app.candidates?.email}</p>
+        <p>Role: ${app.jobs?.title}</p>
+        <p>Applied: ${new Date(app.created_at).toLocaleString()}</p>
+        ${app.resume_url ? `<p><a class="underline" href="${app.resume_url}" target="_blank" rel="noopener noreferrer">Resume</a></p>` : ""}
+        ${app.cover_letter ? `<pre class="whitespace-pre-wrap rounded bg-surface-soft p-3">${app.cover_letter}</pre>` : ""}
+      `;
+    }
+  }
+
+  document.getElementById("stage-save")?.addEventListener("click", async () => {
+    if (!selectedId) return;
+    const stage = (document.getElementById("stage-select") as HTMLSelectElement)
+      .value;
+    await fetch(`/api/admin/applications/${selectedId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stage }),
+    });
+    load();
+  });
+
+  load();
+</script>

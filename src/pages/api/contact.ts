@@ -1,5 +1,8 @@
 import type { APIRoute } from "astro";
-import { siteConfig } from "@/config/site";
+import { submitContact } from "@/lib/contact/submit-contact";
+import { validateContactInput } from "@/lib/contact/validate";
+import { isRecaptchaRequired, verifyRecaptcha } from "@/lib/recaptcha";
+import { checkContactRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const prerender = false;
 
@@ -7,117 +10,73 @@ interface ContactBody {
   name?: string;
   email?: string;
   message?: string;
+  pageUrl?: string;
   recaptchaToken?: string;
 }
 
-async function verifyRecaptcha(token: string): Promise<boolean> {
-  const secret = import.meta.env.RECAPTCHA_SECRET_KEY;
-  if (!secret) {
-    if (import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY) {
-      console.error(
-        "RECAPTCHA_SECRET_KEY is required when PUBLIC_RECAPTCHA_SITE_KEY is set",
-      );
-      return false;
-    }
-    return true;
-  }
-
-  const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      secret,
-      response: token,
-    }),
+const json = (body: unknown, status: number) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json" },
   });
-
-  const data = (await res.json()) as { success?: boolean };
-  return Boolean(data.success);
-}
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = (await request.json()) as ContactBody;
-    const name = body.name?.trim();
-    const email = body.email?.trim();
-    const message = body.message?.trim();
-    const recaptchaToken = body.recaptchaToken?.trim();
-
-    if (!name || !email || !message) {
-      return new Response(
-        JSON.stringify({ error: "Missing required fields." }),
+    const ip = getClientIp(request);
+    const rate = await checkContactRateLimit(ip);
+    if (!rate.allowed) {
+      return json(
         {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
+          error:
+            "Too many submissions. Please try again later or email us directly.",
+          retryAfter: rate.retryAfter,
         },
+        429,
       );
     }
 
-    const recaptchaRequired = Boolean(
-      import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY,
-    );
+    const body = (await request.json()) as ContactBody;
 
-    if (recaptchaRequired) {
-      if (!recaptchaToken) {
-        return new Response(
-          JSON.stringify({ error: "Please complete the reCAPTCHA." }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
+    if (isRecaptchaRequired()) {
+      const token = body.recaptchaToken?.trim();
+      if (!token) {
+        return json({ error: "Please complete the reCAPTCHA." }, 400);
       }
-
-      const validCaptcha = await verifyRecaptcha(recaptchaToken);
-      if (!validCaptcha) {
-        return new Response(
-          JSON.stringify({ error: "reCAPTCHA verification failed." }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
+      if (!(await verifyRecaptcha(token))) {
+        return json({ error: "reCAPTCHA verification failed." }, 400);
       }
     }
 
-    const formEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_URL;
-    if (formEndpoint) {
-      const forward = await fetch(formEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          _subject: `Thejands inquiry from ${name}`,
-        }),
-      });
-
-      if (!forward.ok) {
-        return new Response(
-          JSON.stringify({
-            error: "Could not deliver message. Email us directly.",
-          }),
-          { status: 502, headers: { "Content-Type": "application/json" } },
-        );
-      }
+    const validated = validateContactInput(body);
+    if (!validated.ok) {
+      return json({ error: validated.error }, 400);
     }
 
-    return new Response(
-      JSON.stringify({
-        ok: true,
-        message: `Thanks - we'll reply to ${email} soon.`,
-        fallbackEmail: siteConfig.contact.email,
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } },
-    );
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid request." }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
+    const pageUrl =
+      validated.data.pageUrl || request.headers.get("referer") || undefined;
+
+    const result = await submitContact({
+      ...validated.data,
+      pageUrl,
     });
+
+    if (!result.ok) {
+      return json(
+        { error: result.error, submissionId: result.submissionId },
+        502,
+      );
+    }
+
+    return json(
+      {
+        ok: true,
+        submissionId: result.submissionId,
+        message: result.message,
+      },
+      200,
+    );
+  } catch (e) {
+    console.error("[contact] Unhandled error", e);
+    return json({ error: "Invalid request." }, 500);
   }
 };
