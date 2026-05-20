@@ -1,204 +1,145 @@
-# 🚀 Astro Starter Pro
+# Thejands company website
 
-**Astro Starter Pro** is a professional, open-source template for building fast websites using **[Astro 5](https://astro.build/) + [Tailwind CSS 4](https://tailwindcss.com/)**. Designed with industry best practices, optimized SEO, and a modern development experience.
+Marketing site and internal tooling for [Thejands](https://thejands.in) - product studio for web, mobile, and custom software.
 
-<br>
+**Production:** [https://thejands.in](https://thejands.in)  
+**Repository:** [github.com/Thejands/company-website](https://github.com/Thejands/company-website)
 
-[![GitHub stars](https://badgen.net/github/stars/devgelo-labs/astro-starter-pro?icon=github&label=Star)](https://github.com/devgelo-labs/astro-starter-pro)
-[![Clones](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fangelop47%2Fastro-starter-template%2Fmain%2F.github%2Fdata%2Fclones.json&query=%24.count&label=Clones&color=brightgreen&style=flat-square&logo=github)](https://github.com/devgelo-labs/astro-starter-pro)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
-[![Astro](https://img.shields.io/badge/Astro-5.0-orange?style=flat-square&logo=astro)](https://astro.build/)
-[![Tailwind](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![Maintainer](https://img.shields.io/badge/maintainer-devgelo-purple?style=flat-square)](https://github.com/devgelo-labs)
+---
 
-<br>
+## Stack
 
-<details open>
-<summary>Table of Contents</summary>
+- [Astro 6](https://astro.build/) with hybrid static + server routes (Vercel adapter)
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [React](https://react.dev/) islands (Motion, shadcn-style UI where needed)
+- [TypeScript](https://www.typescriptlang.org/)
+- Contact: [Resend](https://resend.com) + [Google Sheets](https://sheets.google.com)
+- Careers / ATS: [Supabase](https://supabase.com) (Postgres + Storage)
+- Optional rate limiting: [Upstash Redis](https://upstash.com)
 
-- [Demo](#demo)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Quick Start](#quick-start)
-- [Configuration](#configuration)
-- [Content Management](#content-management)
-- [Commands](#commands)
-- [Support the Project](#support-the-project)
-- [License](#license)
-
-</details>
-
-<br>
-
-## Demo
-
-📌 [https://astrostarterpro.com/](https://astrostarterpro.com/)
+---
 
 ## Features
 
-- ✅ **Dark & Light Mode**: Clean implementation.
-- ✅ **Optimized SEO**: Automatic meta tags, Structured Data (JSON-LD), RSS Feed, Open Graph, Twitter Cards, and native Sitemap.
-- ✅ **Native Scroll Animations**: High-performance, JS-light scroll reveal animations using `Intersection Observer`.
-- ✅ **Clean Architecture**: Organized and scalable code.
-- ✅ **Reusable Components**: Navbar, Footer, and modern Layouts with Tailwind v4.
+- Marketing pages: home, services, process, about, contact, legal
+- SEO: meta tags, Open Graph, Twitter cards, JSON-LD, sitemap, RSS
+- Google Tag Manager (production only)
+- Contact form with reCAPTCHA v2, email notifications, sheet logging
+- Password-protected admin: submission viewer, job CRUD, application pipeline
+- Public careers board with apply flow and resume upload
+- Social profiles and handles from environment variables
+- Staging/preview: `noindex` and blocked indexing via `PUBLIC_SITE_ENV`
 
-<br>
+See [LAUNCH_CHECKLIST.md](./LAUNCH_CHECKLIST.md) for production setup and [DESIGN.md](./DESIGN.md) for brand and UI guidelines.
 
-<img alt="Image" src="./.github/astro-starter-pro.webp" />
+---
 
-<br>
+## Requirements
 
-<img alt="PageSpeed Insights Score 100/100" src="https://github.com/user-attachments/assets/541d4bfc-bcb9-4287-bd91-08564108d706" />
+- **Node.js** `>=22.12.0` (see `.nvmrc`)
+- npm 10+
 
-<br>
+---
 
-## Tech Stack
-
-This template is built with modern, high-performance technologies:
-
-- **[Astro 5](https://astro.build/)**: The web framework for building content-driven websites.
-- **[Tailwind CSS 4](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
-- **[TypeScript](https://www.typescriptlang.org/)**: Strongly typed programming language that builds on JavaScript.
-- **[MDX](https://mdxjs.com/)**: Markdown for the component era, allowing you to use JSX in your markdown content.
-
-<br>
-
-## Project Structure
-
-A quick overview of the folder structure to help you understand where everything is located:
-
-```text
-/
-├── public/                # Static assets (fonts, favicon, images outside of processing)
-├── src/
-│   ├── assets/            # Images and assets to be processed by Astro
-│   ├── components/        # Reusable UI components (Navbar, Footer, SEO, etc.)
-│   ├── config/            # Centralized site configuration (site.ts)
-│   ├── content/           # Blog posts and content collections (Markdown/MDX)
-│   ├── layouts/           # Base page layouts
-│   ├── pages/             # File-based routing (pages and endpoints)
-│   ├── styles/            # Global CSS and Tailwind directives
-│   ├── types/             # TypeScript type definitions
-│   └── content.config.ts  # Astro Content Collections configuration
-├── astro.config.mjs       # Astro configuration file
-└── tailwind.config.mjs    # Tailwind CSS configuration
-```
-
-<br>
-
-## Quick Start
-
-To start with this project locally, clone the repository and install dependencies:
+## Local development
 
 ```bash
-# Clone the repository
-git clone https://github.com/devgelo-labs/astro-starter-pro.git
-
-# If you like it, don't forget to leave a star! ⭐
-cd astro-starter-pro
+git clone https://github.com/Thejands/company-website.git
+cd company-website
+nvm use 22          # or: fnm use 22
 npm install
+cp .env.example .env
+# Edit .env with your keys (social URLs work without backend keys)
 npm run dev
 ```
 
-<br>
+Open [http://localhost:4321](http://localhost:4321).
+
+**Dev server shows `TypeError` / blank page?** A stale process or Vite cache on port 4321 is the usual cause:
+
+```bash
+# Stop other dev servers, then:
+npm run dev:clean
+# Or manually:
+lsof -ti :4321 | xargs kill 2>/dev/null
+rm -rf node_modules/.vite .astro
+npm run dev
+```
+
+Only run one `npm run dev` at a time. Projects in iCloud Drive can hit flaky HMR; prefer a local non-synced folder if issues persist.
+
+---
 
 ## Configuration
 
-All global site information is managed in `src/config/site.ts`. Update this file with your data:
+| Area                          | Where                                         |
+| ----------------------------- | --------------------------------------------- |
+| Site name, nav, contact email | `src/config/site.ts`                          |
+| Environment, GTM, social URLs | `.env` / Vercel env (see `.env.example`)      |
+| Indexing & analytics gating   | `PUBLIC_SITE_ENV` in `src/config/site-env.ts` |
+| Astro build & sitemap         | `astro.config.mjs`                            |
 
-```typescript
-// src/config/site.ts
-import ogImage from "../assets/og-image.png";
+Copy `.env.example` to `.env` locally. Set the same variables in the Vercel project for production and preview.
 
-export const siteConfig = {
-  name: "Astro Starter Pro",
-  description:
-    "Starter template optimized for SEO and performance. A solid foundation to start your projects with best practices.",
-  url: "https://astrostarterpro.com",
-  lang: "en",
-  locale: "en_US",
-  author: "Devgelo",
-  twitter: "@Devgelo",
-  ogImage: ogImage,
-  socialLinks: {
-    twitter: "https://twitter.com",
-    github: "https://github.com/devgelo-labs/astro-starter-pro",
-    discord: "https://discord.com",
-  },
-  navLinks: [
-    { text: "Home", href: "/" },
-    { text: "About", href: "/about" },
-    { text: "Services", href: "/services" },
-    { text: "Blog", href: "/blog" },
-    { text: "Contact", href: "/contact" },
-    { text: "Widgets", href: "/widgets" },
-  ],
-};
+**Admin** (`/admin`): set `ADMIN_PASSWORD`.  
+**Contact API**: Resend + Google Sheets (+ optional Upstash).  
+**Careers**: Supabase - run `supabase/migrations/001_ats_schema.sql` (see [supabase/README.md](./supabase/README.md)).
+
+---
+
+## Project structure
+
+```text
+/
+├── public/                 # Static assets (logo, favicon, OG image)
+├── src/
+│   ├── components/         # UI, layout, SEO, forms
+│   ├── config/             # site.ts, site-env.ts
+│   ├── content/blog/       # MDX blog (excluded from sitemap)
+│   ├── layouts/            # BaseLayout, AdminLayout
+│   ├── lib/                # contact, email, sheets, careers, auth, supabase
+│   ├── pages/              # Routes + src/pages/api/*
+│   └── styles/             # global.css (Tailwind v4)
+├── supabase/migrations/    # ATS schema
+├── .env.example
+├── LAUNCH_CHECKLIST.md
+└── DESIGN.md
 ```
 
-## Content Management
-
-This template uses **Astro Content Collections** to manage blog posts.
-
-To add a new blog post, simply create a new `.md` or `.mdx` file inside the `src/content/blog/` directory.
-
-### Frontmatter Schema
-
-Each blog post must include the following frontmatter at the top of the file:
-
-```yaml
 ---
-title: "Your Post Title"
-description: "A brief summary of your post for SEO."
-pubDate: 2024-03-20
-author: "Author Name"
-image: "/images/your-cover-image.webp" # Optional
-tags: ["Astro", "Tailwind"] # Optional
-category: "Web Development" # Optional
----
-Your markdown or MDX content goes here...
-```
-
-<br>
 
 ## Commands
 
-| Command             | Action                                             |
-| :------------------ | :------------------------------------------------- |
-| `npm run dev`       | Starts the development server at `localhost:4321`. |
-| `npm run build`     | Generates the static site in the `dist/` folder.   |
-| `npm run preview`   | Previews the production build locally.             |
-| `npm run lint`      | Runs ESLint to ensure code quality.                |
-| `npm run format`    | Formats code with Prettier.                        |
-| `npm run fix`       | Runs format and lint auto-fix.                     |
-| `npm run check`     | Runs astro check for diagnostics.                  |
-| `npm run typecheck` | Verifies TypeScript types.                         |
+| Command             | Action                                               |
+| ------------------- | ---------------------------------------------------- |
+| `npm run dev`       | Development server                                   |
+| `npm run build`     | Production build (also runs on `git push` via Husky) |
+| `npm run preview`   | Preview production build                             |
+| `npm run lint`      | ESLint with auto-fix                                 |
+| `npm run format`    | Prettier                                             |
+| `npm run fix`       | Format + lint                                        |
+| `npm run check`     | Astro diagnostics                                    |
+| `npm run typecheck` | TypeScript check                                     |
+| `npm test`          | Vitest                                               |
 
-<br>
-
-## Support the Project
-
-If you find this starter useful, please consider giving it a ⭐ on GitHub! It helps more people discover the project.
-
-<br>
-
-## License
-
-This project is under the **MIT** license. See the [LICENSE](./LICENSE) file for more details.
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. **Fork** the Project
-2. Create your **Feature Branch** (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a **Pull Request**
-
-For more details, please check our [Contributing Guide](./CONTRIBUTING.md).
+Git hooks require Node 22+ (see `.husky/ensure-node.sh`).
 
 ---
 
-Designed by [Devgelo Labs](https://github.com/devgelo-labs)
+## Deployment
+
+Deploy to **Vercel** connected to this repository. Use `PUBLIC_SITE_ENV=production` on the production domain and `staging` (or rely on preview defaults) for preview URLs.
+
+Complete env and DNS steps in [LAUNCH_CHECKLIST.md](./LAUNCH_CHECKLIST.md).
+
+---
+
+## Contributing
+
+Internal contributors: see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
+
+## License
+
+Copyright (c) 2026 Thejands. See [LICENSE](./LICENSE).

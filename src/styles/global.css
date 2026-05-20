@@ -10,7 +10,7 @@
   --color-hairline-strong: #d4d4d4;
   --color-ink: #000000;
   --color-charcoal: #525252;
-  --color-body: #737373;
+  --color-body: #595959;
   --color-mute: #a3a3a3;
   --color-on-dark: #ffffff;
   --color-on-dark-mute: rgba(255, 255, 255, 0.7);
@@ -335,6 +335,108 @@
   .sticky-scroll-card.is-active {
     border-color: var(--color-ink);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Stats counter pulse on scroll-in */
+  @keyframes count-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stat-visible {
+    animation: count-up 0.5s ease forwards;
+  }
+
+  /* Bento dark tile subtle gradient overlay */
+  .bento-dark-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      ellipse at 80% 20%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Step nav active state enhancement */
+  .sticky-nav-btn[data-active="true"] .step-number {
+    background: var(--color-ink);
+    color: var(--color-on-primary);
+    border-color: var(--color-ink);
+  }
+
+  /* Testimonial card result badge */
+  .result-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Service icon box hover */
+  .service-icon-box {
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .job-description {
+    color: var(--color-body);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .job-description h2 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-ink);
+  }
+
+  .job-description h2:first-child {
+    margin-top: 0;
+  }
+
+  .job-description h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--color-ink);
+  }
+
+  .job-description p {
+    margin-bottom: 1rem;
+    color: var(--color-body);
+  }
+
+  .job-description ul {
+    margin: 0 0 1.25rem 1.25rem;
+    list-style: disc;
+  }
+
+  .job-description li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+    color: var(--color-body);
+  }
+
+  .job-description li::marker {
+    color: var(--color-charcoal);
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -18,10 +18,15 @@ export type Database = {
           created_at: string;
           updated_at: string;
         };
-        Insert: Partial<Database["public"]["Tables"]["jobs"]["Row"]> & {
+        Insert: {
           slug: string;
           title: string;
           description: string;
+          department?: string | null;
+          location?: string | null;
+          employment_type?: string | null;
+          status?: "draft" | "published" | "closed";
+          published_at?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["jobs"]["Row"]>;
       };

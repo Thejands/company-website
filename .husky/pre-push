@@ -1,2 +1,2 @@
-npm run check
-npm run typecheck
+. "$(dirname "$0")/ensure-node.sh"
+npm run build

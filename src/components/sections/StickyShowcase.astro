@@ -1,5 +1,15 @@
 ---
+import RocketIcon from "@/components/ui/rocket-icon";
 import { stickyShowcase } from "@/config/content";
+
+const stepIconPaths: Record<string, string> = {
+  search: "M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z",
+  "pen-tool":
+    "M12 19l7-7 3 3-7 7-3-3zm-7 2l-1-4 4 1-3 3zm1-11 3 3M18 2l4 4-15 15-4-1 1-4L18 2z",
+  code: "M16 18l6-6-6-6M8 6l-6 6 6 6",
+  rocket:
+    "M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.88-11.71L10 14.17l-1.88-1.88c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 8.7c.39-.39.39-1.02 0-1.41-.39-.39-1.03-.39-1.42 0z",
+};
 ---
 
 <section
@@ -8,20 +18,27 @@ import { stickyShowcase } from "@/config/content";
   aria-labelledby="sticky-showcase-title"
 >
   <div class="container-page">
-    <div class="lg:grid lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16">
+    <div class="lg:grid lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-20">
       <!-- Sticky panel -->
       <div class="lg:sticky lg:top-24 lg:self-start lg:pb-8">
+        <p
+          class="fade-in is-visible text-caption-sm font-medium uppercase tracking-widest text-mute"
+        >
+          Our process
+        </p>
         <h2
           id="sticky-showcase-title"
-          class="fade-in is-visible font-display text-display-lg text-ink"
+          class="fade-in is-visible mt-3 font-display text-display-lg text-ink"
         >
           {stickyShowcase.title}
         </h2>
         <p class="fade-in is-visible mt-4 text-body-md text-body">
           {stickyShowcase.subtitle}
         </p>
+
+        <!-- Desktop step nav -->
         <nav
-          class="mt-8 hidden flex-col gap-2 lg:flex"
+          class="mt-8 hidden flex-col gap-1 lg:flex"
           aria-label="Showcase steps"
           data-sticky-nav
         >
@@ -29,11 +46,11 @@ import { stickyShowcase } from "@/config/content";
             stickyShowcase.items.map((item, i) => (
               <button
                 type="button"
-                class="sticky-nav-btn text-left rounded-lg px-3 py-2.5 text-body-sm font-medium transition-colors"
+                class="sticky-nav-btn group flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-body-sm font-medium transition-colors"
                 data-sticky-target={item.id}
                 data-active={i === 0 ? "true" : "false"}
               >
-                <span class="font-mono text-caption-sm text-mute mr-2">
+                <span class="flex size-6 shrink-0 items-center justify-center rounded-full border border-hairline font-mono text-caption-sm text-mute transition-colors group-hover:border-ink group-hover:text-ink">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {item.title}
@@ -41,21 +58,64 @@ import { stickyShowcase } from "@/config/content";
             ))
           }
         </nav>
+
+        <!-- CTA beneath nav -->
+        <div class="mt-8 hidden lg:block">
+          <a
+            href="/process"
+            class="text-body-sm font-medium text-charcoal underline underline-offset-2 hover:text-ink transition-colors"
+          >
+            See the full process →
+          </a>
+        </div>
       </div>
 
       <!-- Scrolling cards -->
       <div class="mt-10 space-y-6 lg:mt-0 lg:space-y-8">
         {
-          stickyShowcase.items.map((item) => (
+          stickyShowcase.items.map((item, i) => (
             <article
               id={item.id}
               class="sticky-scroll-card card-interactive scroll-mt-28 p-8 md:p-10"
               data-sticky-card={item.id}
             >
-              <h3 class="font-display text-heading-md text-ink">
-                {item.title}
-              </h3>
-              <p class="mt-3 text-body-md text-body">{item.body}</p>
+              <header class="flex items-start gap-4">
+                <div class="flex size-10 shrink-0 items-center justify-center rounded-xl border border-hairline bg-surface-soft text-ink">
+                  {item.icon === "rocket" ? (
+                    <RocketIcon
+                      size={20}
+                      className="text-ink"
+                      strokeWidth={1.75}
+                      client:visible
+                    />
+                  ) : (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d={stepIconPaths[item.icon] ?? stepIconPaths.code}
+                      />
+                    </svg>
+                  )}
+                </div>
+                <div class="flex-1">
+                  <p class="font-mono text-caption-sm text-mute">
+                    Step {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 class="font-display text-heading-md text-ink">
+                    {item.title}
+                  </h3>
+                </div>
+              </header>
+              <p class="mt-5 text-body-md text-body">{item.body}</p>
             </article>
           ))
         }
@@ -66,9 +126,7 @@ import { stickyShowcase } from "@/config/content";
 
 <script>
   const section = document.querySelector("[data-sticky-showcase]");
-  if (!section) {
-    /* noop */
-  } else {
+  if (section) {
     const cards = section.querySelectorAll("[data-sticky-card]");
     const navBtns = section.querySelectorAll(
       "[data-sticky-nav] .sticky-nav-btn",

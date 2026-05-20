@@ -6,8 +6,28 @@ import SnippetPill from "@/components/ui/SnippetPill.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
 import HomeBento from "@/components/sections/HomeBento.astro";
 import StickyShowcase from "@/components/sections/StickyShowcase.astro";
-import { home, testimonials, techStack } from "@/config/content";
+import { home, testimonials, techStack, stats, whyUs } from "@/config/content";
 import { siteConfig } from "@/config/site";
+
+// Lucide-accurate SVG paths for why-us icons
+const whyIcons: Record<string, string[]> = {
+  users: [
+    "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2",
+    "M9 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
+    "M23 21v-2a4 4 0 0 0-3-3.87",
+    "M16 3.13a4 4 0 0 1 0 7.75",
+  ],
+  shield: ["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"],
+  zap: ["M13 2 3 14h9l-1 8 10-12h-9l1-8z"],
+  lock: ["M7 11V7a5 5 0 0 1 10 0v4"],
+};
+
+const whyIconRects: Record<
+  string,
+  { x: number; y: number; w: number; h: number; rx: number } | undefined
+> = {
+  lock: { x: 3, y: 11, w: 18, h: 11, rx: 2 },
+};
 ---
 
 <BaseLayout
@@ -19,13 +39,14 @@ import { siteConfig } from "@/config/site";
   <section class="section-spacing border-b border-hairline/60">
     <div class="container-page">
       <p
-        class="fade-in is-visible mb-4 inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas/80 px-4 py-1.5 text-caption-sm font-medium text-charcoal backdrop-blur-sm"
+        class="fade-in is-visible mb-5 inline-flex items-center gap-2 rounded-full border border-hairline bg-canvas/80 px-4 py-1.5 text-caption-sm font-medium text-charcoal backdrop-blur-sm"
       >
-        <PlugIcon size={18} class="text-charcoal" />
+        <PlugIcon size={16} class="text-charcoal" />
         {home.eyebrow}
       </p>
       <h1
-        class="fade-in is-visible font-display text-display-xl max-w-3xl text-ink"
+        class="fade-in is-visible font-display text-display-xl max-w-[16ch] text-ink"
+        style="white-space: pre-line; line-height: 1.1; letter-spacing: -0.02em;"
       >
         {home.headline}
       </h1>
@@ -34,25 +55,31 @@ import { siteConfig } from "@/config/site";
       >
         {home.subhead}
       </p>
-      <div class="fade-in is-visible mt-6 max-w-md">
-        <SnippetPill
-          href={`mailto:${siteConfig.contact.email}`}
-          label={siteConfig.contact.email}
-        />
-      </div>
+
+      <!-- CTAs first, then contact shortcut -->
       <div class="fade-in is-visible mt-8 flex flex-wrap items-center gap-3">
         <Button href={home.primaryCta.href}>{home.primaryCta.label}</Button>
         <Button href={home.secondaryCta.href} variant="secondary">
           {home.secondaryCta.label}
         </Button>
       </div>
+      <div class="fade-in is-visible mt-4 max-w-md">
+        <SnippetPill
+          href={`mailto:${siteConfig.contact.email}`}
+          label={siteConfig.contact.email}
+        />
+      </div>
+
       <ul
         class="fade-in is-visible mt-10 flex flex-wrap gap-x-8 gap-y-2 border-t border-hairline/80 pt-8"
       >
         {
           home.proof.map((item) => (
             <li class="flex items-center gap-2 text-body-sm text-charcoal">
-              <span class="text-ink" aria-hidden="true">
+              <span
+                class="flex size-4 shrink-0 items-center justify-center rounded-full bg-ink text-[10px] text-on-primary"
+                aria-hidden="true"
+              >
                 ✓
               </span>
               {item}
@@ -63,24 +90,131 @@ import { siteConfig } from "@/config/site";
     </div>
   </section>
 
+  <!-- Stats strip — proper semantics, stronger background -->
+  <section class="border-b border-hairline" aria-label="At a glance">
+    <div class="container-page py-10">
+      <div class="grid grid-cols-2 gap-y-8 md:grid-cols-4">
+        {
+          stats.map((s) => (
+            <div class="fade-in flex flex-col items-center gap-1 text-center">
+              <span class="font-display text-4xl font-semibold text-ink md:text-5xl">
+                {s.value}
+              </span>
+              <span class="text-body-sm text-body">{s.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <HomeBento />
 
   <StickyShowcase />
 
-  <!-- Testimonials -->
-  <section class="section-spacing">
+  <!-- Why Thejands -->
+  <section class="section-spacing border-t border-hairline/60">
     <div class="container-page">
-      <h2 class="fade-in font-display text-display-lg text-ink">
-        What clients say
-      </h2>
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="fade-in font-display text-display-lg text-ink">
+          Why teams choose Thejands
+        </h2>
+        <p class="fade-in mt-4 text-body-md text-body">
+          We're not the biggest studio. We're the one that picks up the phone,
+          shows up to every demo, and ships what we scope.
+        </p>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          whyUs.map((item) => (
+            <div class="card-interactive fade-in flex flex-col gap-4 p-6">
+              <div class="flex size-11 items-center justify-center rounded-xl border border-hairline bg-surface-soft">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  {whyIconRects[item.icon] && (
+                    <rect
+                      x={whyIconRects[item.icon]!.x}
+                      y={whyIconRects[item.icon]!.y}
+                      width={whyIconRects[item.icon]!.w}
+                      height={whyIconRects[item.icon]!.h}
+                      rx={whyIconRects[item.icon]!.rx}
+                    />
+                  )}
+                  {(whyIcons[item.icon] ?? []).map((d) => (
+                    <path d={d} />
+                  ))}
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-display text-heading-sm text-ink">
+                  {item.title}
+                </h3>
+                <p class="mt-2 text-body-sm text-body">{item.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section-spacing border-t border-hairline/60">
+    <div class="container-page">
+      <div
+        class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"
+      >
+        <h2 class="fade-in font-display text-display-lg text-ink">
+          What clients say
+        </h2>
+        <p class="fade-in text-body-sm text-body">
+          Real clients. Real results. No stock photography.
+        </p>
+      </div>
       <div class="mt-10 grid gap-6 md:grid-cols-3">
         {
           testimonials.map((t) => (
-            <blockquote class="card-interactive fade-in flex flex-col p-6 backdrop-blur-sm">
-              <p class="flex-1 text-body-md text-ink">"{t.quote}"</p>
-              <footer class="mt-4 text-body-sm">
-                <span class="font-medium text-ink">{t.name}</span>
-                <span class="text-mute"> · {t.role}</span>
+            <blockquote class="card-interactive fade-in flex flex-col justify-between p-6">
+              <div>
+                <div
+                  class="mb-4 flex gap-0.5 text-ink"
+                  aria-label="5 out of 5 stars"
+                >
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  ))}
+                </div>
+                <p class="text-body-md text-ink leading-relaxed">"{t.quote}"</p>
+              </div>
+              <footer class="mt-6 flex items-center justify-between border-t border-hairline pt-4">
+                <div>
+                  <span class="block text-body-sm font-medium text-ink">
+                    {t.name}
+                  </span>
+                  <span class="block text-caption-sm text-mute">
+                    {t.role} · {t.company}
+                  </span>
+                </div>
+                <span class="shrink-0 rounded-full border border-hairline bg-surface-soft px-3 py-1 text-caption-sm font-medium text-charcoal">
+                  {t.result}
+                </span>
               </footer>
             </blockquote>
           ))
@@ -89,13 +223,13 @@ import { siteConfig } from "@/config/site";
     </div>
   </section>
 
-  <!-- Tech -->
+  <!-- Tech stack -->
   <section class="section-spacing border-t border-hairline/60">
     <div class="container-page text-center">
       <h2 class="fade-in mx-auto font-display text-display-lg text-ink">
         {techStack.title}
       </h2>
-      <p class="fade-in mx-auto mt-3 max-w-lg text-body-md text-body">
+      <p class="fade-in mx-auto mt-3 max-w-xl text-body-md text-body">
         {techStack.subtitle}
       </p>
       <div
@@ -103,7 +237,7 @@ import { siteConfig } from "@/config/site";
       >
         {
           techStack.items.map((name) => (
-            <span class="rounded-full border border-hairline bg-canvas/80 px-4 py-2 text-body-sm text-charcoal backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-ink hover:text-ink hover:shadow-sm">
+            <span class="rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-all duration-200 hover:-translate-y-0.5 hover:border-charcoal hover:text-ink hover:shadow-sm">
               {name}
             </span>
           ))
@@ -112,11 +246,12 @@ import { siteConfig } from "@/config/site";
     </div>
   </section>
 
+  <!-- Final CTA -->
   <section class="section-spacing pb-24">
     <div class="container-page">
       <CtaBand
-        title="Ready to build?"
-        body={`Share your idea at ${siteConfig.contact.email} - we'll respond with honest next steps.`}
+        title="Ready to build something real?"
+        body={`Share your idea at ${siteConfig.contact.email} — we'll respond within one business day with honest next steps, a rough timeline, and whether we're the right fit.`}
         button={{ label: "Start your project", href: "/contact" }}
         dark
       />

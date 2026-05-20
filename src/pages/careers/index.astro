@@ -4,31 +4,40 @@ export const prerender = false;
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import Button from "@/components/ui/Button.astro";
-import { getSupabasePublic } from "@/lib/supabase/server";
+import { getSupabasePublic, type Database } from "@/lib/supabase/server";
 
+type PublishedJob = Pick<
+  Database["public"]["Tables"]["jobs"]["Row"],
+  | "slug"
+  | "title"
+  | "department"
+  | "location"
+  | "employment_type"
+  | "published_at"
+>;
+
+let openRoles: PublishedJob[] = [];
 const supabase = getSupabasePublic();
-const { data: jobs } = supabase
-  ? await supabase
-      .from("jobs")
-      .select(
-        "slug, title, department, location, employment_type, published_at",
-      )
-      .eq("status", "published")
-      .order("published_at", { ascending: false })
-  : { data: [] };
 
-const openRoles = jobs ?? [];
+if (supabase) {
+  const { data } = await supabase
+    .from("jobs")
+    .select("slug, title, department, location, employment_type, published_at")
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+  openRoles = data ?? [];
+}
 ---
 
 <BaseLayout
-  title="Careers"
-  description="Join Thejands - build products with Linga, Somu, and the team."
+  title="Careers — Thejands"
+  description="Join Thejands — build enterprise-grade software, consult on complex platforms, and work directly with founders on every engagement."
 >
   <section class="section-spacing border-b border-hairline">
     <div class="container-page">
       <PageHero
         title="Work with us"
-        subtitle="We're a small product studio. When we hire, we look for people who care about craft and shipping."
+        subtitle="We build enterprise-grade software, consult on complex technology programmes, and partner with organisations that expect precision. When we hire, we look for people who care as much about the outcome as the craft."
         showBrandIcon
       />
     </div>
@@ -40,11 +49,13 @@ const openRoles = jobs ?? [];
         openRoles.length === 0 ? (
           <div class="card-interactive p-8 text-center">
             <p class="text-body-md text-body">
-              No open roles right now. Send your portfolio to{" "}
+              No open roles listed right now. If you have strong experience in
+              enterprise software, platform consulting, or technical delivery —
+              send your CV and a note about what you're looking for to{" "}
               <a href="mailto:hello@thejands.in" class="text-ink underline">
                 hello@thejands.in
-              </a>{" "}
-              and we'll keep you in mind.
+              </a>
+              . We keep strong profiles on file.
             </p>
             <div class="mt-6">
               <Button href="/contact">Get in touch</Button>

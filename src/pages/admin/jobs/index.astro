@@ -71,11 +71,27 @@ if (!(await isAdminRequest(Astro.request))) {
     </div>
     <div>
       <label class="mb-1 block text-body-sm">Description</label>
+      <p class="mb-2 text-caption-sm text-mute">
+        Use ## for section headings and - for bullet lists. Blank lines separate
+        paragraphs.
+      </p>
       <textarea
         id="job-desc"
         required
-        rows="8"
-        class="w-full rounded-lg border border-hairline px-3 py-2"></textarea>
+        rows="16"
+        placeholder="## About the role
+
+Short intro paragraph.
+
+## What you will do
+- First responsibility
+- Second responsibility
+
+## What we are looking for
+- Requirement one
+- Requirement two"
+        class="w-full rounded-lg border border-hairline px-3 py-2 font-mono text-body-sm"
+      ></textarea>
     </div>
     <p id="job-form-error" class="hidden text-body-sm text-red-600"></p>
     <div class="flex gap-2">

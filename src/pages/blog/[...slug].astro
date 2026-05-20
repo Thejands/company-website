@@ -33,7 +33,11 @@ const metadata = {
 };
 ---
 
-<BaseLayout metadata={metadata}>
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  ogImage={metadata.ogImage}
+>
   <Schema
     type="BlogPosting"
     data={{

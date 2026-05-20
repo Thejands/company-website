@@ -1,5 +1,7 @@
 {
   "name": "thejands-v2",
+  "description": "Thejands company website - Astro marketing site with contact pipeline, careers ATS, and admin",
+  "private": true,
   "engines": {
     "node": ">=22.12.0"
   },
@@ -7,6 +9,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:clean": "rm -rf node_modules/.vite .astro && astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -32,12 +35,11 @@
     "@iconify-json/lucide": "^1.2.99",
     "@iconify-json/tabler": "^1.2.32",
     "@supabase/supabase-js": "^2.106.0",
-    "@tailwindcss/vite": "^4.2.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.0",
-    "astro": "^6.1.1",
+    "astro": "^6.3.5",
     "astro-icon": "^1.1.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -55,6 +57,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.5.0",
     "@typescript-eslint/parser": "^8.57.2",
@@ -65,13 +68,11 @@
     "globals": "^17.4.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
+    "postcss": "^8.5.15",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
     "typescript-eslint": "^8.57.2",
     "vitest": "^4.1.2"
-  },
-  "overrides": {
-    "vite": "^7"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,astro}": [

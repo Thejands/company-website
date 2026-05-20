@@ -1,53 +1,100 @@
 ---
 import Logo from "@/components/ui/Logo.astro";
-import PlugIcon from "@/components/ui/PlugIcon.astro";
-import SocialLinks from "@/components/ui/SocialLinks.astro";
+import AnimatedSocialLinks from "@/components/ui/AnimatedSocialLinks";
 import { siteConfig } from "@/config/site";
 
 const year = new Date().getFullYear();
+
+const primaryLinks = siteConfig.footerLinks.filter((l) =>
+  ["/services", "/process", "/about", "/careers", "/contact"].includes(l.href),
+);
+const legalLinks = siteConfig.footerLinks.filter((l) =>
+  ["/privacy", "/terms", "/cookies"].includes(l.href),
+);
 ---
 
-<footer class="border-t border-hairline bg-canvas/80 backdrop-blur-sm">
-  <div class="container-page section-spacing pb-10 pt-12">
-    <div class="grid gap-10 md:grid-cols-[1.2fr_1fr]">
-      <div>
-        <div class="flex items-center gap-2.5">
-          <PlugIcon size={22} class="text-ink" />
-          <Logo height={28} showWordmark={false} />
-        </div>
-        <p class="mt-3 max-w-sm text-body-sm text-body">
-          {siteConfig.tagline}. Web, mobile, and custom software - built by
+<footer class="border-t border-hairline bg-canvas">
+  <div class="container-page pt-12 pb-10">
+    <div class="grid gap-12 md:grid-cols-[1fr_auto]">
+      <!-- Brand column -->
+      <div class="max-w-xs">
+        <Logo height={32} showWordmark={false} />
+        <p class="mt-4 text-body-sm text-body leading-relaxed">
+          We build products for you — web, mobile, and custom software, built by
           founders who stay in the room.
         </p>
         <p class="mt-4 text-body-sm">
           <a
             href={`mailto:${siteConfig.contact.email}`}
-            class="text-ink underline underline-offset-2"
+            class="font-medium text-ink underline underline-offset-2 hover:opacity-70 transition-opacity"
           >
             {siteConfig.contact.email}
           </a>
         </p>
-        <SocialLinks links={siteConfig.socialLinks} class="mt-5" />
+        <AnimatedSocialLinks
+          links={[...siteConfig.socialLinks]}
+          className="mt-5"
+          client:visible
+        />
       </div>
-      <nav aria-label="Footer">
-        <ul class="flex flex-wrap gap-x-6 gap-y-2 text-body-sm text-body">
-          {
-            siteConfig.footerLinks.map((link) => (
-              <li>
-                <a
-                  href={link.href}
-                  class="hover:text-ink underline-offset-2 hover:underline"
-                >
-                  {link.text}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
+
+      <!-- Navigation columns -->
+      <div class="flex gap-12 sm:gap-16">
+        <nav aria-label="Footer navigation">
+          <p
+            class="mb-3 text-caption-sm font-semibold uppercase tracking-widest text-mute"
+          >
+            Company
+          </p>
+          <ul class="space-y-2.5 text-body-sm">
+            {
+              primaryLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-body transition-colors hover:text-ink"
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <nav aria-label="Legal navigation">
+          <p
+            class="mb-3 text-caption-sm font-semibold uppercase tracking-widest text-mute"
+          >
+            Legal
+          </p>
+          <ul class="space-y-2.5 text-body-sm">
+            {
+              legalLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-body transition-colors hover:text-ink"
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
     </div>
-    <p class="mt-10 border-t border-hairline pt-6 text-caption-sm text-mute">
-      © {year} Thejands. All rights reserved.
-    </p>
+
+    <div
+      class="mt-10 flex flex-col gap-2 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p class="text-caption-sm text-mute">
+        © {year} Thejands. All rights reserved.
+      </p>
+      <p class="text-caption-sm text-mute">
+        Built by founders. Shipped with care.
+      </p>
+    </div>
   </div>
 </footer>

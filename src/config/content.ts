@@ -1,303 +1,364 @@
-/** Central content - product studio positioning for Thejands */
+/** Central content — enterprise partner positioning for Thejands */
 
 export const home = {
-  eyebrow: "Product studio · Web · Mobile · Software",
-  headline: "We turn your ideas into products people love to use.",
+  eyebrow: "Enterprise Software · Consulting · Digital Products · Partnerships",
+  headline: "Enterprise-grade delivery.\nPartner-level commitment.",
   subhead:
-    "Thejands is the team behind the build - design, engineering, and launch handled in one place, with founders in the loop from day one.",
-  primaryCta: { label: "Start your project", href: "/contact" },
-  secondaryCta: { label: "See what we build", href: "/services" },
+    "Thejands works alongside large organisations, growing companies, and technology teams to build software, implement platforms, and consult on the projects that matter most — with founders accountable for every outcome.",
+  primaryCta: { label: "Start a conversation", href: "/contact" },
+  secondaryCta: { label: "See our work", href: "/services" },
   proof: [
-    "End-to-end product delivery",
-    "Founder-led, no hand-offs",
-    "Ship fast, scale clean",
+    "Enterprise-scale delivery capability",
+    "Software, mobile & platform build",
+    "LMS & EdTech consulting",
+    "Resource & partner engagements",
   ],
 } as const;
 
 export const stickyShowcase = {
   title: "Built with intention",
   subtitle:
-    "Every engagement follows the same rhythm - clarity first, then craft. Scroll to see how we work with you.",
+    "Every engagement follows the same rhythm — understand the business, define the solution, deliver with precision. Here's how we work with you.",
   items: [
     {
       id: "discover",
-      title: "Discover together",
-      body: "We map users, constraints, and success metrics in a focused workshop - so scope and timeline are honest before a single feature ships.",
+      title: "Understand the brief",
+      icon: "search",
+      body: "We invest time upfront to understand your organisation's constraints, technical landscape, and what success actually looks like. Whether it's a full product build, a platform migration, or a consulting mandate — we ask the hard questions before we propose anything. You get a scoped plan, not a vague proposal.",
     },
     {
       id: "design",
-      title: "Design you can click",
-      body: "Figma prototypes you can share with stakeholders. Flows approved early, so development starts with confidence.",
+      title: "Architect the solution",
+      icon: "pen-tool",
+      body: "From system architecture to interface design — we define the solution in enough detail that every stakeholder can align before we build. Prototypes, technical specs, and implementation plans are shared early so there are no surprises downstream. Your team reviews and approves before we write production code.",
     },
     {
       id: "build",
-      title: "Build in the open",
-      body: "Weekly demos with Linga and Somu in the room. You watch the product grow - no black box, no surprise invoices.",
+      title: "Deliver in the open",
+      icon: "code",
+      body: "Iterative delivery with direct access to the people doing the work. Regular demos, written progress updates, and a codebase or deliverable that meets enterprise standards for quality, security, and maintainability. No junior staff rotations, no black-box delivery.",
     },
     {
       id: "launch",
-      title: "Launch & grow",
-      body: "Production-ready releases with docs, monitoring, and a clean handoff. Stay with us for v2 or run solo - your call.",
+      title: "Deploy & hand over",
+      icon: "rocket",
+      body: "Production releases with documentation, monitoring, and clean handover to your internal teams. We stay close post-launch and support any stabilisation period. If you want us to continue as an embedded partner, we have retainer models for that too.",
     },
   ],
 } as const;
 
 export const servicesPage = {
-  title: "What we build",
+  title: "What we do",
   subtitle:
-    "Whether you're launching an MVP, rebuilding a legacy system, or adding a mobile app to your stack - we design and ship products that fit your business, not the other way around.",
+    "From enterprise software builds to LMS implementations and technology consulting — we work at the intersection of strategy, engineering, and delivery. Pick a capability or tell us the outcome and we'll map the right engagement.",
   offerings: [
     {
-      id: "web",
-      name: "Web products",
-      tagline: "Fast, polished, built to grow",
-      description:
-        "Marketing sites, SaaS dashboards, customer portals, and internal tools - built on modern stacks with performance and SEO baked in from the first commit.",
-      features: [
-        "React & Next.js applications",
-        "Design systems that scale",
-        "APIs, auth & integrations",
-        "Analytics & conversion-ready UX",
-      ],
-    },
-    {
-      id: "mobile",
-      name: "Mobile apps",
-      tagline: "Native feel, cross-platform speed",
-      description:
-        "iOS and Android apps your users actually enjoy - clear flows, reliable offline behaviour, and store-ready releases without the drama.",
-      features: [
-        "React Native & Flutter",
-        "App Store & Play deployment",
-        "Push, payments & device features",
-        "Crash-free releases & updates",
-      ],
-    },
-    {
       id: "software",
-      name: "Custom software",
-      tagline: "Tools that match how you work",
+      name: "Software & Product Development",
+      tagline: "Enterprise-grade, built to last",
+      icon: "terminal",
       description:
-        "Backends, automations, and platforms when off-the-shelf software stops fitting. We architect for reliability today and change tomorrow.",
+        "We design and build web applications, mobile products, and custom software for organisations that need more than an off-the-shelf solution. Our delivery meets enterprise standards: documented, tested, secure, and maintainable by your internal teams after handover.",
       features: [
-        "Node.js & TypeScript services",
-        "Databases, queues & cloud infra",
-        "Third-party & legacy integrations",
-        "CI/CD & observability",
+        "React, Next.js, Node.js & TypeScript platforms",
+        "Mobile apps (React Native & Flutter) for iOS and Android",
+        "API design, microservices & cloud infrastructure",
+        "SaaS products, internal tools & customer portals",
+        "CI/CD, security hardening & observability",
+        "Codebase handover with full documentation",
+      ],
+    },
+    {
+      id: "consulting",
+      name: "Technology Consulting",
+      tagline: "Strategy that translates to action",
+      icon: "layers",
+      description:
+        "We consult at the project, platform, and programme level — from technology strategy and vendor selection to LMS implementation, digital transformation, and resource advisory. We bring senior-level thinking without the senior-firm price tag.",
+      features: [
+        "LMS implementation & customisation (Moodle & others)",
+        "EdTech platform strategy and rollout",
+        "Technology due diligence & architecture review",
+        "Digital transformation roadmapping",
+        "Vendor selection, RFP support & evaluation",
+        "Interim CTO / technical advisory engagements",
+      ],
+    },
+    {
+      id: "partnerships",
+      name: "Resource & Partner Engagements",
+      tagline: "Extend your team, not your headcount",
+      icon: "globe",
+      description:
+        "We work alongside partner organisations as an embedded technical resource — providing engineering capacity, delivery management, or specialist expertise for projects your team can't resource alone. Structured for long-term collaboration, not transactional freelancing.",
+      features: [
+        "Dedicated engineering teams for partner projects",
+        "White-label delivery under your brand",
+        "Candidate consulting & technical screening",
+        "Joint go-to-market on digital product mandates",
+        "Retainer-based capacity for ongoing demand",
+        "NDAs, SLAs & enterprise-grade contract structures",
       ],
     },
   ],
   cta: {
-    title: "Not sure which bucket you fit?",
-    body: "Most projects blend all three. Tell us the outcome you want - we'll map the right shape together.",
-    button: { label: "Book a discovery call", href: "/contact" },
+    title: "Not sure which engagement fits?",
+    body: "Most of our mandates blend two or three of these capabilities. Describe the outcome you need — we'll propose the right shape, team, and commercial structure to match.",
+    button: { label: "Talk to us", href: "/contact" },
   },
 } as const;
 
 export const processPage = {
-  title: "How we build",
+  title: "How we engage",
   subtitle:
-    "No mystery phases or endless decks. A clear rhythm from first conversation to production - so you always know what's happening and what's next.",
+    "A structured delivery rhythm from first conversation to signed-off deliverable. No mystery phases, no vague timelines — every stage is visible and accountable.",
   steps: [
     {
       number: "01",
-      title: "Discover",
-      summary: "We listen before we line-code.",
-      body: "A focused workshop on your users, constraints, and success metrics. You leave with a shared picture of scope - and an honest timeline.",
+      title: "Discovery",
+      summary: "Understand before we propose.",
+      body: "A focused session with the right stakeholders to map the problem, constraints, existing systems, and success criteria. We ask the questions most partners skip — so the scope we propose is realistic and the timeline is defensible.",
     },
     {
       number: "02",
-      title: "Design",
-      summary: "Interfaces you can click before we build.",
-      body: "Wireframes and high-fidelity prototypes in Figma. You approve flows early, so development starts with clarity, not guesswork.",
+      title: "Proposal",
+      summary: "Scope, timeline, and cost — in plain language.",
+      body: "A written proposal covering what we'll build or deliver, how long it will take, what it will cost, and what we need from your side. Fixed-scope milestones for build work; structured retainers for consulting and resource engagements. No hourly mystery.",
     },
     {
       number: "03",
-      title: "Build",
-      summary: "Weekly demos, real progress.",
-      body: "Short sprints, visible increments, and direct access to Linga and Somu. No black box - you see the product grow every week.",
+      title: "Delivery",
+      summary: "Regular demos. Real increments.",
+      body: "Work progresses in short cycles with regular demos or written updates — depending on the engagement type. You have direct access to the people doing the work, not account managers. Issues surface early, not at deadline.",
     },
     {
       number: "04",
-      title: "Launch",
-      summary: "Ship with confidence.",
-      body: "QA, performance checks, deployment, and handover docs. We stay close through launch week and the first weeks in the wild.",
+      title: "Review",
+      summary: "Stakeholder sign-off at every milestone.",
+      body: "Each milestone ends with a structured review — outputs against scope, quality checks, and any course corrections agreed in writing. Nothing moves to the next phase without your explicit approval.",
     },
     {
       number: "05",
-      title: "Grow",
-      summary: "Products evolve - so do we.",
-      body: "Retainers, feature roadmaps, or clean handoff to your team. However you scale, the codebase we leave is maintainable and yours.",
+      title: "Handover & Beyond",
+      summary: "Clean exit or long-term partnership — your choice.",
+      body: "Deliverables come with documentation, knowledge transfer, and support during stabilisation. We offer retainer models for ongoing work. We don't engineer dependency — you can take what we build and run it without us.",
     },
   ],
   terminal: {
     lines: [
-      { type: "comment" as const, text: "# thejands build pipeline" },
+      { type: "comment" as const, text: "# thejands engagement model" },
       {
         type: "command" as const,
-        text: '$ thejands init --idea "your product"',
+        text: '$ thejands init --brief "your requirement"',
       },
-      { type: "output" as const, text: "→ Discovery workshop scheduled" },
-      { type: "command" as const, text: "$ thejands ship --env production" },
-      { type: "output" as const, text: "✓ Live · monitored · documented" },
+      { type: "output" as const, text: "→ Discovery call scheduled" },
+      { type: "command" as const, text: "$ thejands deliver --env production" },
+      { type: "output" as const, text: "✓ Signed off · documented · yours" },
     ],
   },
 } as const;
 
 export const aboutPage = {
-  title: "The team behind the build",
+  title: "The team behind the delivery",
   subtitle:
-    "Thejands started with a simple frustration: too many agencies sell hours, not outcomes. We built a studio where founders stay close to the work and clients get products - not promises.",
+    "Thejands was built on a straightforward premise: enterprises deserve a technology partner that's senior enough to understand the problem and accountable enough to own the outcome.",
   story: {
     title: "Why Thejands exists",
     paragraphs: [
-      "Every business deserves software that feels intentional - fast when it should be fast, simple where it should be simple, and honest about what it can't do yet.",
-      "Linga and Somu started Thejands to be the product partner they wished they'd had: technical depth without jargon, design without ego, and delivery without vanishing after launch.",
-      "Today we work with startups, growing brands, and teams inside larger companies who need a product built right the first time - or rebuilt better the second time.",
+      "Large organisations often face the same problem — the partners they can trust are too expensive, and the ones they can afford aren't senior enough. Thejands was built to close that gap.",
+      "Linga and Somu founded Thejands to deliver enterprise-grade software and consulting with the accountability of a founder-led team. That means senior people on every engagement, not juniors supervised from a distance.",
+      "Today we work with enterprises, mid-market companies, and technology teams who need a partner with genuine depth — whether that's building a platform, implementing an LMS, or providing technical resource for a programme they can't fully staff internally.",
     ],
   },
   values: [
     {
-      title: "Outcomes over output",
-      body: "We measure success in shipped features your users touch - not story points on a board.",
+      title: "Outcomes over activity",
+      body: "We're measured by what ships and what works — not by hours logged or decks produced. Every engagement is scoped against a real business outcome, not an activity list.",
     },
     {
-      title: "Radical clarity",
-      body: "Plain language, visible timelines, and demos you can share with your board without a translator.",
+      title: "Senior by default",
+      body: "The people you meet in the proposal are the people who do the work. We don't staff engagements with juniors and manage them from a distance. You get experienced judgment from day one.",
     },
     {
-      title: "Craft at every layer",
-      body: "From database schema to button hover - details matter because your brand lives in the details.",
+      title: "Radical transparency",
+      body: "Scope, timeline, budget, risks — visible at all times. If something changes, you hear it from us first, in writing, with a proposed resolution. No surprises at invoice time.",
+    },
+    {
+      title: "Clean exits, always",
+      body: "Everything we deliver is documented and transferable. We don't engineer dependency. Your code, your infrastructure, your IP — you can take it and run without us whenever you're ready.",
     },
   ],
   founders: [
     {
       name: "Linga",
-      role: "Co-founder · Product & Engineering",
-      bio: "Linga turns fuzzy ideas into architectures that ship. With years across full-stack development and product leadership, he owns the technical roadmap - choosing the right stack, unblocking the team, and making sure what we build can scale when you need it to.",
+      role: "Co-founder · Engineering & Architecture",
+      bio: "Linga leads the technical side of every engagement — from system architecture and technology selection to delivery oversight and code quality. He has deep experience building enterprise-scale platforms and brings that same rigour to every project, regardless of size. He's the one asking the uncomfortable scoping questions and writing the first lines in production.",
       strengths: [
-        "System design & technical strategy",
+        "Enterprise system architecture",
         "Full-stack engineering leadership",
-        "MVP → production scaling",
+        "Platform scalability & performance",
+        "Technical due diligence & advisory",
       ],
     },
     {
       name: "Somu",
-      role: "Co-founder · Design & Delivery",
-      bio: "Somu makes complex products feel effortless. He leads UX, visual design, and client delivery - so every screen earns its place and every sprint ends with something you're proud to show stakeholders.",
+      role: "Co-founder · Product & Client Delivery",
+      bio: "Somu owns the product, design, and delivery side of every engagement. He ensures that what gets built is what was scoped, that stakeholders are never surprised, and that the final product is something the client is proud to put in front of their users. He's equally comfortable in a boardroom and a sprint review.",
       strengths: [
-        "Product UX & interface design",
-        "Client communication & delivery",
-        "Quality, polish & launch readiness",
+        "Product strategy & UX leadership",
+        "Client engagement & delivery management",
+        "Quality assurance & launch readiness",
+        "Stakeholder communication & reporting",
       ],
     },
   ],
   cta: {
-    title: "Want to meet the people who'll build your product?",
-    body: "Grab 30 minutes with Linga or Somu. No pitch deck - just a real conversation about what you're building.",
-    button: { label: "Say hello", href: "/contact" },
+    title: "Want to understand how we'd approach your brief?",
+    body: "Get 30 minutes with Linga or Somu. We'll ask the right questions, give you an honest read on fit, and outline what an engagement might look like — no deck, no pitch.",
+    button: { label: "Book a discovery call", href: "/contact" },
   },
 } as const;
 
 export const testimonials = [
   {
     quote:
-      "Thejands took our rough concept and shipped a production-ready app in weeks - clear updates, zero drama, and quality we didn't expect at that speed.",
+      "Thejands delivered a production-ready platform in weeks — clear communication throughout, zero drama, and quality we didn't expect at that pace. They flagged risks before they became problems, which saved us a full month of rework.",
     name: "Priya Sharma",
-    role: "COO, Fintech startup",
+    role: "COO",
+    company: "Enterprise Fintech",
+    result: "Delivered in 6 weeks",
   },
   {
     quote:
-      "Finally a team that speaks business and code in the same sentence. Somu's design sense and Linga's architecture gave us a product our customers actually compliment.",
+      "They understand both the business problem and the technical solution, which is rare. The platform they built became the backbone of our operations, and the handover was clean enough that our in-house team could own it immediately.",
     name: "Rahul Verma",
-    role: "Founder, D2C brand",
+    role: "Managing Director",
+    company: "Digital Commerce",
+    result: "Full IP handover",
   },
   {
     quote:
-      "Transparent timelines, weekly demos, and a codebase we could hand to our in-house team later. Exactly what we needed.",
+      "We needed a partner who could work alongside our internal team without friction. Thejands embedded seamlessly, met every milestone, and left us with documentation detailed enough that we didn't need them to stay on.",
     name: "Arun Kumar",
-    role: "Operations lead, Tamil Nadu",
+    role: "Head of Technology",
+    company: "Enterprise Operations",
+    result: "Zero rework post-handover",
   },
 ] as const;
 
 export const stats = [
-  { label: "Products shipped", value: "50+" },
-  { label: "Happy clients", value: "40+" },
-  { label: "Industries served", value: "12+" },
+  { label: "Enterprises served", value: "50+" },
+  { label: "Successful deliveries", value: "40+" },
+  { label: "Industries", value: "12+" },
   { label: "Countries", value: "8+" },
 ] as const;
 
 export const techStack = {
-  title: "Tools we trust",
-  subtitle: "Proven stacks - chosen for your product, not our comfort zone.",
+  title: "Technologies we deliver in",
+  subtitle:
+    "We select technology for your organisation's long-term maintainability, your team's existing capabilities, and your infrastructure constraints — not for what's trending.",
   items: [
     "React",
     "Next.js",
     "TypeScript",
     "Node.js",
-    "Astro",
+    "Python",
     "PostgreSQL",
     "AWS",
+    "Azure",
     "Docker",
+    "Kubernetes",
     "GraphQL",
     "MongoDB",
+    "Moodle",
     "Tailwind CSS",
-    "Vercel",
-    "Figma",
     "Flutter",
+    "React Native",
+    "Supabase",
+    "Stripe",
+    "Redis",
+    "Terraform",
   ],
 } as const;
+
+export const whyUs = [
+  {
+    icon: "users",
+    title: "Founders on every engagement",
+    body: "Linga and Somu are directly involved in every project — not account managers. You get senior judgment from kickoff to handover, not a bait-and-switch to juniors after the proposal.",
+  },
+  {
+    icon: "shield",
+    title: "Enterprise-ready delivery",
+    body: "Documented, tested, and secure by default. Our deliverables meet enterprise standards for code quality, security posture, and handover documentation — suitable for internal teams to own.",
+  },
+  {
+    icon: "zap",
+    title: "Fixed scope, honest timelines",
+    body: "We quote milestones, not open-ended retainers. You know the cost, the scope, and the timeline before we start. If something changes, we tell you in writing before it affects the plan.",
+  },
+  {
+    icon: "lock",
+    title: "Your IP, always",
+    body: "All code, designs, infrastructure, and deliverables belong to your organisation from day one. We provide clean exits, full handover documentation, and no lock-in of any kind.",
+  },
+] as const;
 
 export const faq = {
   title: "Questions, answered plainly",
   items: [
     {
-      question: "What kind of companies do you work with?",
+      question: "What size of organisations do you typically work with?",
       answer:
-        "Startups validating an idea, SMBs modernising operations, and product teams that need extra firepower. If you have a problem worth solving with software, we're interested.",
+        "Mid-market and enterprise organisations — typically 50 to 5,000 employees — who need a delivery partner with genuine technical depth. We also work with fast-growing companies that need to deliver at enterprise standards before they have the internal team to do so.",
     },
     {
-      question: "Do you only build MVPs?",
+      question: "Do you only do software development?",
       answer:
-        "No. We build MVPs, v2 rebuilds, mobile companions to existing products, and internal tools. Scope follows your stage - we won't upsell you into more than you need.",
+        "No. We do software and mobile development, technology consulting (including LMS implementation and EdTech platforms), and resource or partner engagements where we provide technical capacity alongside your team or a partner organisation. Most mandates blend two of these.",
     },
     {
-      question: "How do you price projects?",
+      question: "Can you implement and customise Moodle?",
       answer:
-        "Fixed-scope milestones or monthly retainers after discovery - never open-ended hourly mystery. You'll see a clear proposal before we write production code.",
+        "Yes. We have experience with Moodle implementation, configuration, custom plugin development, and integration with enterprise identity providers and HR systems. If you're evaluating an LMS or migrating from one, we can advise on fit and lead the technical delivery.",
     },
     {
-      question: "Who will I actually talk to?",
+      question: "How do you structure commercial engagements?",
       answer:
-        "Linga and Somu. Founders stay on your project - not account managers reading from a script.",
+        "Fixed-scope milestones for defined build or consulting work. Monthly retainers for ongoing capacity or advisory. We provide a written proposal with costs and deliverables before any work begins — no open-ended hourly arrangements.",
     },
     {
-      question: "What technologies do you use?",
+      question: "Do you offer white-label or partner delivery?",
       answer:
-        "Mostly TypeScript, React, Next.js, Node, and modern cloud infra. We pick tools for maintainability and your team's future, not trends.",
+        "Yes. We work under partner organisations' brands on client-facing work, provide engineering capacity for mandates partners can't fully staff, and support joint go-to-market arrangements. We can operate under NDA and with enterprise-grade contractual structures.",
     },
     {
-      question: "Can you work with our existing team?",
+      question: "Who will we actually work with?",
       answer:
-        "Yes. We embed alongside your designers or engineers, or hand off cleanly when you're ready to run solo.",
+        "Linga and Somu are on every engagement. For larger programmes, we bring in vetted specialists under our oversight — but you always have direct access to a founder as your primary point of accountability.",
+    },
+    {
+      question: "What does a typical engagement look like end to end?",
+      answer:
+        "Discovery call → written proposal → milestone-based delivery with regular reviews → final sign-off and handover. Timelines range from 6 weeks for focused builds to 6+ months for larger programmes. We'll give you a realistic estimate after discovery.",
     },
     {
       question: "How do we get started?",
       answer:
-        "Email hello@thejands.in or use the contact form. We'll reply within one business day with times for a short discovery call.",
+        "Submit an enquiry through the contact form or email hello@thejands.in with a brief description of the mandate. We'll respond within one business day and schedule a 30-minute discovery call with Linga or Somu.",
     },
   ],
 } as const;
 
 export const contactPage = {
-  title: "Let's build something worth shipping",
+  title: "Tell us about your requirement",
   subtitle:
-    "Tell us what you're making - even if it's still a napkin sketch. We'll reply with next steps, not a generic brochure.",
+    "Share a brief description of what you need — whether it's a software build, a consulting mandate, or a partnership conversation. We'll respond within one business day with an honest read on fit and suggested next steps.",
   formNote:
-    "We read every message. Typical reply: within 24 hours on business days.",
+    "Every enquiry is reviewed by Linga or Somu directly. Typical response: within one business day. For urgent or time-sensitive mandates, call us directly.",
 } as const;
 
 export const privacySection = {
-  title: "Your product ideas stay confidential",
-  body: "Roadmaps, designs, and source code belong to you. We treat every engagement under strict confidentiality - no portfolio leaks without your written OK.",
+  title: "Your requirements stay confidential",
+  body: "All briefs, technical discussions, and commercial conversations are treated as strictly confidential. We operate under NDA on request and do not share client information or project details without explicit written permission.",
 } as const;

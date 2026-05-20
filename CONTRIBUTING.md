@@ -1,39 +1,54 @@
-# Contributing to Astro Starter Pro
+# Contributing to Thejands (company website)
 
-First off, thank you for considering contributing to Astro Starter Pro! It's people like you that make this template better for everyone.
+Thank you for helping maintain the Thejands marketing site and admin tools. This repo is maintained by the Thejands team.
 
-## Code of Conduct
+## Before you start
 
-By participating in this project, you agree to maintain a respectful and inclusive environment.
+- Read [DESIGN.md](./DESIGN.md) for typography, color, and copy rules (no em dashes in user-facing text).
+- Use [LAUNCH_CHECKLIST.md](./LAUNCH_CHECKLIST.md) when changing production env, DNS, or third-party integrations.
+- Node **22.12+** is required (`nvm use 22` or `fnm use 22`).
 
-## How Can I Contribute?
+## Development setup
 
-### Reporting Bugs
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
 
-- Use the **GitHub Issues** tab.
-- Describe the bug and provide steps to reproduce it.
-- Include information about your environment (Browser, Node version, OS).
+Run checks before opening a PR:
 
-### Suggesting Enhancements
+```bash
+npm run fix
+npm run typecheck
+npm run build
+```
 
-- Open an issue with the tag `enhancement`.
-- Explain why this feature would be useful.
+Husky runs lint on commit and `npm run build` on push (with Node version check).
 
-### Pull Requests
+## Branching and commits
 
-1. **Prepare**: Ensure you are using Astro 5 and Tailwind 4.
-2. **Branching**: Use descriptive names like `fix/issue-name` or `feature/new-widget`.
-3. **Quality**: The project uses Git hooks (Husky) to automatically format your code on commit and check types on push. You can also run `npm run fix` and `npm run typecheck` manually if you prefer.
-4. **Commits**: Use clear, English commit messages.
-5. **PR Description**: Link the PR to any related issue (e.g., `Closes #123`).
+- Branch from `main` or the active feature branch: `feature/short-description`, `fix/issue-description`.
+- Write clear commit messages in English.
+- Keep PRs focused; link related issues when applicable.
 
-## Development Setup
+## Pull requests
 
-1. Fork and clone the repo.
-2. Install dependencies: `npm install`.
-3. Start dev server: `npm run dev`.
-4. Create a new branch for your work.
+1. Describe what changed and why.
+2. Note any new env vars in `.env.example` and LAUNCH_CHECKLIST if relevant.
+3. Confirm you tested locally (`npm run dev` or `npm run preview` after build).
+4. Screenshots help for UI changes.
+
+## What not to commit
+
+- `.env`, credentials, or service account JSON
+- Build output (`dist/`, `.vercel/`)
+- Unrelated refactors in the same PR
+
+## Reporting issues
+
+Use GitHub Issues in [Thejands/company-website](https://github.com/Thejands/company-website) with steps to reproduce, expected vs actual behavior, and your Node version.
 
 ---
 
-Thank you for your support! 🚀
+Questions about brand or copy: align with [DESIGN.md](./DESIGN.md) and existing page tone on thejands.in.
