@@ -222,27 +222,19 @@ export const aboutPage = {
 export const testimonials = [
   {
     quote:
-      "Thejands delivered a production-ready platform in weeks — clear communication throughout, zero drama, and quality we didn't expect at that pace. They flagged risks before they became problems, which saved us a full month of rework.",
-    name: "Priya Sharma",
-    role: "COO",
-    company: "Enterprise Fintech",
-    result: "Delivered in 6 weeks",
+      "We gave them a rough brief on a Monday. By Thursday they'd already pushed a working prototype and flagged two things in our spec that would've caused problems later. Ended up shipping three weeks ahead of what we'd planned.",
+    name: "Arjun Nair",
+    role: "Product Lead",
+    company: "SaaS Platform",
+    result: "3 weeks early",
   },
   {
     quote:
-      "They understand both the business problem and the technical solution, which is rare. The platform they built became the backbone of our operations, and the handover was clean enough that our in-house team could own it immediately.",
-    name: "Rahul Verma",
-    role: "Managing Director",
-    company: "Digital Commerce",
-    result: "Full IP handover",
-  },
-  {
-    quote:
-      "We needed a partner who could work alongside our internal team without friction. Thejands embedded seamlessly, met every milestone, and left us with documentation detailed enough that we didn't need them to stay on.",
-    name: "Arun Kumar",
-    role: "Head of Technology",
-    company: "Enterprise Operations",
-    result: "Zero rework post-handover",
+      "Honestly what stood out was they told us upfront what wouldn't work. We nearly went with a bad architecture call — they pushed back, explained why, and we changed course before writing a single line. That conversation alone saved us months.",
+    name: "Meera Krishnan",
+    role: "CTO",
+    company: "Enterprise EdTech",
+    result: "Zero scope creep",
   },
 ] as const;
 
@@ -278,6 +270,16 @@ export const techStack = {
     "Stripe",
     "Redis",
     "Terraform",
+    "Hover",
+    "Vercel",
+    "Prisma",
+    "tRPC",
+    "Go",
+    "GitHub Actions",
+    "Figma",
+    "Cloudflare",
+    "Fastify",
+    "Astro",
   ],
 } as const;
 

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@fontsource-variable/geist";
 
 @theme {
   --color-primary: #000000;
@@ -21,7 +22,8 @@
   --color-terminal-green: #27c93f;
   --color-focus-ring: rgba(59, 130, 246, 0.5);
   --spacing-section: 5.5rem;
-  --font-display: "Nunito", system-ui, -apple-system, sans-serif;
+  --font-display:
+    "Geist Variable", "Geist", system-ui, -apple-system, sans-serif;
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono:
@@ -439,6 +441,47 @@
     color: var(--color-charcoal);
   }
 
+  /* ── Tech-stack infinite marquee ─────────────────────────────────── */
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .marquee-viewport {
+    overflow: hidden;
+    /* Edge fades */
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 0.625rem;
+    animation: marquee-scroll 45s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .fade-in {
       opacity: 1;
@@ -452,6 +495,11 @@
 
     .gradient-orb {
       animation: none;
+    }
+
+    .marquee-track {
+      animation: none;
+      flex-wrap: wrap;
     }
   }
 }
