@@ -4,7 +4,9 @@ interface ImportMetaEnv {
   readonly PUBLIC_SITE_ENV?: "production" | "staging";
   readonly PUBLIC_GTM_ID?: string;
   readonly PUBLIC_RECAPTCHA_SITE_KEY?: string;
-  readonly RECAPTCHA_SECRET_KEY?: string;
+  // reCAPTCHA Enterprise server-side vars (non-PUBLIC — never sent to the browser)
+  readonly RECAPTCHA_ENTERPRISE_API_KEY?: string; // Google Cloud API Key (starts with "AIza…")
+  readonly RECAPTCHA_PROJECT_ID?: string; // GCP project ID (e.g. "thejands-website")
   readonly RESEND_API_KEY?: string;
   readonly RESEND_FROM_EMAIL?: string;
   readonly CONTACT_NOTIFY_EMAIL?: string;
