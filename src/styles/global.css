@@ -451,6 +451,15 @@
     }
   }
 
+  @keyframes marquee-scroll-reverse {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
   .marquee-viewport {
     overflow: hidden;
     /* Edge fades */
@@ -478,7 +487,16 @@
     will-change: transform;
   }
 
-  .marquee-track:hover {
+  .marquee-track-reverse {
+    display: flex;
+    width: max-content;
+    gap: 0.625rem;
+    animation: marquee-scroll-reverse 50s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-track:hover,
+  .marquee-track-reverse:hover {
     animation-play-state: paused;
   }
 
@@ -497,7 +515,8 @@
       animation: none;
     }
 
-    .marquee-track {
+    .marquee-track,
+    .marquee-track-reverse {
       animation: none;
       flex-wrap: wrap;
     }

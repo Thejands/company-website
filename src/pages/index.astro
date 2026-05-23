@@ -6,6 +6,7 @@ import SnippetPill from "@/components/ui/SnippetPill.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
 import HomeBento from "@/components/sections/HomeBento.astro";
 import StickyShowcase from "@/components/sections/StickyShowcase.astro";
+import { Icon } from "astro-icon/components";
 import { home, testimonials, techStack, stats, whyUs } from "@/config/content";
 import { siteConfig } from "@/config/site";
 
@@ -269,7 +270,7 @@ const whyIconRects: Record<
     </div>
   </section>
 
-  <!-- Tech stack — infinite marquee -->
+  <!-- Tech stack — dual-row bidirectional infinite marquee -->
   <section class="section-spacing border-t border-hairline/60 overflow-hidden">
     <div class="container-page text-center">
       <h2 class="fade-in mx-auto font-display text-display-lg text-ink">
@@ -280,7 +281,7 @@ const whyIconRects: Record<
       </p>
     </div>
 
-    <!-- Full-bleed marquee — sits outside container-page so it bleeds edge to edge -->
+    <!-- Row 1 — scrolls left (→) -->
     <div
       class="marquee-viewport mt-10"
       aria-label="Technology list"
@@ -288,14 +289,40 @@ const whyIconRects: Record<
     >
       <div class="marquee-track py-1">
         {
-          /* Duplicate the list once so the scroll loops seamlessly */
-          [...techStack.items, ...techStack.items].map((name, i) => (
+          [...techStack.items, ...techStack.items].map((item, i) => (
             <span
-              class="shrink-0 cursor-default rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-colors hover:border-ink/40 hover:text-ink"
+              class="inline-flex shrink-0 cursor-default items-center gap-2 rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-colors hover:border-ink/40 hover:text-ink"
               role="listitem"
               aria-hidden={i >= techStack.items.length ? "true" : "false"}
             >
-              {name}
+              <Icon
+                name={item.icon}
+                class="size-4 shrink-0"
+                aria-hidden="true"
+              />
+              {item.name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Row 2 — scrolls right (←), offset start so rows feel staggered -->
+    <div class="marquee-viewport mt-3" aria-hidden="true">
+      <div class="marquee-track-reverse py-1">
+        {
+          /* Reverse the item order for visual variety */
+          [
+            ...[...techStack.items].reverse(),
+            ...[...techStack.items].reverse(),
+          ].map((item) => (
+            <span class="inline-flex shrink-0 cursor-default items-center gap-2 rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-colors hover:border-ink/40 hover:text-ink">
+              <Icon
+                name={item.icon}
+                class="size-4 shrink-0"
+                aria-hidden="true"
+              />
+              {item.name}
             </span>
           ))
         }
