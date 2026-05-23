@@ -218,9 +218,9 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
         >
       </a>
 
-      <!-- Stats: remaining -->
+      <!-- Stats: remaining (capped at 3 total — "Countries" lives in the top stats strip only) -->
       {
-        stats.slice(2).map((s) => (
+        stats.slice(2, 3).map((s) => (
           <div class="bento-cell bento-stat fade-in p-6" role="listitem">
             <p class="font-display text-2xl font-semibold text-ink">
               {s.value}
