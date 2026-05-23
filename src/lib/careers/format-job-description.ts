@@ -6,6 +6,13 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
+/** Process inline markdown: **bold** and _italic_ (after HTML escaping). */
+function processInline(text: string): string {
+  return escapeHtml(text)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/_(.+?)_/g, "<em>$1</em>");
+}
+
 /** Turn admin markdown-style job text into HTML for the careers page. */
 export function formatJobDescription(text: string): string {
   const lines = text.trim().split("\n");
@@ -21,8 +28,20 @@ export function formatJobDescription(text: string): string {
 
   for (const line of lines) {
     const trimmed = line.trim();
+
+    // Blank line — close any open list, skip
     if (!trimmed) {
       closeList();
+      continue;
+    }
+
+    // Skip h1 headings (job title is already shown in the page header)
+    if (trimmed.startsWith("# ") && !trimmed.startsWith("## ")) {
+      continue;
+    }
+
+    // Skip --- separators (sections are visually divided by h2 headings)
+    if (trimmed === "---") {
       continue;
     }
 
@@ -37,10 +56,10 @@ export function formatJobDescription(text: string): string {
         html.push("<ul>");
         inList = true;
       }
-      html.push(`<li>${escapeHtml(trimmed.slice(2))}</li>`);
+      html.push(`<li>${processInline(trimmed.slice(2))}</li>`);
     } else {
       closeList();
-      html.push(`<p>${escapeHtml(trimmed)}</p>`);
+      html.push(`<p>${processInline(trimmed)}</p>`);
     }
   }
 

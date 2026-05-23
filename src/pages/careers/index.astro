@@ -6,6 +6,25 @@ import PageHero from "@/components/ui/PageHero.astro";
 import Button from "@/components/ui/Button.astro";
 import { getSupabasePublic, type Database } from "@/lib/supabase/server";
 
+function formatEmploymentType(raw: string | null): string {
+  if (!raw) return "";
+  const map: Record<string, string> = {
+    full_time: "Full-time",
+    part_time: "Part-time",
+    internship: "Internship",
+    contract: "Contract",
+    "full-time": "Full-time",
+    "part-time": "Part-time",
+  };
+  return map[raw.toLowerCase()] ?? raw.replace(/_/g, "-");
+}
+
+function formatLocation(raw: string | null): string {
+  if (!raw) return "";
+  const parts = raw.split(", ");
+  return parts.length >= 3 ? parts.slice(1).join(", ") : raw;
+}
+
 type PublishedJob = Pick<
   Database["public"]["Tables"]["jobs"]["Row"],
   | "slug"
@@ -71,7 +90,7 @@ if (supabase) {
       })}
     />
   </Fragment>
-  <section class="section-spacing border-b border-hairline">
+  <section class="border-b border-hairline py-12">
     <div class="container-page">
       <PageHero
         title="Work with us"
@@ -81,8 +100,8 @@ if (supabase) {
     </div>
   </section>
 
-  <section class="section-spacing pb-20">
-    <div class="container-page max-w-3xl">
+  <section class="py-12 pb-20">
+    <div class="container-page max-w-5xl">
       {
         openRoles.length === 0 ? (
           <div class="card-interactive p-8 text-center">
@@ -111,7 +130,11 @@ if (supabase) {
                     {job.title}
                   </h2>
                   <p class="mt-1 text-body-sm text-mute">
-                    {[job.department, job.location, job.employment_type]
+                    {[
+                      job.department,
+                      formatLocation(job.location),
+                      formatEmploymentType(job.employment_type),
+                    ]
                       .filter(Boolean)
                       .join(" · ")}
                   </p>
