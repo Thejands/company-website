@@ -21,6 +21,9 @@ const whyIcons: Record<string, string[]> = {
   shield: ["M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"],
   zap: ["M13 2 3 14h9l-1 8 10-12h-9l1-8z"],
   lock: ["M7 11V7a5 5 0 0 1 10 0v4"],
+  cpu: [
+    "M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18",
+  ],
 };
 
 const whyIconRects: Record<
@@ -133,6 +136,14 @@ const whyIconRects: Record<
             White-label development
           </a>
         </li>
+        <li>
+          <a
+            href="/services/ai-data-solutions"
+            class="rounded-full border border-hairline bg-canvas px-3.5 py-1.5 font-medium text-ink transition-colors hover:border-ink"
+          >
+            AI & data solutions
+          </a>
+        </li>
       </ul>
     </div>
   </section>
@@ -171,7 +182,9 @@ const whyIconRects: Record<
           shows up to every demo, and ships what we scope.
         </p>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div
+        class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+      >
         {
           whyUs.map((item) => (
             <div class="card-interactive fade-in flex flex-col gap-4 p-6">

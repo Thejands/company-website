@@ -1,17 +1,18 @@
 /** Central content — enterprise partner positioning for Thejands */
 
 export const home = {
-  eyebrow: "Enterprise Software · Consulting · Digital Products · Partnerships",
+  eyebrow:
+    "Enterprise Software · AI Solutions · LMS Consulting · Digital Products",
   headline: "Enterprise-grade delivery.\nPartner-level commitment.",
   subhead:
-    "Thejands works alongside large organisations, growing companies, and technology teams to build software, implement platforms, and consult on the projects that matter most — with founders accountable for every outcome.",
+    "Thejands builds enterprise software, integrates AI capabilities into existing platforms, and consults on technology strategy for organisations that need senior expertise and accountable delivery — with founders on every engagement.",
   primaryCta: { label: "Start a conversation", href: "/contact" },
   secondaryCta: { label: "See our work", href: "/services" },
   proof: [
-    "Enterprise-scale delivery capability",
-    "Software, mobile & platform build",
-    "LMS & EdTech consulting",
-    "Resource & partner engagements",
+    "Enterprise software & AI product builds",
+    "LMS implementation & EdTech consulting",
+    "AI agents, automation & data intelligence",
+    "Resource, partner & white-label engagements",
   ],
 } as const;
 
@@ -48,9 +49,9 @@ export const stickyShowcase = {
 } as const;
 
 export const servicesPage = {
-  title: "What we do",
+  title: "What we build & deliver",
   subtitle:
-    "From enterprise software builds to LMS implementations and technology consulting — we work at the intersection of strategy, engineering, and delivery. Pick a capability or tell us the outcome and we'll map the right engagement.",
+    "Enterprise software, AI solutions, LMS implementations, and technology consulting — we work at the intersection of strategy, engineering, and delivery. Pick a capability or describe the outcome and we'll map the right engagement.",
   offerings: [
     {
       id: "software",
@@ -98,6 +99,22 @@ export const servicesPage = {
         "Joint go-to-market on digital product mandates",
         "Retainer-based capacity for ongoing demand",
         "NDAs, SLAs & enterprise-grade contract structures",
+      ],
+    },
+    {
+      id: "ai-data",
+      name: "AI & Data Solutions",
+      tagline: "Intelligence built into your product",
+      icon: "cpu",
+      description:
+        "We design and integrate AI capabilities into enterprise platforms — from generative AI features and intelligent automation to ML pipelines, RAG-powered knowledge systems, and custom AI agents. Whether embedding AI into an existing product or building an AI-native application from the ground up, we architect for production reliability, data security, and enterprise-grade maintainability — not just proof-of-concept demos.",
+      features: [
+        "LLM integration — GPT-4o, Claude, Gemini, Llama (cloud + on-premise)",
+        "RAG systems, vector search & enterprise knowledge bases",
+        "Custom AI agents and agentic workflow automation",
+        "ML pipelines, predictive analytics & model deployment",
+        "Intelligent document processing, classification & data extraction",
+        "AI strategy advisory — use-case identification to production roadmap",
       ],
     },
   ],
@@ -166,7 +183,7 @@ export const aboutPage = {
     title: "Why Thejands exists",
     paragraphs: [
       "Large organisations often face the same problem — the partners they can trust are too expensive, and the ones they can afford aren't senior enough. Thejands was built to close that gap.",
-      "Linga and Somu founded Thejands to deliver enterprise-grade software and consulting with the accountability of a founder-led team. That means senior people on every engagement, not juniors supervised from a distance.",
+      "Linga and Somu founded Thejands to deliver enterprise-grade software and consulting with the accountability of a founder-led team. That means senior people on every engagement, not juniors supervised from a distance. Today that includes building AI-powered products, integrating LLMs into enterprise platforms, and delivering the intelligent automation capabilities modern organisations need alongside traditional software and consulting.",
       "Today we work with enterprises, mid-market companies, and technology teams who need a partner with genuine depth — whether that's building a platform, implementing an LMS, or providing technical resource for a programme they can't fully staff internally.",
     ],
   },
@@ -236,13 +253,21 @@ export const testimonials = [
     company: "Enterprise EdTech",
     result: "Zero scope creep",
   },
+  {
+    quote:
+      "We needed AI integrated into a platform already serving 50,000 users — no downtime, no scope creep, tight timeline. Thejands scoped it in a week, built the RAG pipeline and LLM integration in five, and it has been live without incident since. Exactly what they promised.",
+    name: "Priya Sundarajan",
+    role: "Head of Product",
+    company: "Enterprise SaaS",
+    result: "5-week AI integration",
+  },
 ] as const;
 
 export const stats = [
   { label: "Enterprises served", value: "50+" },
-  { label: "Successful deliveries", value: "40+" },
+  { label: "Projects delivered", value: "60+" },
   { label: "Industries", value: "12+" },
-  { label: "Countries", value: "3+" },
+  { label: "Countries", value: "5+" },
 ] as const;
 
 export const techStack = {
@@ -304,6 +329,11 @@ export const whyUs = [
     title: "Your IP, always",
     body: "All code, designs, infrastructure, and deliverables belong to your organisation from day one. We provide clean exits, full handover documentation, and no lock-in of any kind.",
   },
+  {
+    icon: "cpu",
+    title: "AI-ready from day one",
+    body: "We integrate generative AI, LLM-powered features, and intelligent automation into enterprise products — with production reliability and enterprise data security at the core, not as afterthoughts added later.",
+  },
 ] as const;
 
 export const faq = {
@@ -348,6 +378,11 @@ export const faq = {
       question: "How do we get started?",
       answer:
         "Submit an enquiry through the contact form or email hello@thejands.in with a brief description of the mandate. We'll respond within one business day and schedule a 30-minute discovery call with Linga or Somu.",
+    },
+    {
+      question: "Can you integrate AI or LLMs into our existing platform?",
+      answer:
+        "Yes. AI integration is a growing part of our work — from LLM-powered features and RAG document intelligence to custom AI agents and ML pipelines embedded into enterprise products. We work with OpenAI (GPT-4o), Anthropic (Claude), Google (Gemini), and open-source models (Llama, Mistral) depending on your data residency constraints and cost model. Engagements follow the same fixed-scope structure: discovery, written proposal, milestone delivery, and full IP transfer. Our fastest LLM integration to production: five weeks.",
     },
   ],
 } as const;

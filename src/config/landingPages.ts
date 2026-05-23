@@ -664,9 +664,182 @@ export const whiteLabelDevelopment: LandingPage = {
   ],
 };
 
+export const aiDataSolutions: LandingPage = {
+  slug: "ai-data-solutions",
+  primaryKeyword: "AI solutions for enterprise India",
+  title: "AI & Data Solutions — Enterprise LLM Integration & Automation",
+  description:
+    "Thejands integrates generative AI, LLM-powered features, RAG systems, and intelligent automation into enterprise platforms. Founder-led AI engineering with full IP ownership and production-grade security.",
+  keywords:
+    "AI solutions India, LLM integration enterprise, generative AI development India, RAG system development, AI agent development, ML pipeline India, enterprise AI consulting, OpenAI GPT integration India, Claude LLM integration",
+  heading: "AI & Data Solutions for Enterprise",
+  eyebrow: "AI · LLM · Automation · Data Intelligence",
+  definition:
+    "Thejands designs and integrates AI capabilities into enterprise software platforms — including large language model (LLM) integration using GPT-4o, Claude, Gemini, and Llama; retrieval-augmented generation (RAG) systems and vector-search knowledge bases; custom AI agents and agentic workflow automation; ML pipelines with model deployment on AWS, Azure, or GCP; and intelligent document processing for classification, extraction, and summarisation. Engagements follow the same fixed-scope model as software builds — discovery, written proposal, milestone delivery, and full IP transfer — with enterprise data security and on-premise model options available.",
+  tldr: [
+    { label: "Typical timeline", value: "4–14 weeks" },
+    { label: "Engagement model", value: "Fixed-scope milestones" },
+    { label: "Models supported", value: "GPT-4o · Claude · Gemini · Llama" },
+    { label: "Deployment", value: "Cloud · on-premise · hybrid" },
+    { label: "Standards", value: "OWASP LLM Top 10 · data residency" },
+    { label: "IP ownership", value: "Full client ownership from day one" },
+  ],
+  sections: [
+    {
+      heading: "What 'production-ready AI' means at Thejands",
+      body: "Most AI proof-of-concepts fail to reach production because they ignore enterprise constraints: data security, latency SLAs, cost predictability, observability, and integration with existing authentication and data systems. At Thejands, AI engagements are scoped and delivered with the same rigour as enterprise software builds — with structured logging, error handling, rate-limit management, prompt versioning, and handover documentation your internal team can maintain without further dependency on us.",
+    },
+    {
+      heading: "AI capabilities we deliver",
+      body: "Engagements are scoped against the specific capability the organisation needs — not a generic 'AI transformation' programme.",
+      bullets: [
+        "LLM integration: GPT-4o, Claude 3.5 Sonnet/Opus, Gemini 1.5 Pro, Llama 3.1 (hosted or on-premise via Ollama, vLLM)",
+        "RAG systems: vector embeddings, semantic search, document chunking, re-ranking pipelines",
+        "AI agents: multi-step task automation, tool-calling agents, agentic workflows with human-in-the-loop",
+        "ML pipelines: feature engineering, model training, evaluation, deployment on AWS SageMaker / Azure ML / Vertex AI",
+        "Document intelligence: PDF/OCR extraction, classification, structured data extraction, contract analysis",
+        "Conversational AI: enterprise chatbots, internal knowledge assistants, customer-facing AI with guardrails",
+        "Vector databases: Pinecone, Weaviate, pgvector, Qdrant — chosen against retrieval requirements",
+      ],
+    },
+    {
+      heading: "Data security and residency",
+      body: "Enterprise AI workloads often involve sensitive data. Thejands architectures for data residency and security from the start — not as an afterthought. We have experience deploying on-premise LLMs (Llama, Mistral) using Ollama and vLLM where data must not leave the client's infrastructure, and configuring Azure OpenAI Service and Vertex AI where managed cloud with regional data residency is acceptable. All AI integrations include prompt injection mitigation, output validation, and access control aligned with your existing IAM.",
+    },
+    {
+      heading: "Engagement structure for AI projects",
+      body: "AI projects require a tighter discovery process than standard software builds because the feasibility of a given approach depends heavily on data quality, existing system architecture, and model capability boundaries. Our AI engagements typically follow: a technical feasibility discovery (1–2 weeks), a written proposal with approach, model selection rationale, and milestone breakdown, a prototype phase with evaluation metrics agreed upfront, and a production build phase with CI/CD, monitoring, and documentation. Cost is fixed at milestone boundaries, not hourly.",
+    },
+  ],
+  comparison: {
+    title:
+      "Thejands AI delivery vs off-the-shelf AI tools vs large consultancy",
+    alternativeLabel: "AI SaaS tool / Big-4 AI practice",
+    rows: [
+      {
+        dimension: "Customisation depth",
+        thejands: "Fully custom, integrated into your platform",
+        alternative: "Limited to vendor API / generic solution",
+      },
+      {
+        dimension: "Data residency",
+        thejands: "On-premise or chosen cloud region",
+        alternative: "Vendor cloud (limited control)",
+      },
+      {
+        dimension: "IP ownership",
+        thejands: "Full client ownership from day one",
+        alternative: "Vendor-owned (SaaS) · varies (consultancy)",
+      },
+      {
+        dimension: "Seniority on the work",
+        thejands: "Founders involved at every milestone",
+        alternative: "Variable — often junior staff (Big-4)",
+      },
+      {
+        dimension: "Pricing model",
+        thejands: "Fixed-scope milestones",
+        alternative: "Per-seat subscription / T&M billing",
+      },
+      {
+        dimension: "Production readiness",
+        thejands: "Enterprise-grade security and observability",
+        alternative: "Demo-quality by default (SaaS)",
+      },
+    ],
+  },
+  faqs: [
+    {
+      question:
+        "How long does it take to integrate an LLM into an existing platform?",
+      answer:
+        "A focused LLM integration — for example, adding a RAG-powered knowledge assistant to an existing web application — typically takes 4 to 8 weeks end-to-end. The variables are: data pipeline complexity, the number of existing system integrations, security and access control requirements, and the client's review velocity. Thejands provides a written timeline in the proposal stage after a technical feasibility discovery.",
+    },
+    {
+      question: "Which AI model should we use — GPT-4o, Claude, or Gemini?",
+      answer:
+        "Model selection depends on your specific use case, data residency requirements, latency needs, and cost constraints. GPT-4o is strongest for general reasoning and code generation; Claude 3.5 Sonnet excels at long-context document analysis; Gemini 1.5 Pro has a large context window suited for multi-document tasks. For organisations where data cannot leave their infrastructure, open-source models like Llama 3.1 deployed on-premise are the right choice. Thejands makes model recommendations in the written proposal after evaluating your requirements, not before.",
+    },
+    {
+      question:
+        "Can you build an AI agent that automates our internal workflows?",
+      answer:
+        "Yes. AI agent development is a growing part of our work. We build tool-calling agents that interact with internal APIs, databases, and third-party services — with structured task decomposition, error recovery, and human-in-the-loop checkpoints for decisions that require human approval. Agents are deployed on your infrastructure with full observability.",
+    },
+    {
+      question:
+        "How do you handle the security risks of using LLMs in enterprise software?",
+      answer:
+        "We follow the OWASP LLM Top 10 as a baseline for AI security. This covers prompt injection, sensitive data exposure, insecure output handling, model denial-of-service, and supply chain risks. Every AI integration includes input validation, output sanitisation, rate limiting, audit logging, and role-based access control aligned with the client's existing IAM. For sensitive workloads, we recommend on-premise model deployment to eliminate data transfer risks.",
+    },
+    {
+      question: "What is a RAG system and do we need one?",
+      answer:
+        "Retrieval-Augmented Generation (RAG) is an architecture that augments an LLM's responses with content retrieved from your own document corpus or knowledge base — so the AI answers questions based on your organisation's specific data rather than general training data. You need a RAG system if you want an AI assistant that can accurately answer questions about internal policies, product documentation, contracts, or any proprietary knowledge that was not in the LLM's training data.",
+    },
+    {
+      question: "Will we own the AI code and models?",
+      answer:
+        "Yes. All integration code, RAG pipelines, agent logic, prompt templates, and fine-tuned model weights belong to the client from day one. Thejands retains no IP. The base LLM models (GPT-4o, Claude, etc.) are subject to their respective provider terms, but the integration, orchestration, and customisation layer is fully client-owned.",
+    },
+  ],
+  authorities: [
+    {
+      label: "OWASP LLM Top 10 security risks",
+      url: "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    },
+    {
+      label: "OpenAI API documentation",
+      url: "https://platform.openai.com/docs",
+    },
+    {
+      label: "Anthropic Claude documentation",
+      url: "https://docs.anthropic.com",
+    },
+    {
+      label: "LangChain framework docs",
+      url: "https://python.langchain.com/docs/introduction/",
+    },
+  ],
+  serviceType: "AI & Data Solutions",
+  serviceCatalog: [
+    {
+      name: "LLM integration",
+      description:
+        "Integration of GPT-4o, Claude, Gemini, or open-source models into existing enterprise platforms with full security and observability.",
+    },
+    {
+      name: "RAG system development",
+      description:
+        "Retrieval-augmented generation pipelines with vector databases, document ingestion, semantic search, and re-ranking.",
+    },
+    {
+      name: "AI agent development",
+      description:
+        "Custom AI agents with tool-calling, multi-step reasoning, and human-in-the-loop workflows for internal automation.",
+    },
+    {
+      name: "ML pipeline & model deployment",
+      description:
+        "End-to-end ML pipelines from feature engineering and training to production deployment on AWS SageMaker, Azure ML, or Vertex AI.",
+    },
+    {
+      name: "Document intelligence",
+      description:
+        "Intelligent document processing for extraction, classification, and summarisation of unstructured data from PDFs, emails, and forms.",
+    },
+    {
+      name: "AI strategy advisory",
+      description:
+        "Use-case identification, feasibility assessment, model selection, and production roadmap for organisations beginning their AI journey.",
+    },
+  ],
+};
+
 export const allLandingPages: LandingPage[] = [
   moodleImplementation,
   lmsConsulting,
   enterpriseSoftware,
   whiteLabelDevelopment,
+  aiDataSolutions,
 ];
