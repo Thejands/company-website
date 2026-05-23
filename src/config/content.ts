@@ -16,33 +16,33 @@ export const home = {
 } as const;
 
 export const stickyShowcase = {
-  title: "Built with intention",
+  title: "How we ship faster",
   subtitle:
-    "Every engagement follows the same rhythm — understand the business, define the solution, deliver with precision. Here's how we work with you.",
+    "Most teams lose weeks to misaligned scope, vague proposals, and status meetings. We cut all of that — and ship production-quality work in the time others spend planning.",
   items: [
     {
       id: "discover",
-      title: "Understand the brief",
+      title: "Scope it in one session",
       icon: "search",
-      body: "We invest time upfront to understand your organisation's constraints, technical landscape, and what success actually looks like. Whether it's a full product build, a platform migration, or a consulting mandate — we ask the hard questions before we propose anything. You get a scoped plan, not a vague proposal.",
+      body: "A single 60-minute discovery call with the right stakeholders is enough to define the problem, agree the constraints, and identify risks — before we write a single line of proposal. You get a scoped written proposal within 24 hours of that call, not five rounds of back-and-forth. We ask the hard questions so you don't have to revisit scope mid-delivery.",
     },
     {
       id: "design",
-      title: "Architect the solution",
+      title: "Align before building",
       icon: "pen-tool",
-      body: "From system architecture to interface design — we define the solution in enough detail that every stakeholder can align before we build. Prototypes, technical specs, and implementation plans are shared early so there are no surprises downstream. Your team reviews and approves before we write production code.",
+      body: "Architecture decisions, interface direction, and implementation approach are locked in writing before we build — which means no costly pivots later. We produce technical specs and prototypes that your team can review and approve in days, not weeks. Misaligned requirements are the single biggest cause of slow delivery. We remove them at the start.",
     },
     {
       id: "build",
-      title: "Deliver in the open",
+      title: "Ship in 1–2 week cycles",
       icon: "code",
-      body: "Iterative delivery with direct access to the people doing the work. Regular demos, written progress updates, and a codebase or deliverable that meets enterprise standards for quality, security, and maintainability. No junior staff rotations, no black-box delivery.",
+      body: "Work moves in short, visible cycles with live demos every sprint. You see real increments, not slide decks. The engineers doing the work are directly reachable — there are no account managers relaying feedback. Issues are raised the moment they're spotted, not at milestone deadlines. Our fastest production-ready build: 6 weeks from brief to launch.",
     },
     {
       id: "launch",
-      title: "Deploy & hand over",
+      title: "Hand over clean, keep moving",
       icon: "rocket",
-      body: "Production releases with documentation, monitoring, and clean handover to your internal teams. We stay close post-launch and support any stabilisation period. If you want us to continue as an embedded partner, we have retainer models for that too.",
+      body: "Every production release ships with documentation your internal team can actually use, a knowledge transfer session, and 30 days of stabilisation support. No open questions, no dependencies on us. If your timeline demands ongoing velocity, we offer retainer models that keep the team live without restarting the ramp-up cycle.",
     },
   ],
 } as const;
@@ -58,14 +58,14 @@ export const servicesPage = {
       tagline: "Enterprise-grade, built to last",
       icon: "terminal",
       description:
-        "We design and build web applications, mobile products, and custom software for organisations that need more than an off-the-shelf solution. Our delivery meets enterprise standards: documented, tested, secure, and maintainable by your internal teams after handover.",
+        "We design and build web applications, mobile products, and custom software for organisations that need more than an off-the-shelf solution. Deliverables meet enterprise standards: documented, tested, security-hardened, and maintainable by your internal teams after handover — with zero lock-in. Typical build engagements run 6–24 weeks on fixed-scope milestones.",
       features: [
-        "React, Next.js, Node.js & TypeScript platforms",
-        "Mobile apps (React Native & Flutter) for iOS and Android",
-        "API design, microservices & cloud infrastructure",
-        "SaaS products, internal tools & customer portals",
-        "CI/CD, security hardening & observability",
-        "Codebase handover with full documentation",
+        "React, Next.js, Node.js & TypeScript web platforms",
+        "Mobile apps for iOS and Android — React Native & Flutter",
+        "API design, microservices & cloud infrastructure (AWS · Azure)",
+        "SaaS products, internal tools & customer-facing portals",
+        "CI/CD pipelines, security hardening & observability",
+        "Full codebase handover with documentation & 30-day support",
       ],
     },
     {
@@ -74,10 +74,10 @@ export const servicesPage = {
       tagline: "Strategy that translates to action",
       icon: "layers",
       description:
-        "We consult at the project, platform, and programme level — from technology strategy and vendor selection to LMS implementation, digital transformation, and resource advisory. We bring senior-level thinking without the senior-firm price tag.",
+        "We consult at the project, platform, and programme level — from technology strategy and vendor selection to LMS implementation, digital transformation, and interim technical leadership. We bring senior-level thinking — Linga and Somu on every mandate — without the senior-firm overhead. Engagements run as day-rate advisory or structured sprints with written deliverables.",
       features: [
-        "LMS implementation & customisation (Moodle & others)",
-        "EdTech platform strategy and rollout",
+        "Moodle LMS implementation, customisation & plugin development",
+        "EdTech platform strategy, LMS selection & migration",
         "Technology due diligence & architecture review",
         "Digital transformation roadmapping",
         "Vendor selection, RFP support & evaluation",
@@ -104,7 +104,7 @@ export const servicesPage = {
   cta: {
     title: "Not sure which engagement fits?",
     body: "Most of our mandates blend two or three of these capabilities. Describe the outcome you need — we'll propose the right shape, team, and commercial structure to match.",
-    button: { label: "Talk to us", href: "/contact" },
+    button: { label: "Start a conversation", href: "/contact" },
   },
 } as const;
 
@@ -215,7 +215,7 @@ export const aboutPage = {
   cta: {
     title: "Want to understand how we'd approach your brief?",
     body: "Get 30 minutes with Linga or Somu. We'll ask the right questions, give you an honest read on fit, and outline what an engagement might look like — no deck, no pitch.",
-    button: { label: "Book a discovery call", href: "/contact" },
+    button: { label: "Start a conversation", href: "/contact" },
   },
 } as const;
 
@@ -250,7 +250,7 @@ export const stats = [
   { label: "Enterprises served", value: "50+" },
   { label: "Successful deliveries", value: "40+" },
   { label: "Industries", value: "12+" },
-  { label: "Countries", value: "8+" },
+  { label: "Countries", value: "3+" },
 ] as const;
 
 export const techStack = {
