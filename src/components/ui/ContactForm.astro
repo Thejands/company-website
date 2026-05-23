@@ -17,6 +17,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     id="form-status"
     class="hidden rounded-lg border p-4 text-body-sm"
     role="status"
+    aria-live="polite"
   >
   </div>
 
@@ -66,32 +67,31 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     ></textarea>
   </div>
 
+  <Button type="submit" id="contact-submit">Send message</Button>
+
   {
     recaptchaSiteKey ? (
-      <div>
-        <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} />
-        <p class="mt-2 text-caption-sm text-mute">
-          Protected by reCAPTCHA.{" "}
-          <a
-            href="https://policies.google.com/privacy"
-            class="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Privacy
-          </a>{" "}
-          &{" "}
-          <a
-            href="https://policies.google.com/terms"
-            class="underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Terms
-          </a>
-          .
-        </p>
-      </div>
+      <p class="text-caption-sm text-mute">
+        Protected by reCAPTCHA Enterprise.{" "}
+        <a
+          href="https://policies.google.com/privacy"
+          class="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Privacy
+        </a>{" "}
+        &{" "}
+        <a
+          href="https://policies.google.com/terms"
+          class="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Terms
+        </a>
+        .
+      </p>
     ) : (
       <p class="rounded-lg border border-hairline bg-surface-soft/80 p-4 text-body-sm text-body">
         Set <code class="font-mono text-ink">PUBLIC_RECAPTCHA_SITE_KEY</code> to
@@ -105,17 +105,22 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       </p>
     )
   }
-
-  <Button type="submit" id="contact-submit">Send message</Button>
 </form>
 
 {
+  /* Enterprise invisible reCAPTCHA — loads asynchronously, no visible widget */
   recaptchaSiteKey && (
-    <script src="https://www.google.com/recaptcha/api.js" async defer />
+    <script
+      src={`https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`}
+      async
+      defer
+    />
   )
 }
 
 <script>
+  const RECAPTCHA_ACTION = "CONTACT_FORM";
+
   const form = document.getElementById(
     "contact-form",
   ) as HTMLFormElement | null;
@@ -134,6 +139,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       "border-red-300",
       "bg-red-50",
       "text-ink",
+      "text-body",
     );
     if (isError) {
       statusEl.classList.add("border-red-300", "bg-red-50", "text-ink");
@@ -142,27 +148,49 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     }
   };
 
-  const getRecaptchaToken = (): string | null => {
-    const g = (
-      window as unknown as { grecaptcha?: { getResponse: () => string } }
-    ).grecaptcha;
-    if (!g) return null;
-    const token = g.getResponse();
-    return token || null;
+  /**
+   * Get a reCAPTCHA Enterprise token invisibly.
+   * Returns null if grecaptcha is not available (reCAPTCHA not configured).
+   */
+  const getEnterpriseToken = (siteKey: string): Promise<string | null> => {
+    return new Promise((resolve) => {
+      const g = (
+        window as unknown as {
+          grecaptcha?: {
+            enterprise?: {
+              ready: (cb: () => void) => void;
+              execute: (
+                siteKey: string,
+                options: { action: string },
+              ) => Promise<string>;
+            };
+          };
+        }
+      ).grecaptcha;
+
+      if (!g?.enterprise) {
+        resolve(null);
+        return;
+      }
+
+      g.enterprise.ready(async () => {
+        try {
+          const token = await g.enterprise!.execute(siteKey, {
+            action: RECAPTCHA_ACTION,
+          });
+          resolve(token);
+        } catch (err) {
+          console.error("[recaptcha] execute() failed:", err);
+          resolve(null);
+        }
+      });
+    });
   };
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const siteKey = form.dataset.recaptchaKey;
     const email = form.dataset.mailtoEmail ?? "hello@thejands.in";
-
-    if (siteKey) {
-      const token = getRecaptchaToken();
-      if (!token) {
-        showStatus("Please complete the reCAPTCHA checkbox.", true);
-        return;
-      }
-    }
 
     const name = (form.querySelector('[name="name"]') as HTMLInputElement)
       .value;
@@ -176,6 +204,19 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     if (submitBtn) submitBtn.textContent = "Sending…";
 
     try {
+      // Get Enterprise token if reCAPTCHA is configured
+      let recaptchaToken: string | null = null;
+      if (siteKey) {
+        recaptchaToken = await getEnterpriseToken(siteKey);
+        if (!recaptchaToken) {
+          showStatus(
+            "Security check failed. Please refresh the page and try again.",
+            true,
+          );
+          return;
+        }
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -184,7 +225,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           email: userEmail,
           message,
           pageUrl: window.location.href,
-          ...(siteKey ? { recaptchaToken: getRecaptchaToken() } : {}),
+          ...(recaptchaToken ? { recaptchaToken } : {}),
         }),
       });
 
@@ -201,9 +242,6 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           false,
         );
         form.reset();
-        (
-          window as unknown as { grecaptcha?: { reset: () => void } }
-        ).grecaptcha?.reset();
         if (typeof window.dataLayer !== "undefined") {
           window.dataLayer.push({
             event: "contact_form_submit",

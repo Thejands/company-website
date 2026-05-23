@@ -4,43 +4,392 @@ import { siteConfig } from "@/config/site";
 ---
 
 <BaseLayout
-  title="Privacy Policy"
-  description="How Thejands collects, uses, and protects your information."
+  title="Privacy Policy — Thejands"
+  description="How Thejands collects, uses, and protects your personal data. Compliant with India's DPDP Act 2023, GDPR, and UK GDPR."
+  keywords="Thejands privacy policy, GDPR, DPDP Act, data protection, personal data"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Privacy Policy", item: "https://thejands.in/privacy" },
+  ]}
 >
   <article
-    class="section-spacing mx-auto max-w-[var(--max-width-content)] px-6 prose prose-neutral"
+    class="section-spacing mx-auto max-w-[var(--max-width-content)] px-6"
   >
-    <h1 class="font-display text-display-lg text-ink">Privacy Policy</h1>
-    <p class="text-body-md text-body">
-      Last updated: May 2026. Thejands ("we") respects your privacy. This policy
-      explains what we collect when you contact us or use our website.
+    <h1 class="font-display text-display-lg text-ink mt-0">Privacy Policy</h1>
+    <p class="mt-3 text-body-sm text-mute">Last updated: 23 May 2026</p>
+
+    <p class="mt-4 text-body-md text-body">
+      Thejands ("we", "us", "our") is committed to protecting the personal data
+      of everyone who visits our website or contacts us about our services. This
+      Privacy Policy explains what personal data we collect, why we collect it,
+      how we use it, and the rights you hold over it. It applies to all visitors
+      to <a href="https://thejands.in" class="underline underline-offset-4"
+        >thejands.in</a
+      > and to individuals who submit enquiries or job applications to us.
     </p>
-    <h2 class="font-display text-heading-md text-ink">
-      Information we collect
+    <p class="mt-4 text-body-md text-body">
+      This policy is written to meet the requirements of India's <strong
+        >Digital Personal Data Protection Act 2023 (DPDP Act)</strong
+      >, the EU <strong>General Data Protection Regulation (GDPR)</strong>, and
+      the <strong>UK GDPR</strong>, as applicable to our international client
+      base.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      1. Who We Are (Data Controller)
     </h2>
-    <p class="text-body-md text-body">
-      When you submit our contact form or email us, we receive your name, email,
-      message content, and any details you choose to share about your project.
-      Contact submissions are logged in a secure Google Sheet and processed via
-      our email provider (Resend) so we can respond and send you a confirmation.
+    <p class="mt-4 text-body-md text-body">
+      The data controller for personal data processed through this website is:
     </p>
-    <p class="text-body-md text-body">
-      When you apply for a role on our careers pages, we collect your name,
-      email, optional phone and LinkedIn profile, cover letter, and resume file.
-      Applications are stored in our database (Supabase) and used only for
-      recruitment.
-    </p>
-    <h2 class="font-display text-heading-md text-ink">How we use it</h2>
-    <p class="text-body-md text-body">
-      We use this information to respond to inquiries, scope product work, and
-      manage hiring. We do not sell personal data.
-    </p>
-    <h2 class="font-display text-heading-md text-ink">Contact</h2>
-    <p class="text-body-md text-body">
-      Questions? Email <a
+    <p class="mt-4 text-body-md text-body">
+      <strong>Thejands</strong><br />
+      Madurai, Tamil Nadu, India<br />
+      Email: <a
         href={`mailto:${siteConfig.contact.email}`}
-        class="text-ink underline">{siteConfig.contact.email}</a
+        class="underline underline-offset-4">{siteConfig.contact.email}</a
+      >
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      "Data controller" means the entity that determines the purposes and means
+      of processing personal data. Where we act as a data processor on behalf of
+      our clients (for example, when building software systems), that
+      relationship is governed by the relevant client engagement agreement and a
+      separate data processing addendum.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      2. Personal Data We Collect
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      We collect personal data only through the following specific interactions
+      — we do not collect data passively through tracking technologies,
+      advertising pixels, or third-party analytics cookies.
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      2a. Contact and Enquiry Form
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      When you submit a project or consulting enquiry via our contact form, we
+      collect:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">Full name (required)</li>
+      <li class="mt-2 text-body-md text-body">
+        Business email address (required)
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Company or organisation name (required)
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Message describing your project or enquiry (required)
+      </li>
+      <li class="mt-2 text-body-md text-body">Phone number (optional)</li>
+    </ul>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      2b. Career Applications
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      When you apply for a role through our Careers page, we collect:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">Full name</li>
+      <li class="mt-2 text-body-md text-body">Email address</li>
+      <li class="mt-2 text-body-md text-body">Phone number</li>
+      <li class="mt-2 text-body-md text-body">
+        LinkedIn profile URL (optional)
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        CV / résumé (uploaded document)
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Any additional information you choose to include in a cover message
+      </li>
+    </ul>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      2c. Website Usage Data
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      We use Vercel Analytics, which operates entirely at the network edge and
+      does not set any cookies or collect any personally identifiable
+      information. It measures aggregate traffic patterns (page views, referral
+      sources, country-level geography) using anonymised request data. No
+      individual visitor is tracked, fingerprinted, or profiled. No personal
+      data is retained from website visits.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      3. Lawful Basis for Processing
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      We process personal data only where we have a lawful basis to do so. Under
+      GDPR Article 6 and the DPDP Act, our bases are:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        <strong>Legitimate interests (GDPR Art. 6(1)(f)):</strong> Responding to project
+        enquiries, assessing commercial fit, and communicating with prospective clients.
+        Our legitimate interest is to run our business by engaging with people who
+        proactively contact us. We have assessed that this interest is not overridden
+        by your privacy rights, because you initiate contact voluntarily and with
+        a clear expectation of a response.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Contractual necessity (GDPR Art. 6(1)(b)):</strong> Where an enquiry
+        progresses to a scoping discussion or active engagement, processing your contact
+        data is necessary to fulfil our contractual obligations.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Consent (GDPR Art. 6(1)(a)) / DPDP consent:</strong> For career applicants,
+        by submitting your application you consent to us processing your data for
+        recruitment purposes. You may withdraw this consent at any time by emailing
+        us.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>No marketing processing:</strong> We do not use your data for unsolicited
+        marketing, email campaigns, or advertising. We do not sell, rent, or share
+        your data with marketing platforms.
+      </li>
+    </ul>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      4. How We Use Your Data
+    </h2>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        To respond to your project or service enquiry, typically within one
+        business day
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        To assess whether our capabilities are a good fit for your requirements
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        To prepare scoping proposals, engagement letters, or statements of work
+        where discussions progress
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        To review job applications and contact shortlisted candidates for
+        further stages
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        To comply with legal obligations if required by applicable law
+      </li>
+    </ul>
+    <p class="mt-4 text-body-md text-body">
+      We do not use automated decision-making or profiling that produces legal
+      or significant effects on individuals.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      5. Data Sharing and Processors
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      We share your data only with the following sub-processors, strictly for
+      the purpose of operating our contact and recruitment systems. None of
+      these parties are permitted to use your data for their own marketing or
+      commercial purposes.
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        <strong>Supabase, Inc.</strong> — our database and backend infrastructure
+        provider, where contact form submissions and career applications are securely
+        stored. Privacy policy: <a
+          href="https://supabase.com/privacy"
+          class="underline underline-offset-4"
+          target="_blank"
+          rel="noopener">supabase.com/privacy</a>
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Resend, Inc.</strong> — our transactional email delivery provider,
+        used to send you a confirmation and to notify our team of new enquiries. Privacy
+        policy: <a
+          href="https://resend.com/legal/privacy-policy"
+          class="underline underline-offset-4"
+          target="_blank"
+          rel="noopener">resend.com/legal/privacy-policy</a>
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Vercel, Inc.</strong> — our website hosting and deployment platform.
+        Vercel processes request data at the network edge for infrastructure purposes
+        and powers our anonymised analytics. Privacy policy: <a
+          href="https://vercel.com/legal/privacy-policy"
+          class="underline underline-offset-4"
+          target="_blank"
+          rel="noopener">vercel.com/legal/privacy-policy</a>
+      </li>
+    </ul>
+    <p class="mt-4 text-body-md text-body">
+      We do not sell, license, or share your personal data with any other third
+      party. We do not use data brokers or advertising networks.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      6. International Data Transfers
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      Thejands is based in India. Our sub-processors — Supabase, Resend, and
+      Vercel — are US-incorporated companies and may process data on servers
+      located outside India, including in the United States and the European
+      Economic Area. These transfers are governed by appropriate safeguards,
+      including Standard Contractual Clauses (SCCs) where required under GDPR,
+      and applicable data transfer mechanisms under the DPDP Act once the
+      cross-border transfer rules come into force.
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      If you are located in the UK or EU and wish to understand the specific
+      safeguards in place for transfers of your data, please contact us at <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="underline underline-offset-4">{siteConfig.contact.email}</a
       >.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      7. Data Retention
+    </h2>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        <strong>Enquiry and contact form data:</strong> Retained for up to 3 years
+        from the date of enquiry, or until the associated engagement is formally concluded
+        — whichever is later. This period allows us to reference prior context if
+        you return to us for a future project.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Career applications:</strong> Retained for 12 months from the date
+        of submission, whether or not the application was successful. After this period,
+        application data is deleted unless you have given specific consent to be considered
+        for future roles.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Website usage data:</strong> Vercel Edge Analytics data is anonymised
+        at collection and is not attributable to any individual. We do not retain
+        any personally identifiable website usage data.
+      </li>
+    </ul>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">8. Your Rights</h2>
+    <p class="mt-4 text-body-md text-body">
+      Depending on your jurisdiction, you hold the following rights regarding
+      your personal data:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right of access:</strong> You may request a copy of the personal data
+        we hold about you.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to rectification:</strong> You may ask us to correct inaccurate
+        or incomplete data.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to erasure ("right to be forgotten"):</strong> You may request
+        deletion of your personal data where we no longer have a lawful basis to retain
+        it.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to restriction of processing:</strong> You may ask us to limit
+        how we use your data in certain circumstances.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to data portability:</strong> Where processing is based on consent
+        or contract and carried out by automated means, you may request a machine-readable
+        copy of your data.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to object:</strong> You may object to processing based on legitimate
+        interests. We will cease processing unless we can demonstrate compelling legitimate
+        grounds that override your rights.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Right to withdraw consent:</strong> Where processing is based on consent
+        (e.g. career applications), you may withdraw it at any time without affecting
+        the lawfulness of prior processing.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>DPDP rights (India):</strong> Under the Digital Personal Data Protection
+        Act 2023, you have the right to obtain information about processing, correct
+        and erase your data, and nominate a representative. These rights are enforceable
+        once the relevant provisions come into force.
+      </li>
+    </ul>
+    <p class="mt-4 text-body-md text-body">
+      To exercise any of these rights, email us at <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="underline underline-offset-4">{siteConfig.contact.email}</a
+      > with the subject line "Data Rights Request". We will respond within 30 days.
+      If you are in the UK or EU and are not satisfied with our response, you have
+      the right to lodge a complaint with your local supervisory authority (for example,
+      the UK ICO at <a
+        href="https://ico.org.uk"
+        class="underline underline-offset-4"
+        target="_blank"
+        rel="noopener">ico.org.uk</a
+      >).
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">9. Cookies</h2>
+    <p class="mt-4 text-body-md text-body">
+      This website uses minimal cookies. Vercel Analytics does not set any
+      cookies. We store your cookie consent preference in your browser's <code
+        >localStorage</code
+      > (not a cookie). For full details of what is and is not stored in your browser,
+      please read our <a href="/cookies" class="underline underline-offset-4"
+        >Cookie Policy</a
+      >.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">10. Security</h2>
+    <p class="mt-4 text-body-md text-body">
+      We implement appropriate technical and organisational measures to protect
+      your personal data against accidental loss, unauthorised access,
+      alteration, or disclosure. These include encrypted data storage (Supabase
+      enforces encryption at rest and in transit), HTTPS-only communication, and
+      access controls limiting who within our team can view submitted data. We
+      review our security practices regularly.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      11. Children's Privacy
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      Our services are directed at businesses and professional individuals. We
+      do not knowingly collect personal data from children under the age of 18.
+      If you believe a child has submitted data to us, please contact us
+      immediately and we will delete it promptly.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      12. Changes to This Policy
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      We may update this Privacy Policy from time to time to reflect changes in
+      our practices, technology, legal requirements, or other factors. When we
+      make material changes, we will update the "Last updated" date at the top
+      of this page. We encourage you to review this policy periodically.
+      Continued use of our website after changes are posted constitutes your
+      acknowledgement of the updated policy.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      13. Contact and Data Protection Enquiries
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      If you have any questions about this Privacy Policy, wish to exercise your
+      data rights, or have a concern about how we have handled your personal
+      data, please contact us:
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      <strong>Thejands — Data Protection</strong><br />
+      Madurai, Tamil Nadu, India<br />
+      Email: <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="underline underline-offset-4">{siteConfig.contact.email}</a
+      >
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      We aim to respond to all privacy-related enquiries within 5 business days,
+      and to resolve data rights requests within 30 days.
     </p>
   </article>
 </BaseLayout>

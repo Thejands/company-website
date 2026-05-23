@@ -9,6 +9,18 @@ export const GET: APIRoute = () => {
     ? `
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# AI search crawlers — allowed to index public content
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
 
 Sitemap: ${sitemap}
 `.trim()

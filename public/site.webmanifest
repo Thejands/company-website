@@ -1,13 +1,25 @@
 {
   "name": "Thejands",
   "short_name": "Thejands",
-  "description": "We build products for you - web, mobile, and custom software.",
+  "description": "Enterprise software development, technology consulting, and partner engagements — delivered by founders.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#000000",
   "lang": "en",
   "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
     {
       "src": "/logo.svg",
       "sizes": "any",

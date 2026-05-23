@@ -3,12 +3,57 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
 import FeatureBullet from "@/components/ui/FeatureBullet.astro";
-import { servicesPage } from "@/config/content";
+import { servicesPage, stats } from "@/config/content";
+
+// GEO: Answer-first definition blurbs — self-contained passages AI engines can extract
+const serviceAnswers: Record<string, string> = {
+  software:
+    "Thejands builds enterprise-grade web applications, mobile apps (iOS and Android), APIs, and custom software platforms for mid-market and enterprise organisations. Engagements run on fixed-scope milestones — typically 6 to 24 weeks — with full codebase handover, documentation, and 30-day stabilisation support included. All intellectual property belongs to the client from day one.",
+  consulting:
+    "Thejands provides technology consulting at project and programme level, with a specific specialisation in LMS implementation and Moodle customisation. Services include Moodle installation, custom plugin development, integration with enterprise identity providers (LDAP, SAML, SSO) and HR systems, EdTech platform strategy, technology due diligence, and interim CTO engagements. Linga and Somu are directly involved in every consulting mandate.",
+  partnerships:
+    "Thejands acts as an embedded engineering resource for partner organisations — agencies, consultancies, and technology firms — providing white-label delivery, dedicated engineering teams, candidate technical screening, and retainer-based capacity. All partner engagements operate under NDA, with SLAs and enterprise-grade contract structures. Thejands has served 50+ organisations across 8+ countries.",
+};
+
+// GEO: Internal links from each service pillar to its deep landing page
+// Semantic anchor text targeting high-intent keywords (Princeton GEO tactic)
+const serviceDeepLinks: Record<
+  string,
+  Array<{ label: string; href: string }>
+> = {
+  software: [
+    {
+      label: "Enterprise software development services",
+      href: "/services/enterprise-software-development",
+    },
+  ],
+  consulting: [
+    {
+      label: "Moodle implementation services",
+      href: "/services/moodle-implementation",
+    },
+    {
+      label: "LMS consulting & platform selection",
+      href: "/services/lms-consulting",
+    },
+  ],
+  partnerships: [
+    {
+      label: "White-label software development partner",
+      href: "/services/white-label-development",
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Services"
-  description="Web products, mobile apps, and custom software - designed and built by Thejands."
+  title="Enterprise Software Development, Consulting & Partner Services"
+  description="Thejands delivers enterprise software builds, LMS & technology consulting, and partner resource engagements — with founders accountable on every mandate. Serving mid-market and enterprise organisations globally."
+  keywords="enterprise software development India, Moodle LMS implementation, technology consulting India, mobile app development React Native Flutter, EdTech platform consulting, white-label software delivery, interim CTO India, digital transformation consulting"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Services", item: "https://thejands.in/services" },
+  ]}
 >
   <section class="section-spacing border-b border-hairline/60">
     <div class="container-page">
@@ -17,6 +62,43 @@ import { servicesPage } from "@/config/content";
         subtitle={servicesPage.subtitle}
         showBrandIcon
       />
+    </div>
+  </section>
+
+  <!-- TL;DR — structured at-a-glance facts (AEO chunk-friendly) -->
+  <section class="border-b border-hairline bg-surface-soft/40">
+    <div class="container-page py-10">
+      <p
+        class="text-caption-sm font-medium uppercase tracking-widest text-mute"
+      >
+        At a glance
+      </p>
+      <dl class="mt-5 grid grid-cols-2 gap-x-8 gap-y-5 md:grid-cols-4">
+        <div class="fade-in">
+          <dt class="text-caption-sm font-medium text-mute">Engagement</dt>
+          <dd class="mt-1 font-display text-heading-sm text-ink">
+            Fixed-scope milestones
+          </dd>
+        </div>
+        <div class="fade-in">
+          <dt class="text-caption-sm font-medium text-mute">Timeline</dt>
+          <dd class="mt-1 font-display text-heading-sm text-ink">
+            6–24 weeks per build
+          </dd>
+        </div>
+        <div class="fade-in">
+          <dt class="text-caption-sm font-medium text-mute">Geography</dt>
+          <dd class="mt-1 font-display text-heading-sm text-ink">
+            IN · UK · US · SG · AE
+          </dd>
+        </div>
+        <div class="fade-in">
+          <dt class="text-caption-sm font-medium text-mute">Founder time</dt>
+          <dd class="mt-1 font-display text-heading-sm text-ink">
+            Every engagement
+          </dd>
+        </div>
+      </dl>
     </div>
   </section>
 
@@ -38,7 +120,28 @@ import { servicesPage } from "@/config/content";
               <h2 class="mt-2 font-display text-display-lg text-ink">
                 {svc.name}
               </h2>
+              {/* GEO: visually hidden answer-first summary for AI extraction */}
+              {serviceAnswers[svc.id] && (
+                <p class="sr-only">{serviceAnswers[svc.id]}</p>
+              )}
               <p class="mt-4 text-body-md text-body">{svc.description}</p>
+
+              {/* Deep links to landing pages with semantic anchor text */}
+              {serviceDeepLinks[svc.id] && (
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {serviceDeepLinks[svc.id].map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        class="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-canvas px-4 py-1.5 text-caption-sm font-medium text-ink transition-colors hover:border-ink hover:bg-surface-soft"
+                      >
+                        {link.label}
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <ul class="card-interactive space-y-2 bg-canvas/80 p-8 backdrop-blur-sm">
               {svc.features.map((f) => (

@@ -1,0 +1,251 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/ui/PageHero.astro";
+import CtaBand from "@/components/ui/CtaBand.astro";
+import FaqAccordion from "@/components/ui/FaqAccordion.astro";
+import Schema from "@/components/seo/Schema.astro";
+import { allLandingPages, type LandingPage } from "@/config/landingPages";
+import { siteConfig } from "@/config/site";
+
+export function getStaticPaths() {
+  return allLandingPages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: LandingPage;
+}
+
+const { page } = Astro.props;
+const pageUrl = `${siteConfig.url}/services/${page.slug}`;
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  keywords={page.keywords}
+  ignoreTitleTemplate={true}
+  breadcrumbs={[
+    { name: "Home", item: siteConfig.url },
+    { name: "Services", item: `${siteConfig.url}/services` },
+    { name: page.heading, item: pageUrl },
+  ]}
+  faqs={page.faqs}
+>
+  <Fragment slot="head">
+    <Schema
+      type="Service"
+      data={{
+        serviceName: page.heading,
+        serviceType: page.serviceType,
+        serviceDescription: page.definition,
+        serviceCatalog: page.serviceCatalog,
+      }}
+    />
+    <Schema
+      type="WebPage"
+      data={{
+        pageName: page.title,
+        pageDescription: page.description,
+        pageUrl,
+      }}
+    />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="section-spacing border-b border-hairline/60">
+    <div class="container-page">
+      <PageHero eyebrow={page.eyebrow} title={page.heading} showBrandIcon />
+      <p
+        class="fade-in is-visible mt-6 max-w-[var(--max-width-prose)] text-body-md text-body"
+      >
+        {page.definition}
+      </p>
+      <div class="fade-in is-visible mt-8 flex flex-wrap items-center gap-3">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center rounded-full bg-ink px-5 py-2.5 text-body-sm font-medium text-on-primary transition-opacity hover:opacity-90"
+        >
+          Start a conversation →
+        </a>
+        <a
+          href="/services"
+          class="inline-flex items-center justify-center rounded-full border border-hairline bg-canvas px-5 py-2.5 text-body-sm font-medium text-ink transition-colors hover:border-ink"
+        >
+          See all services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TL;DR — extractable structured facts -->
+  <section class="border-b border-hairline bg-surface-soft/40">
+    <div class="container-page py-10">
+      <p
+        class="text-caption-sm font-medium uppercase tracking-widest text-mute"
+      >
+        Key facts at a glance
+      </p>
+      <dl class="mt-5 grid grid-cols-2 gap-x-8 gap-y-5 md:grid-cols-3">
+        {
+          page.tldr.map((item) => (
+            <div class="fade-in">
+              <dt class="text-caption-sm font-medium text-mute">
+                {item.label}
+              </dt>
+              <dd class="mt-1 font-display text-heading-sm text-ink">
+                {item.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Body sections — RAG chunk-friendly -->
+  <section class="section-spacing">
+    <div
+      class="container-page grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start"
+    >
+      <div class="space-y-12">
+        {
+          page.sections.map((section) => (
+            <article class="fade-in">
+              <h2 class="font-display text-display-lg text-ink">
+                {section.heading}
+              </h2>
+              <p class="mt-4 text-body-md text-body">{section.body}</p>
+              {section.bullets && section.bullets.length > 0 && (
+                <ul class="mt-5 space-y-2.5">
+                  {section.bullets.map((b) => (
+                    <li class="flex items-start gap-3 text-body-md text-charcoal">
+                      <span
+                        class="mt-2 size-1.5 shrink-0 rounded-full bg-ink"
+                        aria-hidden="true"
+                      />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- Sidebar: offer catalog + authorities -->
+      <aside class="space-y-6 lg:sticky lg:top-24">
+        <div class="card-interactive fade-in p-6">
+          <p
+            class="text-caption-sm font-medium uppercase tracking-widest text-mute"
+          >
+            Offerings
+          </p>
+          <ul class="mt-4 space-y-3">
+            {
+              page.serviceCatalog.map((item) => (
+                <li>
+                  <p class="text-body-sm font-medium text-ink">{item.name}</p>
+                  <p class="mt-1 text-caption-sm text-body">
+                    {item.description}
+                  </p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        {
+          page.authorities && page.authorities.length > 0 && (
+            <div class="card-interactive fade-in p-6">
+              <p class="text-caption-sm font-medium uppercase tracking-widest text-mute">
+                References & standards
+              </p>
+              <ul class="mt-4 space-y-2">
+                {page.authorities.map((a) => (
+                  <li>
+                    <a
+                      href={a.url}
+                      target="_blank"
+                      rel="noopener nofollow"
+                      class="text-body-sm text-ink underline underline-offset-2 hover:text-charcoal"
+                    >
+                      {a.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  {
+    page.comparison && (
+      <section class="section-spacing border-t border-hairline/60">
+        <div class="container-page">
+          <h2 class="fade-in font-display text-display-lg text-ink">
+            {page.comparison.title}
+          </h2>
+          <div class="fade-in mt-8 overflow-x-auto">
+            <table class="w-full border-collapse text-left text-body-sm">
+              <thead>
+                <tr class="border-b border-hairline">
+                  <th class="py-4 pr-6 font-medium text-mute">Dimension</th>
+                  <th class="py-4 pr-6 font-medium text-ink">Thejands</th>
+                  <th class="py-4 font-medium text-charcoal">
+                    {page.comparison.alternativeLabel}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {page.comparison.rows.map((row) => (
+                  <tr class="border-b border-hairline/60">
+                    <td class="py-4 pr-6 font-medium text-charcoal">
+                      {row.dimension}
+                    </td>
+                    <td class="py-4 pr-6 text-ink">{row.thejands}</td>
+                    <td class="py-4 text-body">{row.alternative}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- FAQ — prompt-mirrored, FAQPage schema already injected -->
+  <section class="section-spacing border-t border-hairline/60">
+    <div class="container-page max-w-3xl">
+      <h2 class="fade-in font-display text-display-lg text-ink">
+        Frequently asked questions
+      </h2>
+      <p class="fade-in mt-3 text-body-md text-body">
+        The questions decision-makers most often bring into a discovery call.
+      </p>
+      <div class="mt-8">
+        <FaqAccordion items={page.faqs} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section-spacing pb-20">
+    <div class="container-page">
+      <CtaBand
+        title={`Ready to talk about ${page.heading.toLowerCase()}?`}
+        body="Tell us about your requirement. A founder will respond within one business day with an honest read on fit, a rough timeline, and suggested next steps."
+        button={{ label: "Start a conversation", href: "/contact" }}
+        dark
+      />
+    </div>
+  </section>
+</BaseLayout>

@@ -5,9 +5,15 @@ interface Props {
 }
 
 const { jobSlug, jobTitle } = Astro.props;
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
-<form id="apply-form" class="space-y-5" enctype="multipart/form-data">
+<form
+  id="apply-form"
+  class="space-y-5"
+  enctype="multipart/form-data"
+  data-recaptcha-key={recaptchaSiteKey ?? ""}
+>
   <input type="hidden" name="jobSlug" value={jobSlug} />
   <p class="text-body-sm text-body">
     Applying for <strong class="text-ink">{jobTitle}</strong>
@@ -100,29 +106,136 @@ const { jobSlug, jobTitle } = Astro.props;
   <button
     type="submit"
     id="apply-submit"
-    class="inline-flex h-10 items-center justify-center rounded-full bg-ink px-6 text-body-sm font-medium text-on-primary"
+    class="inline-flex h-10 items-center justify-center rounded-full bg-ink px-6 text-body-sm font-medium text-on-primary transition-opacity disabled:opacity-60"
   >
     Submit application
   </button>
+
+  {
+    recaptchaSiteKey ? (
+      <p class="text-caption-sm text-mute">
+        Protected by reCAPTCHA Enterprise.{" "}
+        <a
+          href="https://policies.google.com/privacy"
+          class="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Privacy
+        </a>{" "}
+        &{" "}
+        <a
+          href="https://policies.google.com/terms"
+          class="underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Terms
+        </a>
+        .
+      </p>
+    ) : null
+  }
 </form>
 
+{
+  /* Enterprise invisible reCAPTCHA — no visible widget, token generated on submit */
+  recaptchaSiteKey && (
+    <script
+      src={`https://www.google.com/recaptcha/enterprise.js?render=${recaptchaSiteKey}`}
+      async
+      defer
+    />
+  )
+}
+
 <script>
+  const RECAPTCHA_ACTION = "CAREER_APPLY";
+
   const form = document.getElementById("apply-form") as HTMLFormElement;
   const statusEl = document.getElementById("apply-status");
   const submitBtn = document.getElementById(
     "apply-submit",
   ) as HTMLButtonElement;
 
+  function showStatus(message: string, isError: boolean) {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.className = isError
+      ? "rounded-lg border border-red-300 bg-red-50 p-4 text-body-sm text-ink"
+      : "rounded-lg border border-hairline bg-surface-soft p-4 text-body-sm text-body";
+    statusEl.classList.remove("hidden");
+  }
+
+  /**
+   * Get a reCAPTCHA Enterprise token invisibly.
+   * Returns null if grecaptcha is not available (not configured or not loaded yet).
+   */
+  function getEnterpriseToken(siteKey: string): Promise<string | null> {
+    return new Promise((resolve) => {
+      const g = (
+        window as unknown as {
+          grecaptcha?: {
+            enterprise?: {
+              ready: (cb: () => void) => void;
+              execute: (
+                siteKey: string,
+                options: { action: string },
+              ) => Promise<string>;
+            };
+          };
+        }
+      ).grecaptcha;
+
+      if (!g?.enterprise) {
+        // reCAPTCHA not configured — submit without token
+        resolve(null);
+        return;
+      }
+
+      g.enterprise.ready(async () => {
+        try {
+          const token = await g.enterprise!.execute(siteKey, {
+            action: RECAPTCHA_ACTION,
+          });
+          resolve(token);
+        } catch (err) {
+          console.error("[recaptcha] execute() failed:", err);
+          resolve(null);
+        }
+      });
+    });
+  }
+
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+    const siteKey = form.dataset.recaptchaKey;
+
     submitBtn.disabled = true;
     submitBtn.textContent = "Submitting…";
 
     try {
+      // Build FormData from the form
+      const formData = new FormData(form);
+
+      // Get Enterprise token if reCAPTCHA is configured
+      if (siteKey) {
+        const token = await getEnterpriseToken(siteKey);
+        if (!token) {
+          showStatus(
+            "Security check failed. Please refresh the page and try again.",
+            true,
+          );
+          return;
+        }
+        formData.append("recaptchaToken", token);
+      }
+
       const res = await fetch("/api/careers/apply", {
         method: "POST",
-        body: new FormData(form),
+        body: formData,
       });
+
       const data = (await res.json()) as {
         ok?: boolean;
         message?: string;
@@ -130,25 +243,20 @@ const { jobSlug, jobTitle } = Astro.props;
       };
 
       if (res.ok && data.ok) {
-        statusEl!.textContent =
-          data.message ?? "Application submitted. Check your email.";
-        statusEl!.className =
-          "rounded-lg border border-hairline bg-surface-soft p-4 text-body-sm text-body";
+        showStatus(
+          data.message ?? "Application submitted. We'll be in touch soon.",
+          false,
+        );
         form.reset();
         return;
       }
 
-      statusEl!.textContent = data.error ?? "Submission failed.";
-      statusEl!.className =
-        "rounded-lg border border-red-300 bg-red-50 p-4 text-body-sm text-ink";
+      showStatus(data.error ?? "Submission failed. Please try again.", true);
     } catch {
-      statusEl!.textContent = "Network error. Please try again.";
-      statusEl!.className =
-        "rounded-lg border border-red-300 bg-red-50 p-4 text-body-sm text-ink";
+      showStatus("Network error. Please try again.", true);
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = "Submit application";
-      statusEl?.classList.remove("hidden");
     }
   });
 </script>

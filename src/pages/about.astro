@@ -2,13 +2,34 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/ui/PageHero.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
+import Schema from "@/components/seo/Schema.astro";
 import { aboutPage } from "@/config/content";
 ---
 
 <BaseLayout
-  title="About"
-  description="Meet Thejands - a product studio founded by Linga and Somu."
+  title="About Thejands — Enterprise Software & Consulting, India"
+  description="Thejands is a founder-led enterprise software and consulting company. Linga and Somu lead every engagement — from architecture to delivery — for mid-market and enterprise organisations worldwide."
+  keywords="Thejands founders, enterprise software company India, founder-led software development, Linga Somu Thejands, technology consulting India, enterprise delivery partner"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "About", item: "https://thejands.in/about" },
+  ]}
 >
+  <Fragment slot="head">
+    {
+      aboutPage.founders.map((founder) => (
+        <Schema
+          type="Person"
+          data={{
+            personName: founder.name,
+            personRole: founder.role,
+            personBio: founder.bio,
+            personExpertise: [...founder.strengths],
+          }}
+        />
+      ))
+    }
+  </Fragment>
   <section class="section-spacing border-b border-hairline">
     <div class="container-page">
       <PageHero

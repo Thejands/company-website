@@ -1,15 +1,48 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/ui/PageHero.astro";
-import TerminalCard from "@/components/ui/TerminalCard.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
+import Schema from "@/components/seo/Schema.astro";
 import { processPage } from "@/config/content";
+
+const deliveryMetrics = [
+  { value: "6 wks", label: "Minimum viable build" },
+  { value: "24 hrs", label: "Discovery-to-proposal turnaround" },
+  { value: "1–2 wk", label: "Sprint cycles with live demos" },
+  { value: "30 days", label: "Post-handover stabilisation" },
+];
+
+const commitments = [
+  "Fixed scope · no scope creep surprises",
+  "Direct founder access — not account managers",
+  "Issues flagged early, never at deadline",
+  "Full IP transfer from day one",
+  "Clean handover · no lock-in",
+];
 ---
 
 <BaseLayout
-  title="Our process"
-  description="How Thejands builds products - from discovery to launch and beyond."
+  title="How We Work — Discovery to Delivery"
+  description="Thejands uses a structured 5-stage engagement model: Discovery → Proposal → Delivery → Review → Handover. Fixed-scope milestones, weekly demos, direct founder access — no black-box delivery."
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Process", item: "https://thejands.in/process" },
+  ]}
 >
+  <Fragment slot="head">
+    <Schema
+      type="HowTo"
+      data={{
+        howToName: "How Thejands engages: from brief to delivery",
+        howToDescription:
+          "A structured 5-stage engagement model — Discovery, Proposal, Delivery, Review, and Handover — with fixed-scope milestones, direct founder access, and full IP transfer on completion.",
+        howToSteps: processPage.steps.map((step) => ({
+          name: step.title,
+          text: step.body,
+        })),
+      }}
+    />
+  </Fragment>
   <section class="section-spacing border-b border-hairline">
     <div class="container-page">
       <PageHero
@@ -23,11 +56,11 @@ import { processPage } from "@/config/content";
   <section class="section-spacing">
     <div class="container-page">
       <div class="grid gap-12 lg:grid-cols-[1fr_340px] lg:items-start">
-        <ol class="relative space-y-0">
+        <ol class="relative -mx-4 space-y-0">
           {
             processPage.steps.map((step, i) => (
               <li
-                class="fade-in relative grid grid-cols-[auto_1fr] gap-6 pb-12 last:pb-0"
+                class="fade-in relative grid grid-cols-[auto_1fr] gap-6 pb-12 px-4 last:pb-0 transition-colors duration-200"
                 data-process-step
               >
                 {i < processPage.steps.length - 1 && (
@@ -52,8 +85,61 @@ import { processPage } from "@/config/content";
             ))
           }
         </ol>
-        <aside class="fade-in lg:sticky lg:top-24">
-          <TerminalCard lines={processPage.terminal.lines} />
+        <aside class="fade-in space-y-4 lg:sticky lg:top-24">
+          <!-- Delivery metrics card -->
+          <div class="rounded-xl border border-hairline bg-surface-soft p-6">
+            <p
+              class="text-caption-sm font-medium uppercase tracking-widest text-mute"
+            >
+              Delivery benchmarks
+            </p>
+            <ul class="mt-4 divide-y divide-hairline">
+              {
+                deliveryMetrics.map((m) => (
+                  <li class="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
+                    <span class="w-20 shrink-0 whitespace-nowrap font-display text-heading-md text-ink">
+                      {m.value}
+                    </span>
+                    <span class="text-body-sm text-body leading-snug">
+                      {m.label}
+                    </span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+
+          <!-- Commitments card -->
+          <div class="rounded-xl border border-hairline bg-canvas p-6">
+            <p
+              class="text-caption-sm font-medium uppercase tracking-widest text-mute"
+            >
+              What you can count on
+            </p>
+            <ul class="mt-4 space-y-2.5">
+              {
+                commitments.map((c) => (
+                  <li class="flex items-start gap-2.5 text-body-sm text-charcoal">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="mt-0.5 shrink-0 text-ink"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                    {c}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
         </aside>
       </div>
     </div>
@@ -64,7 +150,7 @@ import { processPage } from "@/config/content";
       <CtaBand
         title="See how this fits your timeline"
         body="Walk through discovery with Linga or Somu - 30 minutes, no obligation."
-        button={{ label: "Book a call", href: "/contact" }}
+        button={{ label: "Start a conversation", href: "/contact" }}
         dark
       />
     </div>
@@ -74,15 +160,10 @@ import { processPage } from "@/config/content";
 <script>
   document.querySelectorAll("[data-process-step]").forEach((step) => {
     step.addEventListener("mouseenter", () => {
-      step.classList.add("bg-surface-soft/50", "-mx-4", "px-4", "rounded-lg");
+      step.classList.add("bg-surface-soft/60", "rounded-xl");
     });
     step.addEventListener("mouseleave", () => {
-      step.classList.remove(
-        "bg-surface-soft/50",
-        "-mx-4",
-        "px-4",
-        "rounded-lg",
-      );
+      step.classList.remove("bg-surface-soft/60", "rounded-xl");
     });
   });
 </script>

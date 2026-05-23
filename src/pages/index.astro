@@ -6,6 +6,7 @@ import SnippetPill from "@/components/ui/SnippetPill.astro";
 import CtaBand from "@/components/ui/CtaBand.astro";
 import HomeBento from "@/components/sections/HomeBento.astro";
 import StickyShowcase from "@/components/sections/StickyShowcase.astro";
+import { Icon } from "astro-icon/components";
 import { home, testimonials, techStack, stats, whyUs } from "@/config/content";
 import { siteConfig } from "@/config/site";
 
@@ -90,6 +91,52 @@ const whyIconRects: Record<
     </div>
   </section>
 
+  <!-- Deep-link strip — Internal links to high-intent landing pages (GEO/AEO) -->
+  <section
+    class="border-b border-hairline bg-surface-soft/40"
+    aria-label="Featured services"
+  >
+    <div class="container-page py-6">
+      <ul class="flex flex-wrap items-center gap-x-2 gap-y-2 text-caption-sm">
+        <li class="mr-2 font-medium uppercase tracking-widest text-mute">
+          Top services →
+        </li>
+        <li>
+          <a
+            href="/services/moodle-implementation"
+            class="rounded-full border border-hairline bg-canvas px-3.5 py-1.5 font-medium text-ink transition-colors hover:border-ink"
+          >
+            Moodle implementation
+          </a>
+        </li>
+        <li>
+          <a
+            href="/services/lms-consulting"
+            class="rounded-full border border-hairline bg-canvas px-3.5 py-1.5 font-medium text-ink transition-colors hover:border-ink"
+          >
+            LMS consulting
+          </a>
+        </li>
+        <li>
+          <a
+            href="/services/enterprise-software-development"
+            class="rounded-full border border-hairline bg-canvas px-3.5 py-1.5 font-medium text-ink transition-colors hover:border-ink"
+          >
+            Enterprise software development
+          </a>
+        </li>
+        <li>
+          <a
+            href="/services/white-label-development"
+            class="rounded-full border border-hairline bg-canvas px-3.5 py-1.5 font-medium text-ink transition-colors hover:border-ink"
+          >
+            White-label development
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Stats strip — proper semantics, stronger background -->
   <section class="border-b border-hairline" aria-label="At a glance">
     <div class="container-page py-10">
@@ -120,7 +167,7 @@ const whyIconRects: Record<
           Why teams choose Thejands
         </h2>
         <p class="fade-in mt-4 text-body-md text-body">
-          We're not the biggest studio. We're the one that picks up the phone,
+          We're not the biggest firm. We're the one that picks up the phone,
           shows up to every demo, and ships what we scope.
         </p>
       </div>
@@ -223,8 +270,8 @@ const whyIconRects: Record<
     </div>
   </section>
 
-  <!-- Tech stack -->
-  <section class="section-spacing border-t border-hairline/60">
+  <!-- Tech stack — dual-row bidirectional infinite marquee -->
+  <section class="section-spacing border-t border-hairline/60 overflow-hidden">
     <div class="container-page text-center">
       <h2 class="fade-in mx-auto font-display text-display-lg text-ink">
         {techStack.title}
@@ -232,13 +279,50 @@ const whyIconRects: Record<
       <p class="fade-in mx-auto mt-3 max-w-xl text-body-md text-body">
         {techStack.subtitle}
       </p>
-      <div
-        class="fade-in mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2"
-      >
+    </div>
+
+    <!-- Row 1 — scrolls left (→) -->
+    <div
+      class="marquee-viewport mt-10"
+      aria-label="Technology list"
+      role="list"
+    >
+      <div class="marquee-track py-1">
         {
-          techStack.items.map((name) => (
-            <span class="rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-all duration-200 hover:-translate-y-0.5 hover:border-charcoal hover:text-ink hover:shadow-sm">
-              {name}
+          [...techStack.items, ...techStack.items].map((item, i) => (
+            <span
+              class="inline-flex shrink-0 cursor-default items-center gap-2 rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-colors hover:border-ink/40 hover:text-ink"
+              role="listitem"
+              aria-hidden={i >= techStack.items.length ? "true" : "false"}
+            >
+              <Icon
+                name={item.icon}
+                class="size-4 shrink-0"
+                aria-hidden="true"
+              />
+              {item.name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Row 2 — scrolls right (←), offset start so rows feel staggered -->
+    <div class="marquee-viewport mt-3" aria-hidden="true">
+      <div class="marquee-track-reverse py-1">
+        {
+          /* Reverse the item order for visual variety */
+          [
+            ...[...techStack.items].reverse(),
+            ...[...techStack.items].reverse(),
+          ].map((item) => (
+            <span class="inline-flex shrink-0 cursor-default items-center gap-2 rounded-full border border-hairline bg-canvas px-4 py-2 text-body-sm text-charcoal transition-colors hover:border-ink/40 hover:text-ink">
+              <Icon
+                name={item.icon}
+                class="size-4 shrink-0"
+                aria-hidden="true"
+              />
+              {item.name}
             </span>
           ))
         }
@@ -252,7 +336,7 @@ const whyIconRects: Record<
       <CtaBand
         title="Ready to build something real?"
         body={`Share your idea at ${siteConfig.contact.email} — we'll respond within one business day with honest next steps, a rough timeline, and whether we're the right fit.`}
-        button={{ label: "Start your project", href: "/contact" }}
+        button={{ label: "Start a conversation", href: "/contact" }}
         dark
       />
     </div>

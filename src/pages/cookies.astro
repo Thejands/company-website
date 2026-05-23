@@ -1,24 +1,324 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { siteConfig } from "@/config/site";
 ---
 
 <BaseLayout
-  title="Cookie Policy"
-  description="How Thejands uses cookies and similar technologies."
+  title="Cookie Policy — Thejands"
+  description="Thejands uses minimal browser storage. No advertising cookies, no cross-site tracking. Vercel Edge Analytics sets no cookies. Full details here."
+  keywords="Thejands cookie policy, cookies, browser storage, Vercel Analytics, no tracking"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Cookie Policy", item: "https://thejands.in/cookies" },
+  ]}
 >
   <article
     class="section-spacing mx-auto max-w-[var(--max-width-content)] px-6"
   >
-    <h1 class="font-display text-display-lg text-ink">Cookie Policy</h1>
+    <h1 class="font-display text-display-lg text-ink mt-0">Cookie Policy</h1>
+    <p class="mt-3 text-body-sm text-mute">Last updated: 23 May 2026</p>
+
     <p class="mt-4 text-body-md text-body">
-      We use essential cookies only where required for site functionality.
-      Analytics (e.g. Vercel Analytics) may collect anonymized usage data to
-      improve performance. You can disable non-essential cookies in your browser
-      settings.
+      This Cookie Policy explains how Thejands uses cookies and similar
+      browser-side storage technologies on <a
+        href="https://thejands.in"
+        class="underline underline-offset-4">thejands.in</a
+      >. We have designed this website to be as privacy-preserving as possible:
+      we use no advertising cookies, no cross-site tracking, and no third-party
+      analytics that set cookies in your browser.
     </p>
     <p class="mt-4 text-body-md text-body">
-      See our <a href="/privacy" class="text-ink underline">Privacy Policy</a> for
-      how we handle personal data.
+      This policy should be read alongside our <a
+        href="/privacy"
+        class="underline underline-offset-4">Privacy Policy</a
+      >, which explains how we handle personal data more broadly.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      1. What Are Cookies?
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      Cookies are small text files that a website places in your browser when
+      you visit. They are widely used to make websites function, remember your
+      preferences, and — in many commercial contexts — to track your behaviour
+      across multiple sites for advertising purposes.
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      There are also related browser-side storage technologies, including <code
+        >localStorage</code
+      > and <code>sessionStorage</code>, which work similarly but are stored
+      differently within your browser and cannot be read by other sites. We use <code
+        >localStorage</code
+      > in one limited context, described below.
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      Cookies and local storage can be set by the domain you are visiting
+      ("first-party") or by third-party services embedded in the page. We only
+      set first-party storage, and only for a single functional purpose.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      2. How Thejands Uses Browser Storage
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      We keep our use of browser storage to an absolute minimum. Here is what we
+      store and why:
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      Cookie Consent Preference
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      When you interact with our cookie consent notice, your preference
+      (accepted or declined) is saved using the browser's <code
+        >localStorage</code
+      > API under the key <code>cookie-consent</code>. This ensures you are not
+      shown the consent notice on every page visit.
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      This is a <strong>localStorage entry, not a cookie</strong>. It is stored
+      locally in your browser, is never transmitted to our servers, and cannot
+      be read by any third party. It contains no personally identifiable
+      information — only a preference flag and a timestamp.
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      Browser Session State
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      Your browser itself may create session-level storage entries as part of
+      normal HTTP operation (for example, to maintain a connection). These are
+      managed entirely by your browser and are cleared when you close the
+      browser tab or session. Thejands does not control or access this data.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      3. Vercel Analytics — No Cookies Set
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      This website uses Vercel Analytics to understand aggregate traffic
+      patterns. Vercel Analytics is fundamentally different from tools like
+      Google Analytics:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        <strong>No cookies are set.</strong> Vercel Analytics does not place any cookie
+        — first-party or third-party — in your browser.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>Edge-based processing only.</strong> Analytics data is derived from
+        anonymised network request information processed at Vercel's edge infrastructure
+        — it never reaches a client-side script running in your browser.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>No cross-site tracking.</strong> There is no tracking pixel, beacon,
+        or identifier that follows you across sites.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>No personal data retained.</strong> We receive only aggregated, anonymised
+        metrics such as page views per day and approximate visitor geography at country
+        level. No individual visitor is identifiable.
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        <strong>No fingerprinting.</strong> Vercel does not use browser fingerprinting
+        techniques to identify or re-identify visitors.
+      </li>
+    </ul>
+    <p class="mt-4 text-body-md text-body">
+      Because Vercel Analytics sets no cookies and processes no personal data,
+      it does not require your consent under GDPR, UK GDPR, or ePrivacy rules.
+      We include this information here for full transparency.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      4. No Third-Party Advertising or Tracking Cookies
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      Thejands does not use — and has never used — any of the following on this
+      website:
+    </p>
+    <ul class="mt-4 list-disc list-inside">
+      <li class="mt-2 text-body-md text-body">
+        Google Analytics or Google Tag Manager tracking cookies
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Meta (Facebook) Pixel or any social network tracking pixel
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        LinkedIn Insight Tag or advertising retargeting
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        HubSpot, Salesforce, Marketo, or any CRM tracking cookie
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Any advertising network, demand-side platform, or programmatic
+        advertising cookie
+      </li>
+      <li class="mt-2 text-body-md text-body">
+        Any cross-site identity resolution or data broker integration
+      </li>
+    </ul>
+    <p class="mt-4 text-body-md text-body">
+      We are an enterprise B2B firm that earns clients through reputation and
+      relationships, not through retargeted advertising. Our commitment to
+      privacy is practical as well as principled.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      5. Cookie Categories Summary
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      The table below summarises all categories of cookies and browser storage
+      used on this site:
+    </p>
+
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-hairline">
+            <th class="py-3 pr-6 font-display text-heading-sm text-ink"
+              >Category</th
+            >
+            <th class="py-3 pr-6 font-display text-heading-sm text-ink"
+              >What We Use</th
+            >
+            <th class="py-3 pr-6 font-display text-heading-sm text-ink"
+              >Storage Type</th
+            >
+            <th class="py-3 font-display text-heading-sm text-ink"
+              >Consent Required?</th
+            >
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-hairline">
+            <td class="py-3 pr-6 text-body-md text-ink font-medium"
+              >Strictly Necessary</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body"
+              >Consent preference (<code>cookie-consent</code>); browser session
+              state</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body"
+              >localStorage; browser-native</td
+            >
+            <td class="py-3 text-body-sm text-body">No — functional only</td>
+          </tr>
+          <tr class="border-b border-hairline">
+            <td class="py-3 pr-6 text-body-md text-ink font-medium"
+              >Performance / Analytics</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body"
+              >Vercel Edge Analytics — anonymised, no cookie set</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body">None (edge only)</td>
+            <td class="py-3 text-body-sm text-body">No — no personal data</td>
+          </tr>
+          <tr class="border-b border-hairline">
+            <td class="py-3 pr-6 text-body-md text-ink font-medium"
+              >Functional</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body">None</td>
+            <td class="py-3 pr-6 text-body-sm text-body">—</td>
+            <td class="py-3 text-body-sm text-body">—</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-6 text-body-md text-ink font-medium"
+              >Targeting / Advertising</td
+            >
+            <td class="py-3 pr-6 text-body-sm text-body">None</td>
+            <td class="py-3 pr-6 text-body-sm text-body">—</td>
+            <td class="py-3 text-body-sm text-body">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      6. Managing Cookies and Browser Storage
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      Because we set no tracking or advertising cookies, there is very little to
+      manage. However, you have full control over your browser's storage at all
+      times:
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      Clearing localStorage
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      You can clear all localStorage data for this site (including the <code
+        >cookie-consent</code
+      > key) through your browser's developer tools or privacy settings. The exact
+      steps vary by browser — look for "Site data", "Storage", or "Clear browsing
+      data" in your browser's settings. Clearing this will reset your consent preference,
+      and you will see the consent notice again on your next visit.
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      Browser Cookie Settings
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      All modern browsers allow you to view, block, and delete cookies through
+      their privacy and security settings. Since we set no cookies, adjusting
+      these settings will have no material effect on your experience of this
+      website. Blocking cookies will not prevent you from using any feature on
+      thejands.in.
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">Do Not Track</h3>
+    <p class="mt-4 text-body-md text-body">
+      Some browsers offer a "Do Not Track" (DNT) signal. We do not track users
+      regardless of this signal, so enabling DNT will not change your experience
+      on this site. We respect the spirit of DNT as a matter of principle, not
+      just compliance.
+    </p>
+
+    <h3 class="font-display text-heading-sm text-ink mt-6">
+      Vercel Analytics Opt-Out
+    </h3>
+    <p class="mt-4 text-body-md text-body">
+      Because Vercel Analytics processes anonymised network-level data with no
+      cookies and no personal identifiers, there is no individual opt-out
+      mechanism. The data is not attributable to you as an individual. If you
+      use a VPN, your approximate geography will reflect the VPN exit node
+      rather than your actual location — Vercel Analytics cannot distinguish
+      this and we do not attempt to.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">
+      7. Future Changes
+    </h2>
+    <p class="mt-4 text-body-md text-body">
+      If we ever introduce new cookies or storage technologies — for example, to
+      support a client portal, authentication system, or new analytics tool — we
+      will update this policy before doing so, refresh the "Last updated" date,
+      and ensure appropriate consent mechanisms are in place. We are committed
+      to transparency about any such changes.
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      We review this Cookie Policy at least annually and whenever we make
+      changes to the technical infrastructure of this website.
+    </p>
+
+    <h2 class="font-display text-heading-lg text-ink mt-10">8. Contact</h2>
+    <p class="mt-4 text-body-md text-body">
+      If you have any questions about this Cookie Policy or about how we handle
+      browser data, please get in touch:
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      <strong>Thejands</strong><br />
+      Madurai, Tamil Nadu, India<br />
+      Email: <a
+        href={`mailto:${siteConfig.contact.email}`}
+        class="underline underline-offset-4">{siteConfig.contact.email}</a
+      >
+    </p>
+    <p class="mt-4 text-body-md text-body">
+      For broader data protection questions, please refer to our <a
+        href="/privacy"
+        class="underline underline-offset-4">Privacy Policy</a
+      >.
     </p>
   </article>
 </BaseLayout>

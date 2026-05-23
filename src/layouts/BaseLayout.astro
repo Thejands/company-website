@@ -1,10 +1,24 @@
 ---
+interface BreadcrumbItem {
+  name: string;
+  item: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
   canonical?: string;
   ignoreTitleTemplate?: boolean;
+  keywords?: string;
+  // Per-page schema extras
+  breadcrumbs?: BreadcrumbItem[];
+  faqs?: FaqItem[];
 }
 
 import Seo from "@/components/seo/Seo.astro";
@@ -14,6 +28,7 @@ import GoogleTagManagerNoscript from "@/components/seo/GoogleTagManagerNoscript.
 import Nav from "@/components/layout/Nav.astro";
 import Footer from "@/components/layout/Footer.astro";
 import AnimatedBackground from "@/components/ui/AnimatedBackground.astro";
+import CookieConsent from "@/components/ui/CookieConsent.astro";
 import "@/styles/global.css";
 import { siteConfig } from "@/config/site";
 
@@ -23,6 +38,9 @@ const {
   ogImage,
   canonical,
   ignoreTitleTemplate = false,
+  keywords,
+  breadcrumbs,
+  faqs,
 } = Astro.props;
 ---
 
@@ -30,20 +48,21 @@ const {
 <html lang={siteConfig.lang}>
   <head>
     <GoogleTagManager />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <Seo
       title={title}
       description={description}
       ogImage={ogImage}
       canonical={canonical}
       ignoreTitleTemplate={ignoreTitleTemplate}
+      keywords={keywords}
     />
     <Schema type="Organization" />
+    {
+      breadcrumbs && breadcrumbs.length > 0 && (
+        <Schema type="BreadcrumbList" data={{ breadcrumbs }} />
+      )
+    }
+    {faqs && faqs.length > 0 && <Schema type="FAQPage" data={{ faqs }} />}
     <slot name="head" />
   </head>
   <body class="relative bg-canvas text-ink antialiased">
@@ -60,6 +79,7 @@ const {
       <slot />
     </main>
     <Footer />
+    <CookieConsent />
     <script>
       const revealObserver = new IntersectionObserver(
         (entries) => {
