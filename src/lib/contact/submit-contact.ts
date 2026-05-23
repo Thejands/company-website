@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { siteEnvironment } from "@/config/site-env";
+import { getEnv } from "@/lib/env";
 import {
   sendTeamContactNotification,
   sendUserContactConfirmation,
@@ -67,9 +68,11 @@ export async function submitContact(
   if (!teamResult.ok) errors.push(`team_email: ${teamResult.error}`);
   if (!userResult.ok) errors.push(`user_email: ${userResult.error}`);
 
-  const sheetsConfigured = Boolean(import.meta.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  // Use getEnv() so these checks read from process.env at runtime rather than
+  // being baked as build-time constants by Vite's import.meta.env inlining.
+  const sheetsConfigured = Boolean(getEnv("GOOGLE_SERVICE_ACCOUNT_JSON"));
   const emailsRequired =
-    siteEnvironment === "production" && Boolean(import.meta.env.RESEND_API_KEY);
+    siteEnvironment === "production" && Boolean(getEnv("RESEND_API_KEY"));
 
   const sheetPass = !sheetsConfigured || sheetOk;
   const emailPass = !emailsRequired || (teamEmailOk && userEmailOk);
