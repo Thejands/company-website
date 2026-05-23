@@ -165,9 +165,50 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
         </span>
       </a>
 
-      <!-- Stats: first two -->
+      <!-- AI & Data tile -->
+      <a
+        href={`/services#${offerings[3].id}`}
+        class="bento-cell card-interactive group flex flex-col gap-3 p-6"
+        role="listitem"
+      >
+        <div
+          class="flex size-10 items-center justify-center rounded-lg border border-hairline bg-surface-soft text-ink transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-canvas"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <span class="bento-label">{offerings[3].tagline}</span>
+          <h3 class="mt-1.5 font-display text-heading-md text-ink">
+            {offerings[3].name}
+          </h3>
+          <p class="mt-2 text-body-sm text-body line-clamp-3">
+            {offerings[3].description}
+          </p>
+        </div>
+        <span
+          class="mt-auto text-caption-sm font-medium text-ink opacity-0 transition-opacity group-hover:opacity-100"
+        >
+          Explore →
+        </span>
+      </a>
+
+      <!-- Stats: first one -->
       {
-        stats.slice(0, 2).map((s) => (
+        stats.slice(0, 1).map((s) => (
           <div class="bento-cell bento-stat fade-in p-6" role="listitem">
             <p class="font-display text-3xl font-semibold text-ink md:text-4xl">
               {s.value}
@@ -218,9 +259,9 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
         >
       </a>
 
-      <!-- Stats: remaining (capped at 3 total — "Countries" lives in the top stats strip only) -->
+      <!-- Stats: remaining -->
       {
-        stats.slice(2, 3).map((s) => (
+        stats.slice(1, 2).map((s) => (
           <div class="bento-cell bento-stat fade-in p-6" role="listitem">
             <p class="font-display text-2xl font-semibold text-ink">
               {s.value}

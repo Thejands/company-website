@@ -1,4 +1,8 @@
-import { getErrorsTabName, getSheetsClient } from "@/lib/sheets/google-client";
+import {
+  getErrorsTabName,
+  getSheetsClient,
+  getSheetTabName,
+} from "@/lib/sheets/google-client";
 
 async function appendWithRetry(
   spreadsheetId: string,
@@ -48,8 +52,7 @@ export async function appendContactRow(row: ContactRow): Promise<void> {
     return;
   }
 
-  const tab =
-    import.meta.env.GOOGLE_SHEETS_TAB_NAME?.trim() || "contact_submissions";
+  const tab = getSheetTabName("contact_submissions");
   const range = `${tab}!A:H`;
   const values = [
     [
