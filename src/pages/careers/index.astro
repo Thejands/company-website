@@ -30,9 +30,47 @@ if (supabase) {
 ---
 
 <BaseLayout
-  title="Careers — Thejands"
-  description="Join Thejands — build enterprise-grade software, consult on complex platforms, and work directly with founders on every engagement."
+  title="Careers at Thejands — Enterprise Software & Consulting Roles"
+  description="Join Thejands and work on enterprise-grade software, consulting programmes, and digital platforms — directly alongside the founders on every engagement. Senior roles only."
+  keywords="careers at Thejands, enterprise software developer jobs India, technology consulting roles, senior software engineer hiring, Moodle developer job, full-stack engineer consulting firm India, enterprise developer careers"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Careers", item: "https://thejands.in/careers" },
+  ]}
 >
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://thejands.in/careers#webpage",
+        url: "https://thejands.in/careers",
+        name: "Careers at Thejands — Enterprise Software & Consulting Roles",
+        description:
+          "Join Thejands and work on enterprise-grade software, consulting programmes, and digital platforms — directly alongside the founders on every engagement. Senior roles only.",
+        isPartOf: { "@id": "https://thejands.in/#website" },
+        publisher: { "@id": "https://thejands.in/#organization" },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://thejands.in",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Careers",
+              item: "https://thejands.in/careers",
+            },
+          ],
+        },
+      })}
+    />
+  </Fragment>
   <section class="section-spacing border-b border-hairline">
     <div class="container-page">
       <PageHero
@@ -58,7 +96,7 @@ if (supabase) {
               . We keep strong profiles on file.
             </p>
             <div class="mt-6">
-              <Button href="/contact">Get in touch</Button>
+              <Button href="/contact">Start a conversation</Button>
             </div>
           </div>
         ) : (

@@ -8,9 +8,39 @@ import { siteConfig } from "@/config/site";
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Start your product with Thejands - talk to Linga, Somu, and the team."
+  title="Contact Thejands — Start a Project or Consulting Enquiry"
+  description="Share your brief with Thejands. We respond within one business day with an honest read on fit, a rough timeline, and whether we're the right partner — from Linga or Somu directly."
+  keywords="hire enterprise software developer India, Moodle consulting enquiry, technology consulting contact, start software project India, enterprise development partner enquiry"
+  breadcrumbs={[
+    { name: "Home", item: "https://thejands.in" },
+    { name: "Contact", item: "https://thejands.in/contact" },
+  ]}
+  faqs={faq.items.map((item) => ({
+    question: item.question,
+    answer: item.answer,
+  }))}
 >
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "@id": `${siteConfig.url}/contact#webpage`,
+        url: `${siteConfig.url}/contact`,
+        name: "Contact Thejands — Start a Project or Consulting Enquiry",
+        description:
+          "Share your brief with Thejands. We respond within one business day with an honest read on fit, a rough timeline, and whether we're the right partner — from Linga or Somu directly.",
+        isPartOf: { "@id": `${siteConfig.url}/#website` },
+        publisher: { "@id": `${siteConfig.url}/#organization` },
+        mainEntity: {
+          "@type": "Organization",
+          "@id": `${siteConfig.url}/#organization`,
+        },
+      })}
+    />
+  </Fragment>
+
   <section class="section-spacing border-b border-hairline">
     <div class="container-page">
       <PageHero
