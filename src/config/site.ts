@@ -13,8 +13,8 @@ export const siteConfig = {
   twitter: getTwitterHandle() ?? "",
   logo: "/logo.svg",
   favicon: "/favicon.svg",
-  ogImage: "/og-image.svg",
-  appleTouchIcon: "/logo.svg",
+  ogImage: "/og-image.png",
+  appleTouchIcon: "/apple-touch-icon.png",
   contact: {
     email: "hello@thejands.in",
     phones: ["+91 8807825309", "+91 9345416994"],
@@ -25,7 +25,6 @@ export const siteConfig = {
     { text: "Process", href: "/process" },
     { text: "About", href: "/about" },
     { text: "Careers", href: "/careers" },
-    { text: "Contact", href: "/contact" },
   ],
   footerLinks: [
     { text: "Services", href: "/services" },

@@ -1,6 +1,11 @@
 import type { APIRoute } from "astro";
 import { submitJobApplication } from "@/lib/careers/submit-application";
 import { checkContactRateLimit, getClientIp } from "@/lib/rate-limit";
+import {
+  isRecaptchaRequired,
+  verifyRecaptcha,
+  RECAPTCHA_ACTIONS,
+} from "@/lib/recaptcha";
 
 export const prerender = false;
 
@@ -18,6 +23,31 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const form = await request.formData();
+
+    // ── reCAPTCHA Enterprise verification ─────────────────────────────────
+    if (isRecaptchaRequired()) {
+      const token = String(form.get("recaptchaToken") ?? "").trim();
+      if (!token) {
+        return new Response(
+          JSON.stringify({ error: "Please complete the security check." }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
+      const valid = await verifyRecaptcha(
+        token,
+        RECAPTCHA_ACTIONS.CAREER_APPLY,
+      );
+      if (!valid) {
+        return new Response(
+          JSON.stringify({
+            error:
+              "Security check failed. Please refresh the page and try again.",
+          }),
+          { status: 400, headers: { "Content-Type": "application/json" } },
+        );
+      }
+    }
+
     const jobSlug = String(form.get("jobSlug") ?? "").trim();
     const fullName = String(form.get("fullName") ?? "").trim();
     const email = String(form.get("email") ?? "").trim();

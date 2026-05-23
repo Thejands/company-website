@@ -1,230 +1,1053 @@
 ---
 export const prerender = false;
-
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import { isAdminRequest } from "@/lib/auth/admin-session";
-
-if (!(await isAdminRequest(Astro.request))) {
-  return Astro.redirect("/admin");
-}
+if (!(await isAdminRequest(Astro.request))) return Astro.redirect("/admin");
 ---
 
 <AdminLayout title="Jobs">
-  <div class="flex flex-wrap items-center justify-between gap-4">
-    <h1 class="font-display text-heading-lg text-ink">Jobs</h1>
+  <style>
+    /* ── Stat chips ─────────────────────────────────────────────────────── */
+    .stat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      border-radius: 9999px;
+      border: 1px solid;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    .stat-chip-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      flex-shrink: 0;
+    }
+    .chip-published {
+      border-color: #bbf7d0;
+      color: #15803d;
+      background: #f0fdf4;
+    }
+    .chip-draft {
+      border-color: #e4e4e7;
+      color: #52525b;
+      background: #f4f4f5;
+    }
+    .chip-closed {
+      border-color: #fecdd3;
+      color: #be123c;
+      background: #fff1f2;
+    }
+
+    /* ── Form panel ─────────────────────────────────────────────────────── */
+    #form-panel {
+      display: none;
+      background: var(--color-canvas, #fff);
+      border-radius: 0.75rem;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    #form-panel.visible {
+      display: block;
+    }
+
+    .form-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .form-panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-ink, #0a0a0a);
+    }
+    .close-form-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.375rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--color-mute, #71717a);
+      transition: background 0.15s;
+    }
+    .close-form-btn:hover {
+      background: var(--color-surface-soft, #f5f5f4);
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-row-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .form-row-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .form-row-1 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 640px) {
+      .form-row-2,
+      .form-row-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-charcoal, #3f3f46);
+      margin-bottom: 0.3125rem;
+    }
+    .field-hint {
+      font-size: 0.75rem;
+      color: var(--color-mute, #71717a);
+      margin-top: 0.25rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      border-radius: 0.5rem;
+      padding: 0 0.875rem;
+      font-size: 0.9375rem;
+      outline: none;
+      background: var(--color-canvas, #fff);
+      color: var(--color-ink, #0a0a0a);
+      transition: border-color 0.15s;
+      appearance: none;
+      font-family: inherit;
+    }
+    .form-input {
+      height: 2.5rem;
+    }
+    .form-select {
+      height: 2.5rem;
+      padding-right: 2rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.625rem center;
+      cursor: pointer;
+    }
+    .form-textarea {
+      padding: 0.625rem 0.875rem;
+      resize: vertical;
+      font-family:
+        "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--color-ink, #0a0a0a);
+    }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #a1a1aa;
+    }
+
+    .md-guide {
+      font-size: 0.75rem;
+      color: var(--color-mute, #71717a);
+      line-height: 1.6;
+      margin-top: 0.5rem;
+      background: var(--color-surface-soft, #f5f5f4);
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+    }
+    .md-guide summary {
+      cursor: pointer;
+      list-style: none;
+    }
+    .md-guide summary::-webkit-details-marker {
+      display: none;
+    }
+    .md-guide[open] summary::after {
+      content: " ▲";
+    }
+    .md-guide summary::after {
+      content: " ▼";
+    }
+    .md-guide-body {
+      margin-top: 0.5rem;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .save-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      height: 2.5rem;
+      padding: 0 1.25rem;
+      border-radius: 9999px;
+      background: var(--color-ink, #0a0a0a);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .save-btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+    .save-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .cancel-btn {
+      height: 2.5rem;
+      padding: 0 1.25rem;
+      border-radius: 9999px;
+      background: none;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      color: var(--color-charcoal, #3f3f46);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .cancel-btn:hover {
+      background: var(--color-surface-soft, #f5f5f4);
+    }
+
+    .btn-spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .save-btn.loading .btn-spinner {
+      display: block;
+    }
+    .save-btn.loading .btn-text {
+      display: none;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ── Table ──────────────────────────────────────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .data-table thead th {
+      text-align: left;
+      padding: 0.625rem 0.75rem 0.625rem 0;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-mute, #71717a);
+      border-bottom: 1px solid var(--color-hairline, #e4e4e7);
+      white-space: nowrap;
+    }
+    .data-table tbody tr {
+      border-bottom: 1px solid var(--color-hairline, #e4e4e7);
+      transition: background 0.1s;
+    }
+    .data-table tbody tr:hover {
+      background: rgba(245, 245, 244, 0.5);
+    }
+    .data-table tbody td {
+      padding: 0.875rem 0.75rem 0.875rem 0;
+      vertical-align: middle;
+    }
+
+    .job-title-cell p {
+      font-weight: 500;
+      color: var(--color-ink, #0a0a0a);
+      font-size: 0.9375rem;
+    }
+    .job-slug {
+      font-size: 0.75rem;
+      color: var(--color-mute, #71717a);
+      font-family: monospace;
+      margin-top: 0.125rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border-radius: 9999px;
+      padding: 0.125rem 0.5rem;
+      font-size: 0.75rem;
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .status-published {
+      background: #f0fdf4;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
+    .status-draft {
+      background: #f4f4f5;
+      color: #52525b;
+      border-color: #e4e4e7;
+    }
+    .status-closed {
+      background: #fff1f2;
+      color: #be123c;
+      border-color: #fecdd3;
+    }
+
+    .table-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .action-link {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 0.375rem;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      color: var(--color-charcoal, #3f3f46);
+      text-decoration: none;
+      background: var(--color-canvas, #fff);
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .action-link:hover {
+      background: var(--color-surface-soft, #f5f5f4);
+    }
+    .action-btn {
+      font-size: 0.8125rem;
+      padding: 0.25rem 0.625rem;
+      border-radius: 0.375rem;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      color: var(--color-charcoal, #3f3f46);
+      background: var(--color-canvas, #fff);
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .action-btn:hover {
+      background: var(--color-surface-soft, #f5f5f4);
+    }
+    .action-delete {
+      color: #dc2626;
+      border-color: #fecaca;
+    }
+    .action-delete:hover {
+      background: #fef2f2;
+    }
+
+    /* ── Mobile cards ───────────────────────────────────────────────────── */
+    .mobile-card {
+      background: var(--color-canvas, #fff);
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .mobile-card-title {
+      font-weight: 500;
+      font-size: 0.9375rem;
+      color: var(--color-ink, #0a0a0a);
+    }
+    .mobile-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem 0.75rem;
+      margin-top: 0.5rem;
+      align-items: center;
+    }
+    .mobile-card-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-hairline, #e4e4e7);
+    }
+
+    /* ── Empty state ────────────────────────────────────────────────────── */
+    .empty-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 4rem 0;
+      text-align: center;
+    }
+    .empty-state.visible {
+      display: flex;
+    }
+    .empty-state-icon {
+      color: #d4d4d8;
+    }
+    .empty-state-text {
+      font-size: 0.9375rem;
+      color: var(--color-mute, #71717a);
+    }
+    .empty-state-cta {
+      font-size: 0.875rem;
+      color: var(--color-ink, #0a0a0a);
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
+
+  <!-- Page header -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="font-display text-heading-lg text-ink">Job listings</h2>
     <button
-      type="button"
       id="new-job-btn"
-      class="rounded-full bg-ink px-4 py-2 text-body-sm font-medium text-on-primary"
+      class="rounded-full bg-ink text-on-primary px-5 py-2 text-body-sm font-medium border-none cursor-pointer transition-opacity hover:opacity-85"
+      style="background:var(--color-ink,#0a0a0a);color:#fff;"
     >
-      New job
+      + New Job
     </button>
   </div>
 
-  <form
-    id="job-form"
-    class="mt-8 hidden space-y-4 rounded-lg border border-hairline p-6"
-  >
-    <h2 class="font-display text-heading-sm text-ink">Create job</h2>
-    <input type="hidden" id="job-id" />
-    <div class="grid gap-4 sm:grid-cols-2">
-      <div>
-        <label class="mb-1 block text-body-sm">Title</label>
-        <input
-          id="job-title"
-          required
-          class="h-10 w-full rounded-lg border border-hairline px-3"
-        />
-      </div>
-      <div>
-        <label class="mb-1 block text-body-sm">Slug (optional)</label>
-        <input
-          id="job-slug"
-          class="h-10 w-full rounded-lg border border-hairline px-3"
-        />
-      </div>
-      <div>
-        <label class="mb-1 block text-body-sm">Department</label>
-        <input
-          id="job-dept"
-          class="h-10 w-full rounded-lg border border-hairline px-3"
-        />
-      </div>
-      <div>
-        <label class="mb-1 block text-body-sm">Location</label>
-        <input
-          id="job-loc"
-          class="h-10 w-full rounded-lg border border-hairline px-3"
-        />
-      </div>
+  <!-- Stats bar -->
+  <div class="flex gap-3 mb-6 flex-wrap">
+    <div class="stat-chip chip-published">
+      <span class="stat-chip-dot" style="background:#4ade80;"></span>
+      Published
+      <span id="stat-published" style="font-weight:600;">0</span>
     </div>
-    <div>
-      <label class="mb-1 block text-body-sm">Status</label>
-      <select
-        id="job-status"
-        class="h-10 rounded-lg border border-hairline px-3"
-      >
-        <option value="draft">Draft</option>
-        <option value="published">Published</option>
-        <option value="closed">Closed</option>
-      </select>
+    <div class="stat-chip chip-draft">
+      <span class="stat-chip-dot" style="background:#a1a1aa;"></span>
+      Draft
+      <span id="stat-draft" style="font-weight:600;">0</span>
     </div>
-    <div>
-      <label class="mb-1 block text-body-sm">Description</label>
-      <p class="mb-2 text-caption-sm text-mute">
-        Use ## for section headings and - for bullet lists. Blank lines separate
-        paragraphs.
-      </p>
-      <textarea
-        id="job-desc"
-        required
-        rows="16"
-        placeholder="## About the role
-
-Short intro paragraph.
-
-## What you will do
-- First responsibility
-- Second responsibility
-
-## What we are looking for
-- Requirement one
-- Requirement two"
-        class="w-full rounded-lg border border-hairline px-3 py-2 font-mono text-body-sm"
-      ></textarea>
+    <div class="stat-chip chip-closed">
+      <span class="stat-chip-dot" style="background:#fb7185;"></span>
+      Closed
+      <span id="stat-closed" style="font-weight:600;">0</span>
     </div>
-    <p id="job-form-error" class="hidden text-body-sm text-red-600"></p>
-    <div class="flex gap-2">
-      <button
-        type="submit"
-        class="rounded-full bg-ink px-4 py-2 text-body-sm text-on-primary"
-        >Save</button
-      >
-      <button
-        type="button"
-        id="cancel-job"
-        class="rounded-full border border-hairline px-4 py-2 text-body-sm"
-        >Cancel</button
-      >
+  </div>
+
+  <!-- Create/Edit form panel -->
+  <div id="form-panel">
+    <div class="form-panel-header">
+      <p id="form-title" class="form-panel-title">New listing</p>
+      <button id="cancel-btn" class="close-form-btn" aria-label="Close form">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
-  </form>
 
-  <div id="jobs-list" class="mt-8 space-y-3"></div>
-</AdminLayout>
+    <form id="job-form" novalidate>
+      <input type="hidden" id="job-id" value="" />
 
-<script>
-  const list = document.getElementById("jobs-list");
-  const form = document.getElementById("job-form") as HTMLFormElement;
-  const newBtn = document.getElementById("new-job-btn");
-  const cancelBtn = document.getElementById("cancel-job");
-  const errEl = document.getElementById("job-form-error");
-
-  newBtn?.addEventListener("click", () => {
-    form.classList.remove("hidden");
-    (document.getElementById("job-id") as HTMLInputElement).value = "";
-    form.reset();
-  });
-  cancelBtn?.addEventListener("click", () => form.classList.add("hidden"));
-
-  async function loadJobs() {
-    const res = await fetch("/api/admin/jobs");
-    if (res.status === 401) {
-      window.location.href = "/admin";
-      return;
-    }
-    const data = (await res.json()) as { jobs?: Array<Record<string, string>> };
-    const jobs = data.jobs ?? [];
-    if (!list) return;
-    list.innerHTML =
-      jobs
-        .map(
-          (j) => `
-      <article class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-hairline p-4">
+      <!-- Row 1: Title + Slug -->
+      <div class="form-row form-row-2">
         <div>
-          <p class="font-medium">${j.title}</p>
-          <p class="text-caption-sm text-mute">${j.status} · /careers/${j.slug}</p>
+          <label for="job-title" class="field-label"
+            >Title <span style="color:#dc2626">*</span></label
+          >
+          <input
+            id="job-title"
+            type="text"
+            class="form-input"
+            placeholder="e.g. Senior Full-Stack Engineer"
+            required
+          />
         </div>
-        <div class="flex gap-2">
-          <a href="/admin/applications?job=${j.id}" class="text-body-sm underline">Applications</a>
-          <button type="button" data-edit="${j.id}" class="text-body-sm underline">Edit</button>
-          <button type="button" data-del="${j.id}" class="text-body-sm text-red-600">Delete</button>
+        <div>
+          <label for="job-slug" class="field-label"
+            >Slug <span style="color:#dc2626">*</span></label
+          >
+          <input
+            id="job-slug"
+            type="text"
+            class="form-input"
+            placeholder="senior-full-stack-engineer"
+            required
+          />
+          <p class="field-hint" id="slug-preview">/careers/…</p>
         </div>
-      </article>
-    `,
-        )
-        .join("") || "<p class='text-mute'>No jobs yet.</p>";
+      </div>
 
-    list.querySelectorAll("[data-del]").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        const id = (btn as HTMLElement).dataset.del;
-        if (!id || !confirm("Delete this job?")) return;
-        await fetch(`/api/admin/jobs/${id}`, { method: "DELETE" });
-        loadJobs();
-      });
-    });
+      <!-- Row 2: Department + Location + Type -->
+      <div class="form-row form-row-3">
+        <div>
+          <label for="job-dept" class="field-label">Department</label>
+          <input
+            id="job-dept"
+            type="text"
+            class="form-input"
+            placeholder="e.g. Engineering"
+          />
+        </div>
+        <div>
+          <label for="job-location" class="field-label">Location</label>
+          <input
+            id="job-location"
+            type="text"
+            class="form-input"
+            placeholder="e.g. Remote / Chennai"
+          />
+        </div>
+        <div>
+          <label for="job-type" class="field-label">Type</label>
+          <select id="job-type" class="form-select">
+            <option value="full_time">Full-time</option>
+            <option value="part_time">Part-time</option>
+            <option value="contract">Contract</option>
+            <option value="internship">Internship</option>
+          </select>
+        </div>
+      </div>
 
-    list.querySelectorAll("[data-edit]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = (btn as HTMLElement).dataset.edit;
-        const job = jobs.find((j) => j.id === id);
-        if (!job) return;
-        form.classList.remove("hidden");
-        (document.getElementById("job-id") as HTMLInputElement).value = job.id;
-        (document.getElementById("job-title") as HTMLInputElement).value =
-          job.title;
-        (document.getElementById("job-slug") as HTMLInputElement).value =
-          job.slug;
-        (document.getElementById("job-dept") as HTMLInputElement).value =
-          job.department ?? "";
-        (document.getElementById("job-loc") as HTMLInputElement).value =
-          job.location ?? "";
-        (document.getElementById("job-status") as HTMLSelectElement).value =
-          job.status;
-        (document.getElementById("job-desc") as HTMLTextAreaElement).value =
-          job.description;
-      });
-    });
-  }
+      <!-- Row 3: Status -->
+      <div class="form-row form-row-1">
+        <div>
+          <label for="job-status" class="field-label">Status</label>
+          <select id="job-status" class="form-select" style="max-width:200px;">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+      </div>
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    errEl?.classList.add("hidden");
-    const id = (document.getElementById("job-id") as HTMLInputElement).value;
-    const payload = {
-      title: (document.getElementById("job-title") as HTMLInputElement).value,
-      slug: (document.getElementById("job-slug") as HTMLInputElement).value,
-      department: (document.getElementById("job-dept") as HTMLInputElement)
-        .value,
-      location: (document.getElementById("job-loc") as HTMLInputElement).value,
-      status: (document.getElementById("job-status") as HTMLSelectElement)
-        .value,
-      description: (document.getElementById("job-desc") as HTMLTextAreaElement)
-        .value,
+      <!-- Row 4: Description -->
+      <div class="form-row form-row-1">
+        <div>
+          <label for="job-description" class="field-label">Description</label>
+          <textarea
+            id="job-description"
+            class="form-textarea"
+            rows={14}
+            placeholder="Write the job description in Markdown…"></textarea>
+          <details class="md-guide">
+            <summary>Markdown guide</summary>
+            <div class="md-guide-body">
+              ## Heading&#10;- bullet list&#10;**bold**&#10;&#10;Blank lines =
+              new paragraph
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="submit" id="save-btn" class="save-btn">
+          <div class="btn-spinner" aria-hidden="true"></div>
+          <span class="btn-text">Save listing</span>
+        </button>
+        <button type="button" id="cancel-btn-2" class="cancel-btn"
+          >Cancel</button
+        >
+      </div>
+    </form>
+  </div>
+
+  <!-- Desktop table -->
+  <div class="hidden md:block">
+    <div id="desktop-skeleton">
+      <div
+        style="height:3rem;border-radius:0.5rem;background:var(--color-surface-soft,#f5f5f4);margin-bottom:0.5rem;animation:pulse 1.5s ease-in-out infinite;"
+      >
+      </div>
+      <div
+        style="height:3rem;border-radius:0.5rem;background:var(--color-surface-soft,#f5f5f4);margin-bottom:0.5rem;animation:pulse 1.5s ease-in-out infinite;opacity:0.7;"
+      >
+      </div>
+      <div
+        style="height:3rem;border-radius:0.5rem;background:var(--color-surface-soft,#f5f5f4);margin-bottom:0.5rem;animation:pulse 1.5s ease-in-out infinite;opacity:0.4;"
+      >
+      </div>
+      <style>
+        @keyframes pulse {
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+      </style>
+    </div>
+    <div id="desktop-table-wrap" style="display:none;">
+      <div class="overflow-x-auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="min-width:220px">Job</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div id="desktop-empty" class="empty-state">
+      <svg
+        class="empty-state-icon"
+        width="40"
+        height="40"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        ></path>
+      </svg>
+      <p class="empty-state-text">No job listings yet.</p>
+      <button class="empty-state-cta" id="empty-cta-btn"
+        >Create your first listing</button
+      >
+    </div>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="block md:hidden">
+    <div id="mobile-skeleton">
+      <div
+        style="height:5rem;border-radius:0.75rem;background:var(--color-surface-soft,#f5f5f4);margin-bottom:0.75rem;animation:pulse 1.5s ease-in-out infinite;"
+      >
+      </div>
+      <div
+        style="height:5rem;border-radius:0.75rem;background:var(--color-surface-soft,#f5f5f4);margin-bottom:0.75rem;animation:pulse 1.5s ease-in-out infinite;opacity:0.7;"
+      >
+      </div>
+    </div>
+    <div id="mobile-cards-wrap" style="display:none;">
+      <div id="mobile-cards-list"></div>
+    </div>
+    <div id="mobile-empty" class="empty-state">
+      <svg
+        class="empty-state-icon"
+        width="36"
+        height="36"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+        ></path>
+      </svg>
+      <p class="empty-state-text">No job listings yet.</p>
+      <button class="empty-state-cta" id="mobile-empty-cta-btn"
+        >Create your first listing</button
+      >
+    </div>
+  </div>
+
+  <script>
+    type Job = {
+      id: string;
+      title: string;
+      slug: string;
+      department?: string;
+      location?: string;
+      employment_type?: string;
+      status: "draft" | "published" | "closed";
+      description?: string;
+      created_at?: string;
     };
 
-    const res = id
-      ? await fetch(`/api/admin/jobs/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        })
-      : await fetch("/api/admin/jobs", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+    let jobs: Job[] = [];
+    let lastAutoSlug = "";
 
-    if (!res.ok) {
-      const data = (await res.json()) as { error?: string };
-      if (errEl) {
-        errEl.textContent = data.error ?? "Save failed";
-        errEl.classList.remove("hidden");
-      }
-      return;
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    function escHtml(str: string): string {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
     }
-    form.classList.add("hidden");
-    loadJobs();
-  });
 
-  loadJobs();
-</script>
+    function toSlug(str: string): string {
+      return str
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
+    function statusBadgeClass(status: string): string {
+      if (status === "published") return "status-badge status-published";
+      if (status === "closed") return "status-badge status-closed";
+      return "status-badge status-draft";
+    }
+
+    // ── Stats ─────────────────────────────────────────────────────────────────
+    function updateStats(list: Job[]) {
+      (document.getElementById("stat-published") as HTMLElement).textContent =
+        String(list.filter((j) => j.status === "published").length);
+      (document.getElementById("stat-draft") as HTMLElement).textContent =
+        String(list.filter((j) => j.status === "draft").length);
+      (document.getElementById("stat-closed") as HTMLElement).textContent =
+        String(list.filter((j) => j.status === "closed").length);
+    }
+
+    // ── Load ──────────────────────────────────────────────────────────────────
+    async function loadJobs() {
+      try {
+        const res = await fetch("/api/admin/jobs");
+        if (!res.ok) throw new Error("Failed to load");
+        const payload = (await res.json()) as { jobs?: Job[] };
+        jobs = payload.jobs ?? [];
+
+        document.getElementById("desktop-skeleton")!.style.display = "none";
+        document.getElementById("mobile-skeleton")!.style.display = "none";
+
+        updateStats(jobs);
+        renderDesktopTable(jobs);
+        renderMobileCards(jobs);
+      } catch (err) {
+        console.error(err);
+        document.getElementById("desktop-skeleton")!.style.display = "none";
+        document.getElementById("mobile-skeleton")!.style.display = "none";
+        showEmpty(true);
+      }
+    }
+
+    function showEmpty(force = false) {
+      const empty = jobs.length === 0 || force;
+      (
+        document.getElementById("desktop-table-wrap") as HTMLElement
+      ).style.display = empty ? "none" : "block";
+      (
+        document.getElementById("desktop-empty") as HTMLElement
+      ).classList.toggle("visible", empty);
+      (
+        document.getElementById("mobile-cards-wrap") as HTMLElement
+      ).style.display = empty ? "none" : "block";
+      (document.getElementById("mobile-empty") as HTMLElement).classList.toggle(
+        "visible",
+        empty,
+      );
+    }
+
+    // ── Desktop table ─────────────────────────────────────────────────────────
+    function renderDesktopTable(list: Job[]) {
+      const tbody = document.getElementById(
+        "jobs-tbody",
+      ) as HTMLTableSectionElement;
+      tbody.innerHTML = "";
+
+      if (list.length === 0) {
+        showEmpty();
+        return;
+      }
+
+      document.getElementById("desktop-table-wrap")!.style.display = "block";
+      document.getElementById("desktop-empty")!.classList.remove("visible");
+      document.getElementById("mobile-cards-wrap")!.style.display = "block";
+      document.getElementById("mobile-empty")!.classList.remove("visible");
+
+      list.forEach((job) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <div class="job-title-cell">
+              <p>${escHtml(job.title)}</p>
+              <p class="job-slug">/careers/${escHtml(job.slug)}</p>
+            </div>
+          </td>
+          <td style="color:var(--color-charcoal,#3f3f46);font-size:0.875rem;">${escHtml(job.department ?? "—")}</td>
+          <td><span class="${statusBadgeClass(job.status)}">${escHtml(job.status)}</span></td>
+          <td>
+            <div class="table-actions">
+              <a href="/admin/applications?job=${encodeURIComponent(job.slug)}" class="action-link">Applications</a>
+              <button class="action-btn edit-btn" data-id="${escHtml(job.id)}">Edit</button>
+              <button class="action-btn action-delete delete-btn" data-id="${escHtml(job.id)}">Delete</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Wire up buttons
+      tbody.querySelectorAll<HTMLButtonElement>(".edit-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const job = jobs.find((j) => j.id === btn.getAttribute("data-id"));
+          if (job) openEditForm(job);
+        });
+      });
+      tbody
+        .querySelectorAll<HTMLButtonElement>(".delete-btn")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id") ?? "";
+            deleteJob(id);
+          });
+        });
+    }
+
+    // ── Mobile cards ──────────────────────────────────────────────────────────
+    function renderMobileCards(list: Job[]) {
+      const container = document.getElementById(
+        "mobile-cards-list",
+      ) as HTMLElement;
+      container.innerHTML = "";
+
+      if (list.length === 0) {
+        showEmpty();
+        return;
+      }
+
+      list.forEach((job) => {
+        const card = document.createElement("div");
+        card.className = "mobile-card";
+        card.innerHTML = `
+          <p class="mobile-card-title">${escHtml(job.title)}</p>
+          <div class="mobile-card-meta">
+            <span class="${statusBadgeClass(job.status)}">${escHtml(job.status)}</span>
+            ${job.department ? `<span style="font-size:0.75rem;color:var(--color-mute,#71717a);">${escHtml(job.department)}</span>` : ""}
+            ${job.location ? `<span style="font-size:0.75rem;color:var(--color-mute,#71717a);">${escHtml(job.location)}</span>` : ""}
+          </div>
+          <div class="mobile-card-actions">
+            <a href="/admin/applications?job=${encodeURIComponent(job.slug)}" class="action-link">Applications</a>
+            <button class="action-btn mobile-edit-btn" data-id="${escHtml(job.id)}">Edit</button>
+            <button class="action-btn action-delete mobile-delete-btn" data-id="${escHtml(job.id)}">Delete</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      container
+        .querySelectorAll<HTMLButtonElement>(".mobile-edit-btn")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const job = jobs.find((j) => j.id === btn.getAttribute("data-id"));
+            if (job) openEditForm(job);
+          });
+        });
+      container
+        .querySelectorAll<HTMLButtonElement>(".mobile-delete-btn")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-id") ?? "";
+            deleteJob(id);
+          });
+        });
+    }
+
+    // ── Form open/close ───────────────────────────────────────────────────────
+    function openNewForm() {
+      resetForm();
+      (document.getElementById("form-title") as HTMLElement).textContent =
+        "New listing";
+      const panel = document.getElementById("form-panel") as HTMLElement;
+      panel.classList.add("visible");
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      (document.getElementById("job-title") as HTMLInputElement).focus();
+    }
+
+    function openEditForm(job: Job) {
+      (document.getElementById("job-id") as HTMLInputElement).value = job.id;
+      (document.getElementById("job-title") as HTMLInputElement).value =
+        job.title;
+      (document.getElementById("job-slug") as HTMLInputElement).value =
+        job.slug;
+      (document.getElementById("job-dept") as HTMLInputElement).value =
+        job.department ?? "";
+      (document.getElementById("job-location") as HTMLInputElement).value =
+        job.location ?? "";
+      (document.getElementById("job-type") as HTMLSelectElement).value =
+        job.employment_type ?? "full_time";
+      (document.getElementById("job-status") as HTMLSelectElement).value =
+        job.status;
+      (
+        document.getElementById("job-description") as HTMLTextAreaElement
+      ).value = job.description ?? "";
+      lastAutoSlug = job.slug;
+      updateSlugPreview(job.slug);
+
+      (document.getElementById("form-title") as HTMLElement).textContent =
+        `Editing: ${job.title}`;
+      const panel = document.getElementById("form-panel") as HTMLElement;
+      panel.classList.add("visible");
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function closeForm() {
+      const panel = document.getElementById("form-panel") as HTMLElement;
+      panel.classList.remove("visible");
+      resetForm();
+    }
+
+    function resetForm() {
+      (document.getElementById("job-id") as HTMLInputElement).value = "";
+      (document.getElementById("job-form") as HTMLFormElement).reset();
+      lastAutoSlug = "";
+      updateSlugPreview("");
+    }
+
+    function updateSlugPreview(slug: string) {
+      const preview = document.getElementById("slug-preview") as HTMLElement;
+      preview.textContent = slug ? `/careers/${slug}` : "/careers/…";
+    }
+
+    // ── Delete ────────────────────────────────────────────────────────────────
+    async function deleteJob(id: string) {
+      const job = jobs.find((j) => j.id === id);
+      if (!job) return;
+      if (!confirm(`Delete "${job.title}"? This cannot be undone.`)) return;
+
+      try {
+        const res = await fetch(`/api/admin/jobs/${id}`, { method: "DELETE" });
+        if (!res.ok) throw new Error("Failed to delete");
+        await loadJobs();
+      } catch (err) {
+        console.error(err);
+        alert("Failed to delete job. Please try again.");
+      }
+    }
+
+    // ── Submit ────────────────────────────────────────────────────────────────
+    document
+      .getElementById("job-form")
+      ?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const id = (document.getElementById("job-id") as HTMLInputElement)
+          .value;
+        const title = (
+          document.getElementById("job-title") as HTMLInputElement
+        ).value.trim();
+        const slug = (
+          document.getElementById("job-slug") as HTMLInputElement
+        ).value.trim();
+
+        if (!title) {
+          (document.getElementById("job-title") as HTMLInputElement).focus();
+          return;
+        }
+        if (!slug) {
+          (document.getElementById("job-slug") as HTMLInputElement).focus();
+          return;
+        }
+
+        const payload = {
+          title,
+          slug,
+          department: (
+            document.getElementById("job-dept") as HTMLInputElement
+          ).value.trim(),
+          location: (
+            document.getElementById("job-location") as HTMLInputElement
+          ).value.trim(),
+          employment_type: (
+            document.getElementById("job-type") as HTMLSelectElement
+          ).value,
+          status: (document.getElementById("job-status") as HTMLSelectElement)
+            .value,
+          description: (
+            document.getElementById("job-description") as HTMLTextAreaElement
+          ).value,
+        };
+
+        const saveBtn = document.getElementById(
+          "save-btn",
+        ) as HTMLButtonElement;
+        saveBtn.classList.add("loading");
+        saveBtn.disabled = true;
+
+        try {
+          const url = id ? `/api/admin/jobs/${id}` : "/api/admin/jobs";
+          const method = id ? "PATCH" : "POST";
+          const res = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error("Failed to save");
+          closeForm();
+          await loadJobs();
+        } catch (err) {
+          console.error(err);
+          alert("Failed to save job listing. Please try again.");
+        } finally {
+          saveBtn.classList.remove("loading");
+          saveBtn.disabled = false;
+        }
+      });
+
+    // ── Auto-slug + live preview ──────────────────────────────────────────────
+    const titleInput = document.getElementById("job-title") as HTMLInputElement;
+    const slugInput = document.getElementById("job-slug") as HTMLInputElement;
+
+    titleInput?.addEventListener("input", () => {
+      const currentSlug = slugInput.value;
+      if (!currentSlug || currentSlug === lastAutoSlug) {
+        const auto = toSlug(titleInput.value);
+        slugInput.value = auto;
+        lastAutoSlug = auto;
+        updateSlugPreview(auto);
+      }
+    });
+
+    slugInput?.addEventListener("input", () => {
+      updateSlugPreview(slugInput.value);
+    });
+
+    // ── Event wiring ──────────────────────────────────────────────────────────
+    document
+      .getElementById("new-job-btn")
+      ?.addEventListener("click", openNewForm);
+    document.getElementById("cancel-btn")?.addEventListener("click", closeForm);
+    document
+      .getElementById("cancel-btn-2")
+      ?.addEventListener("click", closeForm);
+    document
+      .getElementById("empty-cta-btn")
+      ?.addEventListener("click", openNewForm);
+    document
+      .getElementById("mobile-empty-cta-btn")
+      ?.addEventListener("click", openNewForm);
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    loadJobs();
+  </script>
+</AdminLayout>

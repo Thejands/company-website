@@ -1,0 +1,125 @@
+<!-- Cookie consent banner — GDPR compliant, localStorage-based, no tracking cookies set -->
+<div
+  id="cookie-banner"
+  role="dialog"
+  aria-modal="false"
+  aria-label="Cookie consent"
+  aria-live="polite"
+  class="fixed bottom-0 left-0 right-0 z-50 hidden border-t border-hairline bg-canvas/95 shadow-lg backdrop-blur-sm"
+>
+  <div
+    class="container-page flex flex-col gap-4 py-5 sm:flex-row sm:items-center sm:gap-6"
+  >
+    <div class="flex-1">
+      <p class="text-body-sm text-body">
+        <span class="font-medium text-ink"
+          >This site uses minimal browser storage.</span
+        >
+        We use no advertising or tracking cookies — only your consent preference,
+        stored locally.
+        <a
+          href="/cookies"
+          class="underline underline-offset-2 hover:text-ink transition-colors"
+        >
+          Cookie Policy
+        </a>
+        ·
+        <a
+          href="/privacy"
+          class="underline underline-offset-2 hover:text-ink transition-colors"
+        >
+          Privacy Policy
+        </a>
+      </p>
+    </div>
+    <div class="flex shrink-0 items-center gap-3">
+      <button
+        id="cookie-decline"
+        type="button"
+        class="rounded-full border border-hairline px-4 py-2 text-body-sm font-medium text-charcoal transition-colors hover:border-ink hover:text-ink"
+      >
+        Decline non-essential
+      </button>
+      <button
+        id="cookie-accept"
+        type="button"
+        class="rounded-full bg-ink px-4 py-2 text-body-sm font-medium text-canvas transition-colors hover:bg-charcoal"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = "cookie-consent";
+  const CONSENT_VERSION = "1";
+
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("cookie-accept");
+  const declineBtn = document.getElementById("cookie-decline");
+
+  function getConsent(): string | null {
+    try {
+      const raw = localStorage.getItem(CONSENT_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      // Re-show if version changed
+      if (parsed.version !== CONSENT_VERSION) return null;
+      return parsed.choice ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  function setConsent(choice: "accepted" | "declined") {
+    try {
+      localStorage.setItem(
+        CONSENT_KEY,
+        JSON.stringify({
+          choice,
+          version: CONSENT_VERSION,
+          timestamp: new Date().toISOString(),
+        }),
+      );
+    } catch {
+      // localStorage unavailable — ignore silently
+    }
+  }
+
+  function hideBanner() {
+    if (banner) {
+      banner.classList.add("hidden");
+      banner.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function showBanner() {
+    if (banner) {
+      banner.classList.remove("hidden");
+      banner.removeAttribute("aria-hidden");
+    }
+  }
+
+  function init() {
+    const existing = getConsent();
+    if (!existing) {
+      // Small delay so the banner doesn't flash on initial paint
+      setTimeout(showBanner, 800);
+    }
+  }
+
+  acceptBtn?.addEventListener("click", () => {
+    setConsent("accepted");
+    hideBanner();
+  });
+
+  declineBtn?.addEventListener("click", () => {
+    setConsent("declined");
+    hideBanner();
+  });
+
+  // Init on page load and on Astro view transitions
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

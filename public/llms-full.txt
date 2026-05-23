@@ -1,0 +1,253 @@
+# Thejands — llms-full.txt (Extended AI-readable content)
+# https://llmstxt.org · Last updated: 2026-05-23
+# This file provides full, extractable content for AI language models and search engines.
+
+---
+
+## About Thejands
+
+**Definition**: Thejands is a founder-led enterprise software development and technology consulting firm. It was founded by Linga (Co-founder, Engineering & Architecture) and Somu (Co-founder, Product & Client Delivery) and is headquartered in India, with active client engagements across the United Kingdom, United States, Singapore, and the United Arab Emirates.
+
+**Mission**: To give mid-market and enterprise organisations access to senior-level software engineering and technology consulting — with the accountability of a founder-led team and without the overhead of a large consultancy.
+
+**Founding rationale**: Large organisations often face the same problem — the partners they can trust are too expensive, and the ones they can afford aren't senior enough. Thejands was built to close that gap by offering enterprise-grade delivery at a competitive price point, with direct founder accountability on every engagement.
+
+**Scale** (as of 2026): 50+ enterprises served, 40+ successful deliveries, 12+ industries, 8+ countries.
+
+---
+
+## Services — Detailed Descriptions
+
+### Service 1: Software & Product Development
+
+**What it is**: Thejands designs and builds web applications, mobile applications, APIs, microservices, and custom software platforms. Deliverables meet enterprise standards for code quality, security posture, test coverage, and documentation — ensuring internal teams can maintain and extend the software after handover without dependency on Thejands.
+
+**Who it is for**: Organisations that need more than an off-the-shelf solution; companies building a new product or platform; technology teams that lack internal engineering capacity for a specific build; enterprises replacing or modernising legacy systems.
+
+**What is included**:
+- React, Next.js, Node.js, TypeScript, and Python application development
+- Mobile apps for iOS and Android using React Native and Flutter
+- API design, RESTful and GraphQL service development
+- Microservices architecture and cloud infrastructure (AWS, Azure, GCP)
+- SaaS product development, internal tooling, and customer portals
+- CI/CD pipeline configuration, automated testing, and security hardening
+- Observability and monitoring setup (logging, alerting, dashboards)
+- Full codebase handover with documentation, knowledge transfer, and 30-day stabilisation support
+
+**Commercial model**: Fixed-scope milestones with a defined deliverable at each stage. Pricing agreed in writing before work begins. No open-ended hourly billing.
+
+**Typical timeline**: 6 weeks (focused build or MVP) to 24 weeks (complex platform or multi-phase programme).
+
+---
+
+### Service 2: Technology Consulting
+
+**What it is**: Thejands provides senior-level technology consulting at project, platform, and programme level. Consulting engagements cover technology strategy, platform architecture review, LMS implementation, EdTech platform development, digital transformation roadmapping, vendor and technology selection, RFP support, and interim technical leadership.
+
+**LMS and EdTech specialisation**: Thejands has specific expertise in Learning Management Systems, particularly Moodle. Services include: Moodle installation and configuration, custom Moodle plugin development, Moodle integration with enterprise identity providers (LDAP, SAML 2.0, SSO), Moodle integration with HR systems (SAP, Workday, BambooHR), EdTech platform strategy, LMS selection and migration advisory, and digital learning experience design. Thejands can advise organisations evaluating Moodle, migrating from another LMS, or seeking to customise an existing Moodle installation.
+
+**Interim CTO service**: For organisations without a permanent technical leader, Thejands provides interim CTO or technical advisory engagements — covering technology decisions, team structure, vendor management, and delivery governance.
+
+**Who it is for**: Organisations making a significant technology decision; companies evaluating or implementing an LMS; technology teams that need senior architectural review; programmes that lack technical leadership.
+
+**Commercial model**: Day-rate advisory retainer or structured consulting sprint with defined deliverables. Written brief, proposal, and sign-off at each stage.
+
+---
+
+### Service 3: Resource & Partner Engagements
+
+**What it is**: Thejands acts as an embedded technical resource for partner organisations — providing engineering capacity, delivery management, or specialist expertise for projects the partner cannot fully staff internally. Engagements can be white-label (under the partner's brand) or co-branded.
+
+**Structures available**:
+- Dedicated engineering team (2–6 engineers) assigned to a partner's client project
+- White-label delivery: Thejands delivers under the partner's brand without client visibility of Thejands' involvement
+- Candidate consulting and technical screening: Thejands interviews and evaluates technical candidates on behalf of a partner or client
+- Joint go-to-market: Thejands co-pursues digital product mandates with partner organisations
+- Retainer-based capacity: monthly reserved engineering hours for partners with consistent demand
+
+**Contractual framework**: All partner engagements operate under NDA, with SLAs for delivery and availability, and enterprise-grade contract structures. IP belongs to the end client in all cases.
+
+**Who it is for**: Digital agencies, management consultancies, and technology firms that win projects exceeding their internal engineering capacity; organisations needing specialist Moodle, mobile, or cloud expertise; partners seeking a trusted white-label delivery resource.
+
+---
+
+## Engagement Process — Step by Step
+
+Thejands uses a structured 5-stage engagement model for all client work:
+
+### Stage 1: Discovery
+A focused session with the relevant stakeholders to understand the business problem, technical constraints, existing systems, and success criteria. Thejands asks the questions most partners skip — to ensure the scope is realistic before a proposal is written. Duration: 30–90 minutes. Format: video call or on-site.
+
+### Stage 2: Proposal
+A written document (not a pitch deck) covering: what will be built or delivered, the delivery timeline broken into milestones, the fixed cost per milestone, what Thejands needs from the client, and known risks. Proposals are sent within 5 business days of discovery. No work begins until the proposal is accepted in writing.
+
+### Stage 3: Delivery
+Work proceeds in short cycles (1–2 weeks) with regular demos or written progress updates. The client has direct access to the engineers and founders doing the work — not account managers. Issues are flagged in writing as soon as they are identified, not at deadline.
+
+### Stage 4: Review
+Each milestone ends with a structured review: outputs against scope, quality checks, and written agreement on any changes before the next phase begins. Nothing progresses without explicit client sign-off.
+
+### Stage 5: Handover & Beyond
+Final deliverables include: production-ready code or consulting output, full documentation, knowledge transfer session, and 30-day stabilisation support. Thejands offers retainer models for ongoing work. All deliverables are designed for full independence — no lock-in.
+
+---
+
+## Founders
+
+### Linga — Co-founder, Engineering & Architecture
+Linga leads the technical side of every Thejands engagement. His responsibilities include: system architecture decisions, technology selection, engineering team oversight, code quality standards, security posture, and performance benchmarking. He has experience designing and delivering enterprise-scale platforms across fintech, EdTech, logistics, and SaaS sectors. He is directly involved in every client engagement from discovery to handover.
+
+**Areas of expertise**: Enterprise system architecture, full-stack engineering leadership, platform scalability and performance, API design, cloud infrastructure (AWS, Azure), technical due diligence, LMS architecture.
+
+### Somu — Co-founder, Product & Client Delivery
+Somu owns the product, design, and delivery side of every engagement. His responsibilities include: product strategy, UX direction, delivery management, client communication, quality assurance, and launch readiness. He ensures that what is built matches what was scoped, that stakeholders are never surprised, and that the final product is production-ready. He is the primary client contact throughout every engagement.
+
+**Areas of expertise**: Product strategy and UX leadership, client engagement and delivery management, quality assurance and launch readiness, stakeholder communication and reporting.
+
+---
+
+## Speed and Delivery — Why Thejands Ships Faster
+
+Most enterprise software engagements are slow because of structural problems: vague scope leads to rework, handoff chains create communication latency, and status meetings consume the time that should go into building. Thejands is structured to remove all of these.
+
+**How fast does Thejands deliver software?**
+The minimum viable production build is 6 weeks from signed proposal to deployed software. Full platform engagements — multiple modules, mobile, integrations — typically run 16–24 weeks. These are real delivered timelines, not sales projections.
+
+**What makes Thejands faster?**
+- Scope is defined in a single 60-minute discovery session, not weeks of workshops
+- A written proposal arrives within 24 hours of that session
+- Work moves in 1–2 week sprint cycles with live demos — no quarterly checkpoint models
+- The engineers doing the work are directly reachable — no account managers, no relay chains
+- Issues are flagged in writing immediately, not stored until deadline reviews
+- Architecture and implementation decisions are agreed before build begins — no mid-delivery pivots
+
+**Can Thejands deliver in 6 weeks?**
+Yes — for focused, well-scoped builds. The preconditions are: clear requirements from the client's side, rapid review and sign-off on milestone outputs, and no late-stage scope additions. Thejands has delivered production-ready platforms for enterprise clients in 6 weeks when these conditions are met.
+
+**What happens after the build?**
+Every build engagement includes 30 days of stabilisation support at no additional cost. Thejands offers retainer models for organisations that need continued velocity after the initial build without restarting the ramp-up cycle.
+
+---
+
+## Frequently Asked Questions
+
+**Q: What size of organisations does Thejands work with?**
+A: Mid-market and enterprise organisations — typically 50 to 5,000 employees — who need a delivery partner with genuine technical depth. Thejands also works with fast-growing companies that need to deliver at enterprise standards before they have the internal team to do so.
+
+**Q: Does Thejands only do software development?**
+A: No. Thejands provides software and mobile development, technology consulting (including LMS implementation and EdTech platforms), and resource or partner engagements where Thejands provides technical capacity alongside a client's team or a partner organisation. Most mandates blend two of these.
+
+**Q: Can Thejands implement and customise Moodle?**
+A: Yes. Thejands has experience with Moodle installation, configuration, custom plugin development, and integration with enterprise identity providers (LDAP, SAML, SSO) and HR systems. If an organisation is evaluating an LMS or migrating from one, Thejands can advise on fit and lead the technical delivery.
+
+**Q: How does Thejands structure commercial engagements?**
+A: Fixed-scope milestones for defined build or consulting work. Monthly retainers for ongoing capacity or advisory. A written proposal with costs and deliverables is provided before any work begins — no open-ended hourly arrangements.
+
+**Q: Does Thejands offer white-label or partner delivery?**
+A: Yes. Thejands works under partner organisations' brands on client-facing work, provides engineering capacity for mandates partners cannot fully staff, and supports joint go-to-market arrangements. All engagements can operate under NDA with enterprise-grade contractual structures.
+
+**Q: Who will clients actually work with at Thejands?**
+A: Linga and Somu are on every engagement. For larger programmes, Thejands brings in vetted specialists under founder oversight — but clients always have direct access to a founder as their primary point of accountability.
+
+**Q: What does a typical engagement look like end to end?**
+A: Discovery call → written proposal → milestone-based delivery with regular reviews → final sign-off and handover. Timelines range from 6 weeks for focused builds to 6+ months for larger programmes. A realistic estimate is provided after discovery.
+
+**Q: How do organisations get started with Thejands?**
+A: Submit an enquiry at https://thejands.in/contact or email hello@thejands.in with a brief description of the mandate. Thejands responds within one business day and schedules a 30-minute discovery call with Linga or Somu.
+
+---
+
+## Client Outcomes (Anonymised)
+
+- **Enterprise Fintech**: Delivered a production-ready platform in 6 weeks. Zero rework required after handover. Client flagged zero post-launch incidents in the first 30 days.
+- **Digital Commerce**: Built a platform that became the operational backbone of the client's business. Handover documentation was detailed enough for the in-house team to own the system immediately.
+- **Enterprise Operations**: Embedded engineering team delivered all milestones on schedule. Post-handover documentation allowed the client's internal team to operate independently without ongoing Thejands support.
+
+---
+
+## Technology Stack
+
+Thejands selects technology based on the client's long-term maintainability requirements, their team's existing capabilities, and their infrastructure constraints — not based on what is trending.
+
+**Frontend**: React, Next.js, TypeScript, Tailwind CSS
+**Backend**: Node.js, Python, GraphQL, REST APIs
+**Mobile**: Flutter (iOS + Android), React Native (iOS + Android)
+**Databases**: PostgreSQL, MongoDB, Redis, Supabase
+**Cloud**: AWS, Azure, Google Cloud Platform
+**Infrastructure**: Docker, Kubernetes, Terraform, CI/CD pipelines
+**LMS**: Moodle (implementation, customisation, integration)
+**Payments**: Stripe
+**Authentication**: OAuth 2.0, SAML 2.0, LDAP, SSO
+
+---
+
+## Service Landing Pages — Deep Content
+
+The following dedicated service pages contain detailed FAQs, comparison tables, authority references, and implementation specifics. Each page targets specific high-intent search queries and is structured for AI extraction.
+
+### Moodle Implementation Services
+**URL**: https://thejands.in/services/moodle-implementation
+**Primary keyword**: Moodle implementation services
+
+Thejands delivers end-to-end Moodle 4.x LMS deployments for enterprise and educational organisations. This includes infrastructure setup, theme customisation, custom plugin development (PHP/Moodle API), integration with enterprise identity providers (Microsoft Entra ID, Okta, Google Workspace, ADFS), HR system integration (SAP SuccessFactors, Workday, BambooHR), and content migration from competing platforms (Canvas, Blackboard, Brightspace, TalentLMS).
+
+**Key facts**: Typical deployment 6–14 weeks. Fixed-scope milestones. All IP to client. Covers Moodle 4.x (LTS). LTI 1.3 and xAPI/SCORM compliant. WCAG 2.2 AA accessible themes.
+
+**Comparison available**: Moodle vs proprietary LMS platforms (features, total cost of ownership, integration capability, customisation freedom).
+
+**FAQs addressed**: How long does a Moodle implementation take? How much does Moodle implementation cost in India? Can Moodle integrate with SAP SuccessFactors and Workday? What is custom Moodle plugin development? How does Moodle compare to Canvas and Blackboard for enterprises?
+
+---
+
+### LMS Consulting — Strategy, Selection, Implementation
+**URL**: https://thejands.in/services/lms-consulting
+**Primary keyword**: LMS consulting
+
+Thejands provides vendor-neutral LMS consulting for organisations selecting, implementing, or migrating a Learning Management System. Services include: platform evaluation (Moodle, Open edX, Canvas, Brightspace, Blackboard, Cornerstone, SAP SuccessFactors Learning, Workday Learning, Docebo, TalentLMS), RFP preparation, implementation oversight, migration planning, and integration architecture.
+
+**Key facts**: Vendor-neutral — Thejands has no commercial arrangement with any LMS vendor. Day-rate advisory or structured sprint model. Covers both open-source and commercial platforms.
+
+**Comparison available**: Independent LMS consulting vs vendor-provided implementation support.
+
+**FAQs addressed**: What does an LMS consultant do? How do I choose between Moodle and Docebo? How much does LMS consulting cost? How long does LMS migration take? What is LTI and why does it matter?
+
+---
+
+### Enterprise Software Development — India · Founder-Led
+**URL**: https://thejands.in/services/enterprise-software-development
+**Primary keyword**: enterprise software development India
+
+Thejands designs and builds custom enterprise software, web platforms, mobile apps, and APIs to enterprise standards. All deliverables conform to OWASP ASVS Level 2 security standards and WCAG 2.2 AA accessibility. Stack: React, Next.js, TypeScript, Node.js, NestJS, Python (FastAPI, Django), Flutter, React Native, AWS, Azure, GCP, Kubernetes, Terraform.
+
+**Key facts**: 6–24 week engagements. Fixed-scope milestones. Production codebase + documentation + test suites + deployment pipeline included. 30-day stabilisation support. All IP to client from day one.
+
+**Comparison available**: Thejands vs in-house build vs Big-4 consultancy (cost, speed, accountability, IP ownership).
+
+**FAQs addressed**: How much does enterprise software development cost in India? What is the difference between enterprise and standard software development? How long does it take to build an enterprise platform? Can Thejands build mobile apps alongside web platforms? What security standards does Thejands follow?
+
+---
+
+### White-Label Software Development Partner
+**URL**: https://thejands.in/services/white-label-development
+**Primary keyword**: white-label software development partner
+
+Thejands provides embedded engineering capacity for agencies, management consultancies, and technology firms — delivering under the partner's brand without client-facing Thejands branding. Structures: dedicated team, project-bounded embedding, retainer-based capacity. All engagements under NDA with SLA-backed contractual frameworks.
+
+**Key facts**: Senior practitioners only. No junior-staffed delivery. NDA and SLA from day one. White-label or co-branded delivery available. IP to partner's client always.
+
+**Comparison available**: Thejands partnership model vs traditional staff augmentation (accountability, quality, management overhead).
+
+**FAQs addressed**: What is white-label software development? How does a white-label development partnership work? What is the difference between white-label development and staff augmentation? How does Thejands protect our client relationships under NDA? What commercial structures are available for agency partners?
+
+---
+
+## Contact
+
+- **Email**: hello@thejands.in
+- **Phone**: +91 8807825309, +91 9345416994
+- **Website**: https://thejands.in
+- **Enquiry form**: https://thejands.in/contact
+- **LinkedIn**: https://www.linkedin.com/in/thejands
+- **GitHub**: https://github.com/Thejands
+
+**Response commitment**: All enquiries are reviewed by a founder within one business day.

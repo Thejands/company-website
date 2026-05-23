@@ -1,12 +1,8 @@
 ---
 export const prerender = false;
-
 import AdminLayout from "@/layouts/AdminLayout.astro";
 import { isAdminRequest } from "@/lib/auth/admin-session";
-
-if (!(await isAdminRequest(Astro.request))) {
-  return Astro.redirect("/admin");
-}
+if (!(await isAdminRequest(Astro.request))) return Astro.redirect("/admin");
 
 const stages = [
   "applied",
@@ -15,144 +11,981 @@ const stages = [
   "offer",
   "hired",
   "rejected",
-];
+] as const;
+type Stage = (typeof stages)[number];
+
+const stageConfig: Record<
+  Stage,
+  {
+    label: string;
+    dot: string;
+    col: string;
+    card: string;
+    badge: string;
+    avatar: string;
+  }
+> = {
+  applied: {
+    label: "Applied",
+    dot: "bg-gray-400",
+    col: "border-gray-200",
+    card: "border-gray-200 hover:border-gray-400",
+    badge: "bg-gray-100 text-gray-700 border-gray-200",
+    avatar: "bg-gray-200 text-gray-700",
+  },
+  screening: {
+    label: "Screening",
+    dot: "bg-blue-400",
+    col: "border-blue-200",
+    card: "border-blue-200 hover:border-blue-400",
+    badge: "bg-blue-50 text-blue-700 border-blue-200",
+    avatar: "bg-blue-100 text-blue-700",
+  },
+  interview: {
+    label: "Interview",
+    dot: "bg-amber-400",
+    col: "border-amber-200",
+    card: "border-amber-200 hover:border-amber-400",
+    badge: "bg-amber-50 text-amber-700 border-amber-200",
+    avatar: "bg-amber-100 text-amber-700",
+  },
+  offer: {
+    label: "Offer",
+    dot: "bg-purple-400",
+    col: "border-purple-200",
+    card: "border-purple-200 hover:border-purple-400",
+    badge: "bg-purple-50 text-purple-700 border-purple-200",
+    avatar: "bg-purple-100 text-purple-700",
+  },
+  hired: {
+    label: "Hired",
+    dot: "bg-green-400",
+    col: "border-green-200",
+    card: "border-green-200 hover:border-green-400",
+    badge: "bg-green-50 text-green-700 border-green-200",
+    avatar: "bg-green-100 text-green-700",
+  },
+  rejected: {
+    label: "Rejected",
+    dot: "bg-rose-400",
+    col: "border-rose-200",
+    card: "border-rose-200 hover:border-rose-400",
+    badge: "bg-rose-50 text-rose-700 border-rose-200",
+    avatar: "bg-rose-100 text-rose-700",
+  },
+};
 ---
 
 <AdminLayout title="Applications">
-  <h1 class="font-display text-heading-lg text-ink">Applications</h1>
-  <p class="mt-2 text-body-sm text-body">Pipeline view - newest first.</p>
+  <style>
+    /* Summary chips */
+    .summary-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      background: var(--color-canvas, #fff);
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      border-radius: 9999px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-ink, #0a0a0a);
+      white-space: nowrap;
+    }
+    .summary-chip .chip-count {
+      background: var(--color-surface-soft, #f5f5f4);
+      border-radius: 9999px;
+      padding: 0.0625rem 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-charcoal, #3f3f46);
+    }
 
-  <div class="mt-8 grid gap-4 lg:grid-cols-3">
+    /* Kanban card */
+    .app-card {
+      display: block;
+      background: var(--color-canvas, #fff);
+      border-radius: 0.625rem;
+      border: 1.5px solid;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+      text-align: left;
+      width: 100%;
+    }
+    .app-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .app-avatar {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .app-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-ink, #0a0a0a);
+      line-height: 1.3;
+    }
+    .app-role {
+      font-size: 0.75rem;
+      color: var(--color-mute, #71717a);
+      line-height: 1.3;
+      margin-top: 0.0625rem;
+    }
+    .app-date {
+      font-size: 0.6875rem;
+      color: var(--color-mute, #71717a);
+      margin-top: 0.375rem;
+    }
+
+    /* Stage badge (in drawer) */
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 9999px;
+      padding: 0.1875rem 0.625rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border: 1px solid;
+    }
+
+    /* Drawer */
+    #app-drawer {
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #app-drawer.open {
+      transform: translateX(0);
+    }
+
+    /* Drawer label */
+    .drawer-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-mute, #71717a);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .drawer-value {
+      font-size: 0.875rem;
+      color: var(--color-ink, #0a0a0a);
+    }
+
+    /* Stage select in drawer */
+    .stage-select {
+      flex: 1;
+      height: 2.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      padding: 0 2rem 0 0.75rem;
+      font-size: 0.875rem;
+      outline: none;
+      background: var(--color-canvas, #fff);
+      color: var(--color-ink, #0a0a0a);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      cursor: pointer;
+    }
+    .stage-select:focus {
+      border-color: var(--color-ink, #0a0a0a);
+    }
+
+    .save-stage-btn {
+      height: 2.25rem;
+      padding: 0 1rem;
+      border-radius: 0.5rem;
+      background: var(--color-ink, #0a0a0a);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    .save-stage-btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+    .save-stage-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .stage-saved-msg {
+      font-size: 0.8125rem;
+      color: #15803d;
+      display: none;
+    }
+    .stage-saved-msg.visible {
+      display: block;
+    }
+
+    .cover-details summary {
+      cursor: pointer;
+      font-size: 0.8125rem;
+      color: var(--color-mute, #71717a);
+      list-style: none;
+    }
+    .cover-details summary::-webkit-details-marker {
+      display: none;
+    }
+    .cover-details[open] summary::after {
+      content: " ▲";
+    }
+    .cover-details summary::after {
+      content: " ▼";
+    }
+    .cover-pre {
+      margin-top: 0.625rem;
+      white-space: pre-wrap;
+      font-size: 0.8125rem;
+      color: var(--color-body, #52525b);
+      background: var(--color-surface-soft, #f5f5f4);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+
+    .drawer-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--color-hairline, #e4e4e7);
+      background: var(--color-canvas, #fff);
+      color: var(--color-charcoal, #3f3f46);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .drawer-link-btn:hover {
+      background: var(--color-surface-soft, #f5f5f4);
+    }
+
+    /* Backdrop */
+    #app-backdrop {
+      display: none;
+    }
+    #app-backdrop.visible {
+      display: block;
+    }
+
+    .kanban-col-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 0.75rem;
+      border-bottom: 1px solid var(--color-hairline, #e4e4e7);
+    }
+    .col-stage-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      flex-shrink: 0;
+    }
+    .col-stage-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-ink, #0a0a0a);
+    }
+    .col-stage-count {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--color-mute, #71717a);
+    }
+
+    .kanban-empty-placeholder {
+      font-size: 0.75rem;
+      color: var(--color-mute, #71717a);
+      text-align: center;
+      padding: 1rem 0.5rem;
+      border: 1.5px dashed var(--color-hairline, #e4e4e7);
+      border-radius: 0.5rem;
+    }
+  </style>
+
+  <!-- Summary bar -->
+  <div class="flex flex-wrap gap-2 mb-6">
+    <div class="summary-chip">
+      Total
+      <span class="chip-count" id="summary-total">0</span>
+    </div>
     {
-      stages.map((stage) => (
-        <section class="rounded-lg border border-hairline p-4">
-          <h2 class="font-display text-heading-sm capitalize text-ink">
-            {stage}
-          </h2>
-          <ul id={`col-${stage}`} class="mt-3 space-y-2" data-stage={stage} />
-        </section>
-      ))
+      (["applied", "screening", "interview", "offer"] as Stage[]).map(
+        (stage) => (
+          <div
+            class="summary-chip"
+            id={`summary-chip-${stage}`}
+            style="display:none;"
+          >
+            {stageConfig[stage].label}
+            <span class="chip-count" id={`summary-count-${stage}`}>
+              0
+            </span>
+          </div>
+        ),
+      )
     }
   </div>
 
-  <div
-    id="detail-panel"
-    class="mt-8 hidden rounded-lg border border-hairline p-6"
-  >
-    <h2 class="font-display text-heading-sm text-ink">Application detail</h2>
-    <div id="detail-body" class="mt-4 space-y-3 text-body-sm"></div>
-    <div class="mt-4 flex flex-wrap gap-2">
-      <label class="text-body-sm">Move to</label>
-      <select
-        id="stage-select"
-        class="h-9 rounded-lg border border-hairline px-2"
-      >
-        {stages.map((s) => <option value={s}>{s}</option>)}
-      </select>
-      <button
-        type="button"
-        id="stage-save"
-        class="rounded-full bg-ink px-4 py-1.5 text-body-sm text-on-primary"
-      >
-        Update stage
-      </button>
+  <!-- Kanban board -->
+  <div class="overflow-x-auto pb-4">
+    <div
+      class="grid gap-4 min-w-[900px]"
+      style="grid-template-columns: repeat(6, minmax(0, 1fr));"
+    >
+      {
+        stages.map((stage) => {
+          const cfg = stageConfig[stage];
+          return (
+            <div
+              class={`rounded-xl border-2 ${cfg.col} bg-canvas flex flex-col`}
+              style="min-height: 420px;"
+            >
+              <div class="kanban-col-header">
+                <span class={`col-stage-dot ${cfg.dot}`} />
+                <span class="col-stage-label">{cfg.label}</span>
+                <span id={`count-${stage}`} class="col-stage-count">
+                  0
+                </span>
+              </div>
+              <ul
+                id={`col-${stage}`}
+                class="flex-1 p-2 space-y-2"
+                data-stage={stage}
+                style="list-style:none;margin:0;padding:0.5rem;"
+              >
+                <li>
+                  <div class="kanban-empty-placeholder">None</div>
+                </li>
+              </ul>
+            </div>
+          );
+        })
+      }
     </div>
   </div>
-</AdminLayout>
 
-<script>
-  const stages = [
-    "applied",
-    "screening",
-    "interview",
-    "offer",
-    "hired",
-    "rejected",
-  ];
-  let selectedId: string | null = null;
+  <!-- Backdrop -->
+  <div
+    id="app-backdrop"
+    class="fixed inset-0 bg-black/20 z-40"
+    style="backdrop-filter: blur(2px);"
+    aria-hidden="true"
+  >
+  </div>
 
-  type AppRow = {
-    id: string;
-    stage: string;
-    cover_letter: string | null;
-    resume_url: string | null;
-    created_at: string;
-    jobs: { title: string; slug: string } | null;
-    candidates: {
-      full_name: string;
+  <!-- Drawer -->
+  <aside
+    id="app-drawer"
+    class="fixed right-0 top-0 h-full bg-canvas shadow-2xl z-50 flex flex-col"
+    style="width: min(420px, 100vw); border-left: 1px solid var(--color-hairline, #e4e4e7);"
+    aria-label="Application details"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Drawer header -->
+    <div
+      class="flex items-center justify-between p-5 border-b border-hairline"
+      style="border-color:var(--color-hairline,#e4e4e7);"
+    >
+      <div class="flex items-center gap-3 min-w-0">
+        <div
+          id="drawer-avatar"
+          class="app-avatar shrink-0"
+          style="width:48px;height:48px;font-size:0.875rem;"
+        >
+          --
+        </div>
+        <div class="min-w-0">
+          <p
+            id="drawer-name"
+            class="font-medium text-ink"
+            style="font-size:0.9375rem;"
+          >
+          </p>
+          <p
+            id="drawer-email"
+            style="font-size:0.75rem;color:var(--color-mute,#71717a);"
+          >
+          </p>
+        </div>
+      </div>
+      <button
+        id="drawer-close"
+        class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg transition-colors"
+        style="background:none;border:none;cursor:pointer;color:var(--color-mute,#71717a);"
+        aria-label="Close"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Drawer body -->
+    <div
+      class="flex-1 overflow-y-auto px-5 py-4"
+      style="gap:1.25rem;display:flex;flex-direction:column;"
+    >
+      <!-- Role -->
+      <div>
+        <span class="drawer-label">Role</span>
+        <p id="drawer-role" class="drawer-value"></p>
+      </div>
+      <!-- Applied date -->
+      <div>
+        <span class="drawer-label">Applied</span>
+        <p id="drawer-applied" class="drawer-value"></p>
+      </div>
+      <!-- Stage -->
+      <div>
+        <span class="drawer-label">Stage</span>
+        <div id="drawer-stage-badge"></div>
+      </div>
+      <!-- Phone -->
+      <div id="drawer-phone-row" style="display:none;">
+        <span class="drawer-label">Phone</span>
+        <p id="drawer-phone" class="drawer-value"></p>
+      </div>
+      <!-- LinkedIn -->
+      <div id="drawer-linkedin-row" style="display:none;">
+        <span class="drawer-label">LinkedIn</span>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a
+          id="drawer-linkedin"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="drawer-link-btn"
+          style="margin-top:0.25rem;"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            style="flex-shrink:0;"
+          >
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+            ></path>
+          </svg>
+          View LinkedIn
+        </a>
+      </div>
+      <!-- Cover letter -->
+      <div id="drawer-cover-row" style="display:none;">
+        <details class="cover-details">
+          <summary>Cover letter</summary>
+          <pre id="drawer-cover" class="cover-pre"></pre>
+        </details>
+      </div>
+      <!-- Resume -->
+      <div id="drawer-resume-row" style="display:none;">
+        <span class="drawer-label">Resume</span>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a
+          id="drawer-resume"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="drawer-link-btn"
+          style="margin-top:0.25rem;"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+            ></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          Download Resume
+        </a>
+      </div>
+    </div>
+
+    <!-- Drawer footer -->
+    <div
+      class="border-t p-4 bg-surface-soft flex flex-col gap-2"
+      style="border-color:var(--color-hairline,#e4e4e7);"
+    >
+      <div class="flex gap-3">
+        <select id="stage-select" class="stage-select">
+          <option value="applied">Applied</option>
+          <option value="screening">Screening</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="hired">Hired</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button id="stage-save-btn" class="save-stage-btn">Save</button>
+      </div>
+      <p id="stage-saved-msg" class="stage-saved-msg">Stage updated</p>
+    </div>
+  </aside>
+
+  <script>
+    type Stage =
+      | "applied"
+      | "screening"
+      | "interview"
+      | "offer"
+      | "hired"
+      | "rejected";
+
+    // Flat shape used internally — normalized from Supabase nested joins
+    type Application = {
+      id: string;
+      name: string;
       email: string;
-      phone: string | null;
-      linkedin_url: string | null;
-    } | null;
-  };
+      phone?: string;
+      role?: string;
+      jobSlug?: string;
+      stage: Stage;
+      appliedAt: string;
+      linkedIn?: string;
+      coverLetter?: string;
+      resumeUrl?: string;
+    };
 
-  async function load() {
-    const res = await fetch("/api/admin/applications");
-    if (res.status === 401) {
-      window.location.href = "/admin";
-      return;
+    // Raw shape returned by /api/admin/applications (Supabase with joins)
+    type RawApplication = {
+      id: string;
+      stage: string;
+      resume_url?: string | null;
+      cover_letter?: string | null;
+      created_at: string;
+      updated_at?: string;
+      jobs?: { id?: string; title?: string; slug?: string } | null;
+      candidates?: {
+        id?: string;
+        full_name?: string;
+        email?: string;
+        phone?: string | null;
+        linkedin_url?: string | null;
+      } | null;
+    };
+
+    function normalizeApplication(raw: RawApplication): Application {
+      return {
+        id: raw.id,
+        name: raw.candidates?.full_name ?? "Unknown",
+        email: raw.candidates?.email ?? "",
+        phone: raw.candidates?.phone ?? undefined,
+        role: raw.jobs?.title ?? undefined,
+        jobSlug: raw.jobs?.slug ?? undefined,
+        stage: (raw.stage as Stage) ?? "applied",
+        appliedAt: raw.created_at,
+        linkedIn: raw.candidates?.linkedin_url ?? undefined,
+        coverLetter: raw.cover_letter ?? undefined,
+        resumeUrl: raw.resume_url ?? undefined,
+      };
     }
-    const data = (await res.json()) as { applications?: AppRow[] };
-    const apps = data.applications ?? [];
 
-    for (const stage of stages) {
-      const col = document.getElementById(`col-${stage}`);
-      if (!col) continue;
-      const items = apps.filter((a) => a.stage === stage);
-      col.innerHTML =
-        items
-          .map(
-            (a) => `
-        <li>
-          <button type="button" data-id="${a.id}" class="w-full rounded-md border border-hairline bg-canvas p-3 text-left text-body-sm hover:bg-surface-soft">
-            <p class="font-medium">${a.candidates?.full_name ?? "Unknown"}</p>
-            <p class="text-caption-sm text-mute">${a.jobs?.title ?? ""}</p>
-          </button>
-        </li>
-      `,
-          )
-          .join("") || "<li class='text-caption-sm text-mute'>None</li>";
-    }
+    // Stage config (must match Astro-side)
+    const stageConfig: Record<
+      Stage,
+      { label: string; badge: string; avatar: string }
+    > = {
+      applied: {
+        label: "Applied",
+        badge: "bg-gray-100 text-gray-700 border-gray-200",
+        avatar: "bg-gray-200 text-gray-700",
+      },
+      screening: {
+        label: "Screening",
+        badge: "bg-blue-50 text-blue-700 border-blue-200",
+        avatar: "bg-blue-100 text-blue-700",
+      },
+      interview: {
+        label: "Interview",
+        badge: "bg-amber-50 text-amber-700 border-amber-200",
+        avatar: "bg-amber-100 text-amber-700",
+      },
+      offer: {
+        label: "Offer",
+        badge: "bg-purple-50 text-purple-700 border-purple-200",
+        avatar: "bg-purple-100 text-purple-700",
+      },
+      hired: {
+        label: "Hired",
+        badge: "bg-green-50 text-green-700 border-green-200",
+        avatar: "bg-green-100 text-green-700",
+      },
+      rejected: {
+        label: "Rejected",
+        badge: "bg-rose-50 text-rose-700 border-rose-200",
+        avatar: "bg-rose-100 text-rose-700",
+      },
+    };
 
-    document.querySelectorAll("[data-id]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = (btn as HTMLElement).dataset.id;
-        if (id) showDetail(id, apps);
+    let currentApp: Application | null = null;
+    const stages: Stage[] = [
+      "applied",
+      "screening",
+      "interview",
+      "offer",
+      "hired",
+      "rejected",
+    ];
+
+    // ── Date helper ───────────────────────────────────────────────────────────
+    function relativeDate(iso: string): string {
+      const d = new Date(iso);
+      const now = new Date();
+      const diffMs = now.getTime() - d.getTime();
+      const diffMins = Math.floor(diffMs / 60000);
+      if (diffMins < 2) return "just now";
+      if (diffMins < 60) return `${diffMins}m ago`;
+      const diffHours = Math.floor(diffMins / 60);
+      if (diffHours < 24) return `${diffHours}h ago`;
+      const diffDays = Math.floor(diffHours / 24);
+      if (diffDays < 30) return `${diffDays}d ago`;
+      return d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
       });
-    });
-  }
-
-  function showDetail(id: string, apps: AppRow[]) {
-    selectedId = id;
-    const app = apps.find((a) => a.id === id);
-    if (!app) return;
-    const panel = document.getElementById("detail-panel");
-    const body = document.getElementById("detail-body");
-    const select = document.getElementById("stage-select") as HTMLSelectElement;
-    panel?.classList.remove("hidden");
-    if (select) select.value = app.stage;
-    if (body) {
-      body.innerHTML = `
-        <p><strong>${app.candidates?.full_name}</strong> · ${app.candidates?.email}</p>
-        <p>Role: ${app.jobs?.title}</p>
-        <p>Applied: ${new Date(app.created_at).toLocaleString()}</p>
-        ${app.resume_url ? `<p><a class="underline" href="${app.resume_url}" target="_blank" rel="noopener noreferrer">Resume</a></p>` : ""}
-        ${app.cover_letter ? `<pre class="whitespace-pre-wrap rounded bg-surface-soft p-3">${app.cover_letter}</pre>` : ""}
-      `;
     }
-  }
 
-  document.getElementById("stage-save")?.addEventListener("click", async () => {
-    if (!selectedId) return;
-    const stage = (document.getElementById("stage-select") as HTMLSelectElement)
-      .value;
-    await fetch(`/api/admin/applications/${selectedId}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ stage }),
+    function formatFull(iso: string): string {
+      return new Date(iso).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
+
+    function initials(name: string): string {
+      return name
+        .split(" ")
+        .map((p) => p[0] ?? "")
+        .join("")
+        .toUpperCase()
+        .slice(0, 2);
+    }
+
+    function escHtml(str: string): string {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    // ── Load ──────────────────────────────────────────────────────────────────
+    async function load() {
+      try {
+        const res = await fetch("/api/admin/applications");
+        if (!res.ok) throw new Error("Failed to load applications");
+        const json = (await res.json()) as { applications?: RawApplication[] };
+        const apps: Application[] = (json.applications ?? []).map(
+          normalizeApplication,
+        );
+        populateBoard(apps);
+        updateSummary(apps);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // ── Populate board ────────────────────────────────────────────────────────
+    function populateBoard(apps: Application[]) {
+      // Clear columns
+      stages.forEach((stage) => {
+        const col = document.getElementById(`col-${stage}`) as HTMLUListElement;
+        col.innerHTML = "";
+      });
+
+      const countsByStage: Record<Stage, number> = {
+        applied: 0,
+        screening: 0,
+        interview: 0,
+        offer: 0,
+        hired: 0,
+        rejected: 0,
+      };
+
+      apps.forEach((app) => {
+        const stage = (app.stage ?? "applied") as Stage;
+        countsByStage[stage] = (countsByStage[stage] ?? 0) + 1;
+
+        const cfg = stageConfig[stage];
+        const col = document.getElementById(`col-${stage}`) as HTMLUListElement;
+
+        const li = document.createElement("li");
+        li.style.listStyle = "none";
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `app-card ${stageConfig[stage].badge
+          .replace("bg-", "border-")
+          .replace(/text-\S+/, "")
+          .replace(/border-\S+/, "")}`;
+        // Apply border colour directly via the card class variants
+        btn.style.borderColor = "";
+        btn.setAttribute("data-id", app.id);
+
+        btn.innerHTML = `
+          <div style="display:flex;align-items:flex-start;gap:0.5rem;">
+            <div class="app-avatar ${cfg.avatar}" style="width:2rem;height:2rem;font-size:0.6875rem;">
+              ${escHtml(initials(app.name))}
+            </div>
+            <div style="min-width:0;flex:1;">
+              <p class="app-name">${escHtml(app.name)}</p>
+              ${app.role ? `<p class="app-role">${escHtml(app.role)}</p>` : ""}
+              <p class="app-date">${relativeDate(app.appliedAt)}</p>
+            </div>
+          </div>
+        `;
+
+        btn.addEventListener("click", () => openDrawer(app));
+        li.appendChild(btn);
+        col.appendChild(li);
+      });
+
+      // Update column counts & add empty placeholders
+      stages.forEach((stage) => {
+        const col = document.getElementById(`col-${stage}`) as HTMLUListElement;
+        const countEl = document.getElementById(
+          `count-${stage}`,
+        ) as HTMLElement;
+        const count = countsByStage[stage] ?? 0;
+        countEl.textContent = String(count);
+
+        if (count === 0) {
+          col.innerHTML = `<li><div class="kanban-empty-placeholder">None</div></li>`;
+        }
+      });
+    }
+
+    // ── Update summary ────────────────────────────────────────────────────────
+    function updateSummary(apps: Application[]) {
+      (document.getElementById("summary-total") as HTMLElement).textContent =
+        String(apps.length);
+
+      const summaryStages: Stage[] = [
+        "applied",
+        "screening",
+        "interview",
+        "offer",
+      ];
+      summaryStages.forEach((stage) => {
+        const count = apps.filter((a) => a.stage === stage).length;
+        const chip = document.getElementById(
+          `summary-chip-${stage}`,
+        ) as HTMLElement;
+        const countEl = document.getElementById(
+          `summary-count-${stage}`,
+        ) as HTMLElement;
+        countEl.textContent = String(count);
+        chip.style.display = count > 0 ? "inline-flex" : "none";
+      });
+    }
+
+    // ── Drawer ────────────────────────────────────────────────────────────────
+    function openDrawer(app: Application) {
+      currentApp = app;
+      const drawer = document.getElementById("app-drawer") as HTMLElement;
+      const backdrop = document.getElementById("app-backdrop") as HTMLElement;
+
+      // Avatar
+      const avatarEl = document.getElementById("drawer-avatar") as HTMLElement;
+      const cfg = stageConfig[app.stage as Stage] ?? stageConfig.applied;
+      avatarEl.className = `app-avatar ${cfg.avatar}`;
+      avatarEl.style.width = "48px";
+      avatarEl.style.height = "48px";
+      avatarEl.style.fontSize = "0.875rem";
+      avatarEl.textContent = initials(app.name);
+
+      // Basic info
+      (document.getElementById("drawer-name") as HTMLElement).textContent =
+        app.name;
+      (document.getElementById("drawer-email") as HTMLElement).textContent =
+        app.email;
+
+      // Role
+      const roleEl = document.getElementById("drawer-role") as HTMLElement;
+      if (app.role) {
+        roleEl.innerHTML = app.jobSlug
+          ? `<a href="/careers/${escHtml(app.jobSlug)}" target="_blank" style="color:var(--color-ink,#0a0a0a);text-decoration:underline;text-underline-offset:2px;">${escHtml(app.role)}</a>`
+          : escHtml(app.role);
+      } else {
+        roleEl.textContent = "—";
+      }
+
+      // Applied
+      (document.getElementById("drawer-applied") as HTMLElement).textContent =
+        formatFull(app.appliedAt);
+
+      // Stage badge
+      const badgeContainer = document.getElementById(
+        "drawer-stage-badge",
+      ) as HTMLElement;
+      badgeContainer.innerHTML = `<span class="stage-badge ${cfg.badge}" style="margin-top:0.25rem;">${cfg.label}</span>`;
+
+      // Phone
+      const phoneRow = document.getElementById(
+        "drawer-phone-row",
+      ) as HTMLElement;
+      if (app.phone) {
+        phoneRow.style.display = "block";
+        (document.getElementById("drawer-phone") as HTMLElement).textContent =
+          app.phone;
+      } else {
+        phoneRow.style.display = "none";
+      }
+
+      // LinkedIn
+      const linkedinRow = document.getElementById(
+        "drawer-linkedin-row",
+      ) as HTMLElement;
+      if (app.linkedIn) {
+        linkedinRow.style.display = "block";
+        (document.getElementById("drawer-linkedin") as HTMLAnchorElement).href =
+          app.linkedIn;
+      } else {
+        linkedinRow.style.display = "none";
+      }
+
+      // Cover letter
+      const coverRow = document.getElementById(
+        "drawer-cover-row",
+      ) as HTMLElement;
+      if (app.coverLetter) {
+        coverRow.style.display = "block";
+        (document.getElementById("drawer-cover") as HTMLElement).textContent =
+          app.coverLetter;
+      } else {
+        coverRow.style.display = "none";
+      }
+
+      // Resume
+      const resumeRow = document.getElementById(
+        "drawer-resume-row",
+      ) as HTMLElement;
+      if (app.resumeUrl) {
+        resumeRow.style.display = "block";
+        (document.getElementById("drawer-resume") as HTMLAnchorElement).href =
+          app.resumeUrl;
+      } else {
+        resumeRow.style.display = "none";
+      }
+
+      // Stage select
+      const stageSelect = document.getElementById(
+        "stage-select",
+      ) as HTMLSelectElement;
+      stageSelect.value = app.stage;
+
+      // Reset saved message
+      const savedMsg = document.getElementById(
+        "stage-saved-msg",
+      ) as HTMLElement;
+      savedMsg.classList.remove("visible");
+
+      // Open
+      drawer.classList.add("open");
+      backdrop.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDrawer() {
+      const drawer = document.getElementById("app-drawer") as HTMLElement;
+      const backdrop = document.getElementById("app-backdrop") as HTMLElement;
+      drawer.classList.remove("open");
+      backdrop.classList.remove("visible");
+      document.body.style.overflow = "";
+      currentApp = null;
+    }
+
+    // ── Stage save ────────────────────────────────────────────────────────────
+    document
+      .getElementById("stage-save-btn")
+      ?.addEventListener("click", async () => {
+        if (!currentApp) return;
+        const stageSelect = document.getElementById(
+          "stage-select",
+        ) as HTMLSelectElement;
+        const newStage = stageSelect.value as Stage;
+        const saveBtn = document.getElementById(
+          "stage-save-btn",
+        ) as HTMLButtonElement;
+        const savedMsg = document.getElementById(
+          "stage-saved-msg",
+        ) as HTMLElement;
+
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Saving…";
+
+        try {
+          const res = await fetch(`/api/admin/applications/${currentApp.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ stage: newStage }),
+          });
+          if (!res.ok) throw new Error("Failed to update");
+
+          savedMsg.classList.add("visible");
+          setTimeout(() => savedMsg.classList.remove("visible"), 2000);
+          await load();
+        } catch (err) {
+          console.error(err);
+        } finally {
+          saveBtn.disabled = false;
+          saveBtn.textContent = "Save";
+        }
+      });
+
+    // ── Close handlers ────────────────────────────────────────────────────────
+    document
+      .getElementById("drawer-close")
+      ?.addEventListener("click", closeDrawer);
+    document
+      .getElementById("app-backdrop")
+      ?.addEventListener("click", closeDrawer);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDrawer();
     });
-    load();
-  });
 
-  load();
-</script>
+    // ── Init ──────────────────────────────────────────────────────────────────
+    load();
+  </script>
+</AdminLayout>

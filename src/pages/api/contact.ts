@@ -1,7 +1,11 @@
 import type { APIRoute } from "astro";
 import { submitContact } from "@/lib/contact/submit-contact";
 import { validateContactInput } from "@/lib/contact/validate";
-import { isRecaptchaRequired, verifyRecaptcha } from "@/lib/recaptcha";
+import {
+  isRecaptchaRequired,
+  verifyRecaptcha,
+  RECAPTCHA_ACTIONS,
+} from "@/lib/recaptcha";
 import { checkContactRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const prerender = false;
@@ -42,7 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
       if (!token) {
         return json({ error: "Please complete the reCAPTCHA." }, 400);
       }
-      if (!(await verifyRecaptcha(token))) {
+      if (!(await verifyRecaptcha(token, RECAPTCHA_ACTIONS.CONTACT_FORM))) {
         return json({ error: "reCAPTCHA verification failed." }, 400);
       }
     }

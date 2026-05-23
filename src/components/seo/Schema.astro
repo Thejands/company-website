@@ -1,57 +1,361 @@
 ---
 import { siteConfig } from "@/config/site";
 
+interface BreadcrumbItem {
+  name: string;
+  item: string;
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 interface Props {
-  type?: "Organization" | "WebSite" | "BlogPosting";
+  type?:
+    | "Organization"
+    | "WebSite"
+    | "BlogPosting"
+    | "FAQPage"
+    | "BreadcrumbList"
+    | "WebPage"
+    | "Service"
+    | "Person"
+    | "HowTo";
   data?: {
+    // BlogPosting
     title?: string;
     description?: string;
     image?: string;
     pubDate?: Date;
     author?: string;
     url?: string;
+    // FAQPage
+    faqs?: FaqItem[];
+    // BreadcrumbList
+    breadcrumbs?: BreadcrumbItem[];
+    // WebPage
+    pageName?: string;
+    pageDescription?: string;
+    pageUrl?: string;
+    // Service
+    serviceName?: string;
+    serviceType?: string;
+    serviceDescription?: string;
+    serviceArea?: string[];
+    serviceCatalog?: Array<{ name: string; description: string }>;
+    // Person
+    personName?: string;
+    personRole?: string;
+    personBio?: string;
+    personExpertise?: string[];
+    // HowTo
+    howToName?: string;
+    howToDescription?: string;
+    howToSteps?: Array<{ name: string; text: string }>;
   };
 }
 
 const { type = "Organization", data = {} } = Astro.props;
 
 const sameAs = siteConfig.socialLinks.map((link) => link.href);
+const logoURL = new URL(siteConfig.logo, siteConfig.url).toString();
 
-let schema: Record<string, unknown> = {};
+// Build an array of schemas to emit (supports multiple per page)
+const schemas: Record<string, unknown>[] = [];
 
 if (type === "Organization" || type === "WebSite") {
-  schema = {
+  // Rich Organization / ProfessionalService schema
+  schemas.push({
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
+    slogan: siteConfig.tagline,
+    priceRange: "$$",
+    foundingDate: "2022",
+    founders: [
+      {
+        "@type": "Person",
+        name: "Linga",
+        jobTitle: "Co-founder · Engineering & Architecture",
+        worksFor: { "@id": `${siteConfig.url}/#organization` },
+      },
+      {
+        "@type": "Person",
+        name: "Somu",
+        jobTitle: "Co-founder · Product & Client Delivery",
+        worksFor: { "@id": `${siteConfig.url}/#organization` },
+      },
+    ],
+    employee: [
+      {
+        "@type": "Person",
+        name: "Linga",
+        jobTitle: "Co-founder · Engineering & Architecture",
+        knowsAbout: [
+          "Enterprise system architecture",
+          "Full-stack engineering",
+          "Platform scalability",
+          "Moodle LMS architecture",
+          "Cloud infrastructure (AWS, Azure)",
+        ],
+      },
+      {
+        "@type": "Person",
+        name: "Somu",
+        jobTitle: "Co-founder · Product & Client Delivery",
+        knowsAbout: [
+          "Product strategy",
+          "UX leadership",
+          "Client engagement",
+          "Delivery management",
+          "Quality assurance",
+        ],
+      },
+    ],
+    logo: {
+      "@type": "ImageObject",
+      url: logoURL,
+      contentUrl: logoURL,
+    },
     email: siteConfig.contact.email,
     telephone: siteConfig.contact.phones[0],
-    logo: new URL(siteConfig.logo, siteConfig.url).toString(),
-    slogan: siteConfig.tagline,
+    areaServed: ["IN", "GB", "US", "SG", "AE"],
+    knowsAbout: [
+      "Enterprise Software Development",
+      "Mobile Application Development",
+      "LMS Implementation",
+      "Moodle Consulting",
+      "Technology Consulting",
+      "Digital Transformation",
+      "EdTech Platform Development",
+      "React",
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "Flutter",
+      "React Native",
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: siteConfig.contact.phones[0],
+        contactType: "sales",
+        areaServed: "IN",
+        availableLanguage: "English",
+      },
+      {
+        "@type": "ContactPoint",
+        email: siteConfig.contact.email,
+        contactType: "customer support",
+        availableLanguage: "English",
+      },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Thejands services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Moodle Implementation Services",
+            serviceType: "LMS Implementation",
+            description:
+              "End-to-end Moodle 4.x LMS deployment with custom plugins, SSO and HRIS integration, theme customisation, and content migration.",
+            url: `${siteConfig.url}/services/moodle-implementation`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "LMS Consulting",
+            serviceType: "Technology Consulting",
+            description:
+              "Independent LMS platform selection, RFP support, implementation oversight, and migration planning.",
+            url: `${siteConfig.url}/services/lms-consulting`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Enterprise Software Development",
+            serviceType: "Custom Software Development",
+            description:
+              "Custom web applications, mobile apps, and platforms built to enterprise standards on React, Next.js, Node.js, Python, Flutter.",
+            url: `${siteConfig.url}/services/enterprise-software-development`,
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "White-Label Software Development",
+            serviceType: "Partner Engineering Services",
+            description:
+              "Embedded engineering capacity for agencies, consultancies, and technology firms. NDA-protected delivery under the partner's brand.",
+            url: `${siteConfig.url}/services/white-label-development`,
+          },
+        },
+      ],
+    },
     ...(sameAs.length > 0 ? { sameAs } : {}),
-  };
+  });
+
+  // WebSite schema with SearchAction (enables sitelinks search on Google)
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteConfig.url}/#website`,
+    url: siteConfig.url,
+    name: siteConfig.name,
+    description: siteConfig.description,
+    publisher: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteConfig.url}/blog?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  });
 } else if (type === "BlogPosting") {
-  schema = {
+  schemas.push({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: data.title,
     description: data.description,
     image: data.image,
     datePublished: data.pubDate,
-    author: { "@type": "Person", name: data.author },
-    mainEntityOfPage: { "@type": "WebPage", "@id": data.url },
+    author: {
+      "@type": "Person",
+      name: data.author,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": data.url,
+    },
     publisher: {
       "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: new URL(siteConfig.logo, siteConfig.url).toString(),
+        url: logoURL,
       },
     },
-  };
+  });
+} else if (type === "FAQPage" && data.faqs && data.faqs.length > 0) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: data.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  });
+} else if (
+  type === "BreadcrumbList" &&
+  data.breadcrumbs &&
+  data.breadcrumbs.length > 0
+) {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: data.breadcrumbs.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.name,
+      item: crumb.item,
+    })),
+  });
+} else if (type === "WebPage") {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${data.pageUrl ?? siteConfig.url}#webpage`,
+    url: data.pageUrl ?? siteConfig.url,
+    name: data.pageName,
+    description: data.pageDescription,
+    isPartOf: {
+      "@id": `${siteConfig.url}/#website`,
+    },
+    publisher: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  });
+} else if (type === "Service") {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: data.serviceName,
+    serviceType: data.serviceType,
+    description: data.serviceDescription,
+    provider: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    areaServed: data.serviceArea ?? ["IN", "GB", "US", "SG", "AE"],
+    ...(data.serviceCatalog && data.serviceCatalog.length > 0
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${data.serviceName} offerings`,
+            itemListElement: data.serviceCatalog.map((item) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: item.name,
+                description: item.description,
+              },
+            })),
+          },
+        }
+      : {}),
+  });
+} else if (type === "Person") {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: data.personName,
+    jobTitle: data.personRole,
+    description: data.personBio,
+    worksFor: {
+      "@id": `${siteConfig.url}/#organization`,
+    },
+    ...(data.personExpertise && data.personExpertise.length > 0
+      ? { knowsAbout: data.personExpertise }
+      : {}),
+  });
+} else if (type === "HowTo") {
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: data.howToName,
+    description: data.howToDescription,
+    step: (data.howToSteps ?? []).map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  });
 }
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{
+  schemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))
+}

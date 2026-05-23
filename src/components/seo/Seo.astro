@@ -9,6 +9,7 @@ interface Props {
   canonical?: string;
   ogImage?: string | ImageMetadata;
   ignoreTitleTemplate?: boolean;
+  keywords?: string;
 }
 
 const {
@@ -17,7 +18,12 @@ const {
   canonical,
   ogImage = siteConfig.ogImage,
   ignoreTitleTemplate = false,
+  keywords,
 } = Astro.props;
+
+const defaultKeywords =
+  "enterprise software development, technology consulting, LMS implementation, Moodle consulting, mobile app development, React Next.js TypeScript, EdTech platform, digital transformation, India software company";
+const resolvedKeywords = keywords ?? defaultKeywords;
 
 const ogImageSrc = typeof ogImage === "string" ? ogImage : ogImage.src;
 
@@ -39,8 +45,8 @@ const robotsContent = allowSearchIndexing
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href={siteConfig.favicon} />
-<link rel="shortcut icon" href={siteConfig.favicon} />
-<link rel="apple-touch-icon" href={siteConfig.appleTouchIcon} />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="shortcut icon" href="/favicon-32.png" />
 <link rel="apple-touch-icon" sizes="180x180" href={siteConfig.appleTouchIcon} />
 <link rel="manifest" href="/site.webmanifest" />
 <link rel="canonical" href={canonicalURL} />
@@ -51,7 +57,21 @@ const robotsContent = allowSearchIndexing
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
 <meta name="author" content={siteConfig.author} />
+<meta name="keywords" content={resolvedKeywords} />
 <meta name="robots" content={robotsContent} />
+<!-- AI search discovery -->
+<link
+  rel="alternate"
+  type="text/plain"
+  href="/llms.txt"
+  title="LLM-readable site index"
+/>
+<link
+  rel="alternate"
+  type="text/plain"
+  href="/llms-full.txt"
+  title="LLM-readable full content"
+/>
 <meta name="theme-color" content="#ffffff" />
 
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +85,8 @@ const robotsContent = allowSearchIndexing
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta
   property="og:image:alt"
   content={`${siteConfig.name} - ${siteConfig.tagline}`}
@@ -76,6 +98,8 @@ const robotsContent = allowSearchIndexing
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:width" content="1200" />
+<meta name="twitter:image:height" content="630" />
 <meta
   name="twitter:image:alt"
   content={`${siteConfig.name} - ${siteConfig.tagline}`}
@@ -89,5 +113,13 @@ const robotsContent = allowSearchIndexing
   )
 }
 
+<!-- Geographic & entity signals for AI search -->
+<meta name="geo.region" content="IN" />
+<meta name="geo.placename" content="India" />
+<meta name="geo.position" content="20.5937;78.9629" />
+<meta name="ICBM" content="20.5937, 78.9629" />
+
+<!-- Social profile rel=me for entity consolidation -->
+{siteConfig.socialLinks.map((link) => <link rel="me" href={link.href} />)}
+
 <link rel="preload" href={logoURL} as="image" type="image/svg+xml" />
-<link rel="preload" href={appleTouchURL} as="image" type="image/svg+xml" />

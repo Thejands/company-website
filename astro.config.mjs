@@ -18,8 +18,30 @@ export default defineConfig({
         !page.includes("/blog") &&
         !page.includes("/widgets") &&
         !page.includes("/admin"),
+      // Careers is SSR — add manually so it appears in the sitemap
+      customPages: ["https://thejands.in/careers"],
       changefreq: "weekly",
-      priority: 0.7,
+      // Per-page priorities: home > landing pages > core pages > legal
+      serialize(item) {
+        const url = item.url;
+        if (url === "https://thejands.in" || url === "https://thejands.in/") {
+          return { ...item, priority: 1.0, changefreq: "weekly" };
+        }
+        if (url.includes("/services/") && url !== "https://thejands.in/services") {
+          return { ...item, priority: 0.9, changefreq: "weekly" };
+        }
+        if (
+          url.includes("/services") ||
+          url.includes("/about") ||
+          url.includes("/process") ||
+          url.includes("/contact") ||
+          url.includes("/careers")
+        ) {
+          return { ...item, priority: 0.8, changefreq: "weekly" };
+        }
+        // Legal / misc pages
+        return { ...item, priority: 0.4, changefreq: "monthly" };
+      },
     }),
     react(),
   ],
