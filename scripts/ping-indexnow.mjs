@@ -28,6 +28,7 @@ for (const file of [".env", ".env.local"]) {
     }
   } catch {
     // file doesn't exist — skip
+  }
 }
 
 const key = process.env.PUBLIC_INDEXNOW_KEY;
