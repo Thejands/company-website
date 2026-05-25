@@ -1,12 +1,6 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.thejands.in" }],
-      "destination": "https://thejands.in/:path*",
-      "permanent": true
-    },
-    {
       "source": "/sitemap.xml",
       "destination": "/sitemap-index.xml",
       "permanent": true
