@@ -11,6 +11,22 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /api-docs
+Disallow: /_astro/
+Disallow: /_next/
+
+# Microsoft / Bing crawlers
+User-agent: Bingbot
+Allow: /
+
+User-agent: MSNBot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: AdIdxBot
+Allow: /
 
 # AI search crawlers — allowed to index public content
 User-agent: OAI-SearchBot
