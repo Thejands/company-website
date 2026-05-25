@@ -16,6 +16,7 @@ interface Props {
   canonical?: string;
   ignoreTitleTemplate?: boolean;
   keywords?: string;
+  noindex?: boolean;
   // Per-page schema extras
   breadcrumbs?: BreadcrumbItem[];
   faqs?: FaqItem[];
@@ -39,6 +40,7 @@ const {
   canonical,
   ignoreTitleTemplate = false,
   keywords,
+  noindex = false,
   breadcrumbs,
   faqs,
 } = Astro.props;
@@ -55,6 +57,7 @@ const {
       canonical={canonical}
       ignoreTitleTemplate={ignoreTitleTemplate}
       keywords={keywords}
+      noindex={noindex}
     />
     <Schema type="Organization" />
     {

@@ -21,7 +21,9 @@
     "check": "astro check",
     "typecheck": "tsc --noEmit",
     "build-preview": "npm run build && npm run preview",
-    "prepare": "husky"
+    "prepare": "husky",
+    "indexnow": "node scripts/ping-indexnow.mjs",
+    "indexnow:url": "node scripts/ping-indexnow.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",

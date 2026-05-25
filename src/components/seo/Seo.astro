@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { siteConfig } from "@/config/site";
-import { allowSearchIndexing } from "@/config/site-env";
+import { allowSearchIndexing, bingVerifyKey } from "@/config/site-env";
 
 interface Props {
   title?: string;
@@ -10,6 +10,7 @@ interface Props {
   ogImage?: string | ImageMetadata;
   ignoreTitleTemplate?: boolean;
   keywords?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   ogImage = siteConfig.ogImage,
   ignoreTitleTemplate = false,
   keywords,
+  noindex = false,
 } = Astro.props;
 
 const defaultKeywords =
@@ -37,9 +39,8 @@ const sitemapURL = new URL("sitemap-index.xml", siteConfig.url).href;
 const ogImageURL = new URL(ogImageSrc, siteConfig.url).href;
 const logoURL = new URL(siteConfig.logo, siteConfig.url).href;
 const appleTouchURL = new URL(siteConfig.appleTouchIcon, siteConfig.url).href;
-const robotsContent = allowSearchIndexing
-  ? "index, follow"
-  : "noindex, nofollow";
+const robotsContent =
+  !allowSearchIndexing || noindex ? "noindex, nofollow" : "index, follow";
 ---
 
 <meta charset="utf-8" />
@@ -118,6 +119,13 @@ const robotsContent = allowSearchIndexing
 <meta name="geo.placename" content="India" />
 <meta name="geo.position" content="20.5937;78.9629" />
 <meta name="ICBM" content="20.5937, 78.9629" />
+
+<!-- Microsoft / Bing indexing signals -->
+<meta http-equiv="content-language" content={siteConfig.lang} />
+<meta name="msapplication-TileColor" content="#ffffff" />
+<meta name="msapplication-TileImage" content={appleTouchURL} />
+<meta name="msapplication-tooltip" content={siteConfig.tagline} />
+{bingVerifyKey && <meta name="msvalidate.01" content={bingVerifyKey} />}
 
 <!-- Social profile rel=me for entity consolidation -->
 {siteConfig.socialLinks.map((link) => <link rel="me" href={link.href} />)}

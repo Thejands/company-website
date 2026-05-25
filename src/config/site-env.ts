@@ -28,6 +28,8 @@ export const isProductionSite = siteEnvironment === "production";
 export const allowSearchIndexing = isProductionSite;
 export const gtmId = publicEnv("PUBLIC_GTM_ID");
 export const isAnalyticsEnabled = isProductionSite && Boolean(gtmId);
+export const indexNowKey = publicEnv("PUBLIC_INDEXNOW_KEY");
+export const bingVerifyKey = publicEnv("PUBLIC_BING_VERIFY");
 
 export interface SocialLink {
   id: string;

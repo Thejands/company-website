@@ -20,11 +20,16 @@ const blog = page.data;
 
 const metadata = {
   title: "Blog",
-  description: "Latest news and updates from our team.",
+  description:
+    "Thejands shares engineering insights, LMS implementation guides, and technology strategy for enterprise teams.",
 };
 ---
 
-<BaseLayout title={metadata.title} description={metadata.description}>
+<BaseLayout
+  title={metadata.title}
+  description={metadata.description}
+  noindex={true}
+>
   <section class="relative px-4 py-8 sm:px-6 lg:px-8 md:py-12">
     <div class="absolute inset-0 z-0">
       <div
