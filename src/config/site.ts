@@ -13,7 +13,7 @@ export const siteConfig = {
   twitter: getTwitterHandle() ?? "",
   logo: "/logo.svg",
   favicon: "/favicon.svg",
-  ogImage: "/og-image.png",
+  ogImage: "/og-image.jpg",
   appleTouchIcon: "/apple-touch-icon.png",
   contact: {
     email: "hello@thejands.in",
