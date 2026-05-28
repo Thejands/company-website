@@ -1,11 +1,11 @@
-/** Central content — enterprise partner positioning for Thejands */
+/** Central content - enterprise partner positioning for Thejands */
 
 export const home = {
   eyebrow:
     "Enterprise Software · AI Solutions · LMS Consulting · Digital Products",
   headline: "Enterprise-grade delivery.\nPartner-level commitment.",
   subhead:
-    "Thejands builds enterprise software, integrates AI capabilities into existing platforms, and consults on technology strategy for organisations that need senior expertise and accountable delivery — with founders on every engagement.",
+    "Thejands builds enterprise software, integrates AI capabilities into existing platforms, and consults on technology strategy for organisations that need senior expertise and accountable delivery - with founders on every engagement.",
   primaryCta: { label: "Start a conversation", href: "/contact" },
   secondaryCta: { label: "See our work", href: "/services" },
   proof: [
@@ -19,25 +19,25 @@ export const home = {
 export const stickyShowcase = {
   title: "How we ship faster",
   subtitle:
-    "Most teams lose weeks to misaligned scope, vague proposals, and status meetings. We cut all of that — and ship production-quality work in the time others spend planning.",
+    "Most teams lose weeks to misaligned scope, vague proposals, and status meetings. We cut all of that - and ship production-quality work in the time others spend planning.",
   items: [
     {
       id: "discover",
       title: "Scope it in one session",
       icon: "search",
-      body: "A single 60-minute discovery call with the right stakeholders is enough to define the problem, agree the constraints, and identify risks — before we write a single line of proposal. You get a scoped written proposal within 24 hours of that call, not five rounds of back-and-forth. We ask the hard questions so you don't have to revisit scope mid-delivery.",
+      body: "A single 60-minute discovery call with the right stakeholders is enough to define the problem, agree the constraints, and identify risks - before we write a single line of proposal. You get a scoped written proposal within 24 hours of that call, not five rounds of back-and-forth. We ask the hard questions so you don't have to revisit scope mid-delivery.",
     },
     {
       id: "design",
       title: "Align before building",
       icon: "pen-tool",
-      body: "Architecture decisions, interface direction, and implementation approach are locked in writing before we build — which means no costly pivots later. We produce technical specs and prototypes that your team can review and approve in days, not weeks. Misaligned requirements are the single biggest cause of slow delivery. We remove them at the start.",
+      body: "Architecture decisions, interface direction, and implementation approach are locked in writing before we build - which means no costly pivots later. We produce technical specs and prototypes that your team can review and approve in days, not weeks. Misaligned requirements are the single biggest cause of slow delivery. We remove them at the start.",
     },
     {
       id: "build",
       title: "Ship in 1–2 week cycles",
       icon: "code",
-      body: "Work moves in short, visible cycles with live demos every sprint. You see real increments, not slide decks. The engineers doing the work are directly reachable — there are no account managers relaying feedback. Issues are raised the moment they're spotted, not at milestone deadlines. Our fastest production-ready build: 6 weeks from brief to launch.",
+      body: "Work moves in short, visible cycles with live demos every sprint. You see real increments, not slide decks. The engineers doing the work are directly reachable - there are no account managers relaying feedback. Issues are raised the moment they're spotted, not at milestone deadlines. Our fastest production-ready build: 6 weeks from brief to launch.",
     },
     {
       id: "launch",
@@ -51,7 +51,7 @@ export const stickyShowcase = {
 export const servicesPage = {
   title: "What we build & deliver",
   subtitle:
-    "Enterprise software, AI solutions, LMS implementations, and technology consulting — we work at the intersection of strategy, engineering, and delivery. Pick a capability or describe the outcome and we'll map the right engagement.",
+    "Enterprise software, AI solutions, LMS implementations, and technology consulting - we work at the intersection of strategy, engineering, and delivery. Pick a capability or describe the outcome and we'll map the right engagement.",
   offerings: [
     {
       id: "software",
@@ -59,10 +59,10 @@ export const servicesPage = {
       tagline: "Enterprise-grade, built to last",
       icon: "terminal",
       description:
-        "We design and build web applications, mobile products, and custom software for organisations that need more than an off-the-shelf solution. Deliverables meet enterprise standards: documented, tested, security-hardened, and maintainable by your internal teams after handover — with zero lock-in. Typical build engagements run 6–24 weeks on fixed-scope milestones.",
+        "We design and build web applications, mobile products, and custom software for organisations that need more than an off-the-shelf solution. Deliverables meet enterprise standards: documented, tested, security-hardened, and maintainable by your internal teams after handover - with zero lock-in. Typical build engagements run 6–24 weeks on fixed-scope milestones.",
       features: [
         "React, Next.js, Node.js & TypeScript web platforms",
-        "Mobile apps for iOS and Android — React Native & Flutter",
+        "Mobile apps for iOS and Android - React Native & Flutter",
         "API design, microservices & cloud infrastructure (AWS · Azure)",
         "SaaS products, internal tools & customer-facing portals",
         "CI/CD pipelines, security hardening & observability",
@@ -75,7 +75,7 @@ export const servicesPage = {
       tagline: "Strategy that translates to action",
       icon: "layers",
       description:
-        "We consult at the project, platform, and programme level — from technology strategy and vendor selection to LMS implementation, digital transformation, and interim technical leadership. We bring senior-level thinking — Linga and Somu on every mandate — without the senior-firm overhead. Engagements run as day-rate advisory or structured sprints with written deliverables.",
+        "We consult at the project, platform, and programme level - from technology strategy and vendor selection to LMS implementation, digital transformation, and interim technical leadership. We bring senior-level thinking - Linga and Somu on every mandate - without the senior-firm overhead. Engagements run as day-rate advisory or structured sprints with written deliverables.",
       features: [
         "Moodle LMS implementation, customisation & plugin development",
         "EdTech platform strategy, LMS selection & migration",
@@ -91,7 +91,7 @@ export const servicesPage = {
       tagline: "Extend your team, not your headcount",
       icon: "globe",
       description:
-        "We work alongside partner organisations as an embedded technical resource — providing engineering capacity, delivery management, or specialist expertise for projects your team can't resource alone. Structured for long-term collaboration, not transactional freelancing.",
+        "We work alongside partner organisations as an embedded technical resource - providing engineering capacity, delivery management, or specialist expertise for projects your team can't resource alone. Structured for long-term collaboration, not transactional freelancing.",
       features: [
         "Dedicated engineering teams for partner projects",
         "White-label delivery under your brand",
@@ -107,20 +107,20 @@ export const servicesPage = {
       tagline: "Intelligence built into your product",
       icon: "cpu",
       description:
-        "We design and integrate AI capabilities into enterprise platforms — from generative AI features and intelligent automation to ML pipelines, RAG-powered knowledge systems, and custom AI agents. Whether embedding AI into an existing product or building an AI-native application from the ground up, we architect for production reliability, data security, and enterprise-grade maintainability — not just proof-of-concept demos.",
+        "We design and integrate AI capabilities into enterprise platforms - from generative AI features and intelligent automation to ML pipelines, RAG-powered knowledge systems, and custom AI agents. Whether embedding AI into an existing product or building an AI-native application from the ground up, we architect for production reliability, data security, and enterprise-grade maintainability - not just proof-of-concept demos.",
       features: [
-        "LLM integration — GPT-4o, Claude, Gemini, Llama (cloud + on-premise)",
+        "LLM integration - GPT-4o, Claude, Gemini, Llama (cloud + on-premise)",
         "RAG systems, vector search & enterprise knowledge bases",
         "Custom AI agents and agentic workflow automation",
         "ML pipelines, predictive analytics & model deployment",
         "Intelligent document processing, classification & data extraction",
-        "AI strategy advisory — use-case identification to production roadmap",
+        "AI strategy advisory - use-case identification to production roadmap",
       ],
     },
   ],
   cta: {
     title: "Not sure which engagement fits?",
-    body: "Most of our mandates blend two or three of these capabilities. Describe the outcome you need — we'll propose the right shape, team, and commercial structure to match.",
+    body: "Most of our mandates blend two or three of these capabilities. Describe the outcome you need - we'll propose the right shape, team, and commercial structure to match.",
     button: { label: "Start a conversation", href: "/contact" },
   },
 } as const;
@@ -128,37 +128,37 @@ export const servicesPage = {
 export const processPage = {
   title: "How we engage",
   subtitle:
-    "A structured delivery rhythm from first conversation to signed-off deliverable. No mystery phases, no vague timelines — every stage is visible and accountable.",
+    "A structured delivery rhythm from first conversation to signed-off deliverable. No mystery phases, no vague timelines - every stage is visible and accountable.",
   steps: [
     {
       number: "01",
       title: "Discovery",
       summary: "Understand before we propose.",
-      body: "A focused session with the right stakeholders to map the problem, constraints, existing systems, and success criteria. We ask the questions most partners skip — so the scope we propose is realistic and the timeline is defensible.",
+      body: "A focused session with the right stakeholders to map the problem, constraints, existing systems, and success criteria. We ask the questions most partners skip - so the scope we propose is realistic and the timeline is defensible.",
     },
     {
       number: "02",
       title: "Proposal",
-      summary: "Scope, timeline, and cost — in plain language.",
+      summary: "Scope, timeline, and cost - in plain language.",
       body: "A written proposal covering what we'll build or deliver, how long it will take, what it will cost, and what we need from your side. Fixed-scope milestones for build work; structured retainers for consulting and resource engagements. No hourly mystery.",
     },
     {
       number: "03",
       title: "Delivery",
       summary: "Regular demos. Real increments.",
-      body: "Work progresses in short cycles with regular demos or written updates — depending on the engagement type. You have direct access to the people doing the work, not account managers. Issues surface early, not at deadline.",
+      body: "Work progresses in short cycles with regular demos or written updates - depending on the engagement type. You have direct access to the people doing the work, not account managers. Issues surface early, not at deadline.",
     },
     {
       number: "04",
       title: "Review",
       summary: "Stakeholder sign-off at every milestone.",
-      body: "Each milestone ends with a structured review — outputs against scope, quality checks, and any course corrections agreed in writing. Nothing moves to the next phase without your explicit approval.",
+      body: "Each milestone ends with a structured review - outputs against scope, quality checks, and any course corrections agreed in writing. Nothing moves to the next phase without your explicit approval.",
     },
     {
       number: "05",
       title: "Handover & Beyond",
-      summary: "Clean exit or long-term partnership — your choice.",
-      body: "Deliverables come with documentation, knowledge transfer, and support during stabilisation. We offer retainer models for ongoing work. We don't engineer dependency — you can take what we build and run it without us.",
+      summary: "Clean exit or long-term partnership - your choice.",
+      body: "Deliverables come with documentation, knowledge transfer, and support during stabilisation. We offer retainer models for ongoing work. We don't engineer dependency - you can take what we build and run it without us.",
     },
   ],
   terminal: {
@@ -182,15 +182,15 @@ export const aboutPage = {
   story: {
     title: "Why Thejands exists",
     paragraphs: [
-      "Large organisations often face the same problem — the partners they can trust are too expensive, and the ones they can afford aren't senior enough. Thejands was built to close that gap.",
+      "Large organisations often face the same problem - the partners they can trust are too expensive, and the ones they can afford aren't senior enough. Thejands was built to close that gap.",
       "Linga and Somu founded Thejands to deliver enterprise-grade software and consulting with the accountability of a founder-led team. That means senior people on every engagement, not juniors supervised from a distance. Today that includes building AI-powered products, integrating LLMs into enterprise platforms, and delivering the intelligent automation capabilities modern organisations need alongside traditional software and consulting.",
-      "Today we work with enterprises, mid-market companies, and technology teams who need a partner with genuine depth — whether that's building a platform, implementing an LMS, or providing technical resource for a programme they can't fully staff internally.",
+      "Today we work with enterprises, mid-market companies, and technology teams who need a partner with genuine depth - whether that's building a platform, implementing an LMS, or providing technical resource for a programme they can't fully staff internally.",
     ],
   },
   values: [
     {
       title: "Outcomes over activity",
-      body: "We're measured by what ships and what works — not by hours logged or decks produced. Every engagement is scoped against a real business outcome, not an activity list.",
+      body: "We're measured by what ships and what works - not by hours logged or decks produced. Every engagement is scoped against a real business outcome, not an activity list.",
     },
     {
       title: "Senior by default",
@@ -198,18 +198,18 @@ export const aboutPage = {
     },
     {
       title: "Radical transparency",
-      body: "Scope, timeline, budget, risks — visible at all times. If something changes, you hear it from us first, in writing, with a proposed resolution. No surprises at invoice time.",
+      body: "Scope, timeline, budget, risks - visible at all times. If something changes, you hear it from us first, in writing, with a proposed resolution. No surprises at invoice time.",
     },
     {
       title: "Clean exits, always",
-      body: "Everything we deliver is documented and transferable. We don't engineer dependency. Your code, your infrastructure, your IP — you can take it and run without us whenever you're ready.",
+      body: "Everything we deliver is documented and transferable. We don't engineer dependency. Your code, your infrastructure, your IP - you can take it and run without us whenever you're ready.",
     },
   ],
   founders: [
     {
       name: "Linga",
       role: "Co-founder · Engineering & Architecture",
-      bio: "Linga leads the technical side of every engagement — from system architecture and technology selection to delivery oversight and code quality. He has deep experience building enterprise-scale platforms and brings that same rigour to every project, regardless of size. He's the one asking the uncomfortable scoping questions and writing the first lines in production.",
+      bio: "Linga leads the technical side of every engagement - from system architecture and technology selection to delivery oversight and code quality. He has deep experience building enterprise-scale platforms and brings that same rigour to every project, regardless of size. He's the one asking the uncomfortable scoping questions and writing the first lines in production.",
       strengths: [
         "Enterprise system architecture",
         "Full-stack engineering leadership",
@@ -231,7 +231,7 @@ export const aboutPage = {
   ],
   cta: {
     title: "Want to understand how we'd approach your brief?",
-    body: "Get 30 minutes with Linga or Somu. We'll ask the right questions, give you an honest read on fit, and outline what an engagement might look like — no deck, no pitch.",
+    body: "Get 30 minutes with Linga or Somu. We'll ask the right questions, give you an honest read on fit, and outline what an engagement might look like - no deck, no pitch.",
     button: { label: "Start a conversation", href: "/contact" },
   },
 } as const;
@@ -247,7 +247,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Honestly what stood out was they told us upfront what wouldn't work. We nearly went with a bad architecture call — they pushed back, explained why, and we changed course before writing a single line. That conversation alone saved us months.",
+      "Honestly what stood out was they told us upfront what wouldn't work. We nearly went with a bad architecture call - they pushed back, explained why, and we changed course before writing a single line. That conversation alone saved us months.",
     name: "Meera Krishnan",
     role: "CTO",
     company: "Enterprise EdTech",
@@ -255,7 +255,7 @@ export const testimonials = [
   },
   {
     quote:
-      "We needed AI integrated into a platform already serving 50,000 users — no downtime, no scope creep, tight timeline. Thejands scoped it in a week, built the RAG pipeline and LLM integration in five, and it has been live without incident since. Exactly what they promised.",
+      "We needed AI integrated into a platform already serving 50,000 users - no downtime, no scope creep, tight timeline. Thejands scoped it in a week, built the RAG pipeline and LLM integration in five, and it has been live without incident since. Exactly what they promised.",
     name: "Priya Sundarajan",
     role: "Head of Product",
     company: "Enterprise SaaS",
@@ -273,7 +273,7 @@ export const stats = [
 export const techStack = {
   title: "Technologies we deliver in",
   subtitle:
-    "We select technology for your organisation's long-term maintainability, your team's existing capabilities, and your infrastructure constraints — not for what's trending.",
+    "We select technology for your organisation's long-term maintainability, your team's existing capabilities, and your infrastructure constraints - not for what's trending.",
   items: [
     { name: "React", icon: "simple-icons:react" },
     { name: "Next.js", icon: "simple-icons:nextdotjs" },
@@ -312,12 +312,12 @@ export const whyUs = [
   {
     icon: "users",
     title: "Founders on every engagement",
-    body: "Linga and Somu are directly involved in every project — not account managers. You get senior judgment from kickoff to handover, not a bait-and-switch to juniors after the proposal.",
+    body: "Linga and Somu are directly involved in every project - not account managers. You get senior judgment from kickoff to handover, not a bait-and-switch to juniors after the proposal.",
   },
   {
     icon: "shield",
     title: "Enterprise-ready delivery",
-    body: "Documented, tested, and secure by default. Our deliverables meet enterprise standards for code quality, security posture, and handover documentation — suitable for internal teams to own.",
+    body: "Documented, tested, and secure by default. Our deliverables meet enterprise standards for code quality, security posture, and handover documentation - suitable for internal teams to own.",
   },
   {
     icon: "zap",
@@ -332,7 +332,7 @@ export const whyUs = [
   {
     icon: "cpu",
     title: "AI-ready from day one",
-    body: "We integrate generative AI, LLM-powered features, and intelligent automation into enterprise products — with production reliability and enterprise data security at the core, not as afterthoughts added later.",
+    body: "We integrate generative AI, LLM-powered features, and intelligent automation into enterprise products - with production reliability and enterprise data security at the core, not as afterthoughts added later.",
   },
 ] as const;
 
@@ -342,7 +342,7 @@ export const faq = {
     {
       question: "What size of organisations do you typically work with?",
       answer:
-        "Mid-market and enterprise organisations — typically 50 to 5,000 employees — who need a delivery partner with genuine technical depth. We also work with fast-growing companies that need to deliver at enterprise standards before they have the internal team to do so.",
+        "Mid-market and enterprise organisations - typically 50 to 5,000 employees - who need a delivery partner with genuine technical depth. We also work with fast-growing companies that need to deliver at enterprise standards before they have the internal team to do so.",
     },
     {
       question: "Do you only do software development?",
@@ -357,7 +357,7 @@ export const faq = {
     {
       question: "How do you structure commercial engagements?",
       answer:
-        "Fixed-scope milestones for defined build or consulting work. Monthly retainers for ongoing capacity or advisory. We provide a written proposal with costs and deliverables before any work begins — no open-ended hourly arrangements.",
+        "Fixed-scope milestones for defined build or consulting work. Monthly retainers for ongoing capacity or advisory. We provide a written proposal with costs and deliverables before any work begins - no open-ended hourly arrangements.",
     },
     {
       question: "Do you offer white-label or partner delivery?",
@@ -367,7 +367,7 @@ export const faq = {
     {
       question: "Who will we actually work with?",
       answer:
-        "Linga and Somu are on every engagement. For larger programmes, we bring in vetted specialists under our oversight — but you always have direct access to a founder as your primary point of accountability.",
+        "Linga and Somu are on every engagement. For larger programmes, we bring in vetted specialists under our oversight - but you always have direct access to a founder as your primary point of accountability.",
     },
     {
       question: "What does a typical engagement look like end to end?",
@@ -382,7 +382,7 @@ export const faq = {
     {
       question: "Can you integrate AI or LLMs into our existing platform?",
       answer:
-        "Yes. AI integration is a growing part of our work — from LLM-powered features and RAG document intelligence to custom AI agents and ML pipelines embedded into enterprise products. We work with OpenAI (GPT-4o), Anthropic (Claude), Google (Gemini), and open-source models (Llama, Mistral) depending on your data residency constraints and cost model. Engagements follow the same fixed-scope structure: discovery, written proposal, milestone delivery, and full IP transfer. Our fastest LLM integration to production: five weeks.",
+        "Yes. AI integration is a growing part of our work - from LLM-powered features and RAG document intelligence to custom AI agents and ML pipelines embedded into enterprise products. We work with OpenAI (GPT-4o), Anthropic (Claude), Google (Gemini), and open-source models (Llama, Mistral) depending on your data residency constraints and cost model. Engagements follow the same fixed-scope structure: discovery, written proposal, milestone delivery, and full IP transfer. Our fastest LLM integration to production: five weeks.",
     },
   ],
 } as const;
@@ -390,7 +390,7 @@ export const faq = {
 export const contactPage = {
   title: "Tell us about your requirement",
   subtitle:
-    "Share a brief description of what you need — whether it's a software build, a consulting mandate, or a partnership conversation. We'll respond within one business day with an honest read on fit and suggested next steps.",
+    "Share a brief description of what you need - whether it's a software build, a consulting mandate, or a partnership conversation. We'll respond within one business day with an honest read on fit and suggested next steps.",
   formNote:
     "Every enquiry is reviewed by Linga or Somu directly. Typical response: within one business day. For urgent or time-sensitive mandates, call us directly.",
 } as const;

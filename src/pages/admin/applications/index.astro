@@ -568,7 +568,7 @@ const stageConfig: Record<
       | "hired"
       | "rejected";
 
-    // Flat shape used internally — normalized from Supabase nested joins
+    // Flat shape used internally - normalized from Supabase nested joins
     type Application = {
       id: string;
       name: string;
@@ -847,7 +847,7 @@ const stageConfig: Record<
           ? `<a href="/careers/${escHtml(app.jobSlug)}" target="_blank" style="color:var(--color-ink,#0a0a0a);text-decoration:underline;text-underline-offset:2px;">${escHtml(app.role)}</a>`
           : escHtml(app.role);
       } else {
-        roleEl.textContent = "—";
+        roleEl.textContent = "-";
       }
 
       // Applied

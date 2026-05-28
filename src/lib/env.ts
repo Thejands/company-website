@@ -1,6 +1,6 @@
 /** Server-only env helpers (never expose secrets to client). */
 export function getEnv(name: string): string | undefined {
-  // Prefer process.env — Vercel injects runtime env vars there at request time,
+  // Prefer process.env - Vercel injects runtime env vars there at request time,
   // whereas import.meta.env inlines values at *build* time (private vars missing
   // at build would be baked in as undefined even if added to Vercel later).
   const value =
@@ -34,7 +34,7 @@ export function parseServiceAccountJson(raw: string): Record<string, unknown> {
 
   // Vercel may store the JSON's \n escape sequences as literal backslash-n
   // characters (\\n in the raw string) rather than actual newline characters.
-  // The PEM parser requires real newlines — without them Node.js / OpenSSL
+  // The PEM parser requires real newlines - without them Node.js / OpenSSL
   // throws "error:1E08010C:DECODER routines::unsupported" at JWT-sign time.
   if (typeof credentials.private_key === "string") {
     credentials.private_key = credentials.private_key.replace(/\\n/g, "\n");

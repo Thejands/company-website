@@ -24,7 +24,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# AI / Claude tooling — local session data, not project code
+# AI / Claude tooling - local session data, not project code
 .claire/
 .claude/worktrees/
 

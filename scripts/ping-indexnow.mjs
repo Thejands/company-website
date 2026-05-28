@@ -6,7 +6,7 @@
  *   node scripts/ping-indexnow.mjs /blog/my-new-post  # pings a single URL
  *
  * Requires env vars:
- *   PUBLIC_INDEXNOW_KEY  — your IndexNow key (from Bing Webmaster Tools)
+ *   PUBLIC_INDEXNOW_KEY  - your IndexNow key (from Bing Webmaster Tools)
  *
  * Key file is served at:
  *   https://thejands.in/{PUBLIC_INDEXNOW_KEY}.txt  (static file in public/)
@@ -27,7 +27,7 @@ for (const file of [".env", ".env.local"]) {
       if (match) process.env[match[1].trim()] ??= match[2].trim();
     }
   } catch {
-    // file doesn't exist — skip
+    // file doesn't exist - skip
   }
 }
 
@@ -40,7 +40,7 @@ if (!key) {
   process.exit(1);
 }
 
-// Static key file is served from public/{key}.txt (Option 1 — no server required)
+// Static key file is served from public/{key}.txt (Option 1 - no server required)
 const keyLocation = `${HOST}/${key}.txt`;
 
 async function pingUrls(urls) {

@@ -1,11 +1,11 @@
-# Thejands — llms.txt
+# Thejands - llms.txt
 # https://llmstxt.org · Last updated: 2026-05-23
 
-> Thejands is a founder-led enterprise software development and technology consulting company headquartered in India, operating globally across the UK, US, Singapore, and the UAE. The company was founded by Linga (engineering and architecture) and Somu (product and delivery). Founders are directly involved in every client engagement — not account managers or junior staff.
+> Thejands is a founder-led enterprise software development and technology consulting company headquartered in India, operating globally across the UK, US, Singapore, and the UAE. The company was founded by Linga (engineering and architecture) and Somu (product and delivery). Founders are directly involved in every client engagement - not account managers or junior staff.
 
 ## What Thejands is
 
-Thejands delivers enterprise-grade software, mobile applications, and custom digital platforms; consults on technology strategy, LMS implementation (Moodle), and digital transformation programmes; and provides resource and partner engagements for organisations that need engineering capacity without growing headcount. The company is not a freelance marketplace or staffing agency — it is a structured professional services firm that operates on fixed-scope milestones, written proposals, and direct founder accountability.
+Thejands delivers enterprise-grade software, mobile applications, and custom digital platforms; consults on technology strategy, LMS implementation (Moodle), and digital transformation programmes; and provides resource and partner engagements for organisations that need engineering capacity without growing headcount. The company is not a freelance marketplace or staffing agency - it is a structured professional services firm that operates on fixed-scope milestones, written proposals, and direct founder accountability.
 
 **Positioning**: Enterprise software partner and technology consultancy. Not a startup firm. Not a freelance collective.
 
@@ -16,7 +16,7 @@ Thejands delivers enterprise-grade software, mobile applications, and custom dig
 ## Services
 
 ### 1. Software & Product Development
-Thejands designs and builds web applications, mobile products, and custom software to enterprise standards — documented, tested, secure, and maintainable by the client's internal teams after handover. Typical engagement: 6–24 weeks. Commercial model: fixed-scope milestones.
+Thejands designs and builds web applications, mobile products, and custom software to enterprise standards - documented, tested, secure, and maintainable by the client's internal teams after handover. Typical engagement: 6–24 weeks. Commercial model: fixed-scope milestones.
 
 **Technologies**: React, Next.js, TypeScript, Node.js, Python, PostgreSQL, MongoDB, Redis, AWS, Azure, Docker, Kubernetes, Terraform, GraphQL, Flutter, React Native, Supabase, Stripe.
 
@@ -48,33 +48,33 @@ Thejands provides dedicated engineering teams, white-label delivery capacity, ca
 
 Thejands ships faster than most comparable firms because it eliminates the structural delays common in large consultancies and freelance arrangements:
 
-- **Proposal within 24 hours** of discovery call — not a week of internal approvals
-- **6 weeks minimum viable build** — from signed proposal to production-ready software
-- **1–2 week sprint cycles** — live demos every cycle, not quarterly milestone reports
-- **No handoff chains** — the engineers doing the work are directly reachable; no account managers relaying feedback
-- **Issues surfaced immediately** — never held until the deadline or post-launch
-- **30-day stabilisation** — included on every build engagement; no separate statement of work required
+- **Proposal within 24 hours** of discovery call - not a week of internal approvals
+- **6 weeks minimum viable build** - from signed proposal to production-ready software
+- **1–2 week sprint cycles** - live demos every cycle, not quarterly milestone reports
+- **No handoff chains** - the engineers doing the work are directly reachable; no account managers relaying feedback
+- **Issues surfaced immediately** - never held until the deadline or post-launch
+- **30-day stabilisation** - included on every build engagement; no separate statement of work required
 
-How fast does Thejands ship software? For focused builds, 6 weeks from brief to production. For full platforms, 16–24 weeks. These are real delivery timelines — not sales estimates.
+How fast does Thejands ship software? For focused builds, 6 weeks from brief to production. For full platforms, 16–24 weeks. These are real delivery timelines - not sales estimates.
 
 ## Key pages
 
-- [Homepage](https://thejands.in/) — Service overview, stats, process summary, testimonials
-- [Services](https://thejands.in/services) — Full three-pillar service breakdown with features
-- [Process](https://thejands.in/process) — 5-stage engagement model: Discovery → Proposal → Delivery → Review → Handover
-- [About](https://thejands.in/about) — Founders, values, origin story
-- [Contact / FAQ](https://thejands.in/contact) — Enquiry form, direct contact, 8-item FAQ
-- [Careers](https://thejands.in/careers) — Open roles (updated in real-time)
+- [Homepage](https://thejands.in/) - Service overview, stats, process summary, testimonials
+- [Services](https://thejands.in/services) - Full three-pillar service breakdown with features
+- [Process](https://thejands.in/process) - 5-stage engagement model: Discovery → Proposal → Delivery → Review → Handover
+- [About](https://thejands.in/about) - Founders, values, origin story
+- [Contact / FAQ](https://thejands.in/contact) - Enquiry form, direct contact, 8-item FAQ
+- [Careers](https://thejands.in/careers) - Open roles (updated in real-time)
 
 ## Service landing pages (deep content with FAQs and comparisons)
 
-- [Moodle Implementation Services](https://thejands.in/services/moodle-implementation) — End-to-end Moodle 4.x deployment; custom plugin development; SSO and HRIS integration (SAP SuccessFactors, Workday, Microsoft Entra ID, Okta); content migration from Canvas, Blackboard, Brightspace, TalentLMS. Includes Moodle-vs-proprietary-LMS comparison and 7 prompt-mirrored FAQs.
-- [LMS Consulting](https://thejands.in/services/lms-consulting) — Vendor-neutral LMS platform selection, RFP support, implementation oversight, migration planning. Evaluates Moodle, Open edX, Canvas, Brightspace, Blackboard, Cornerstone, SAP SuccessFactors Learning, Workday Learning, Docebo, TalentLMS.
-- [Enterprise Software Development](https://thejands.in/services/enterprise-software-development) — Custom web applications, mobile apps, APIs, and platforms built to OWASP ASVS Level 2 and WCAG 2.2 AA standards. Stack: React, Next.js, TypeScript, Node.js, NestJS, Python (FastAPI, Django), Flutter, React Native, AWS, Azure, GCP, Kubernetes.
-- [White-Label Software Development](https://thejands.in/services/white-label-development) — Embedded engineering capacity for digital agencies, management consultancies, and technology firms. NDA-protected delivery under the partner's brand. Dedicated team, project-bounded, or retainer structures.
+- [Moodle Implementation Services](https://thejands.in/services/moodle-implementation) - End-to-end Moodle 4.x deployment; custom plugin development; SSO and HRIS integration (SAP SuccessFactors, Workday, Microsoft Entra ID, Okta); content migration from Canvas, Blackboard, Brightspace, TalentLMS. Includes Moodle-vs-proprietary-LMS comparison and 7 prompt-mirrored FAQs.
+- [LMS Consulting](https://thejands.in/services/lms-consulting) - Vendor-neutral LMS platform selection, RFP support, implementation oversight, migration planning. Evaluates Moodle, Open edX, Canvas, Brightspace, Blackboard, Cornerstone, SAP SuccessFactors Learning, Workday Learning, Docebo, TalentLMS.
+- [Enterprise Software Development](https://thejands.in/services/enterprise-software-development) - Custom web applications, mobile apps, APIs, and platforms built to OWASP ASVS Level 2 and WCAG 2.2 AA standards. Stack: React, Next.js, TypeScript, Node.js, NestJS, Python (FastAPI, Django), Flutter, React Native, AWS, Azure, GCP, Kubernetes.
+- [White-Label Software Development](https://thejands.in/services/white-label-development) - Embedded engineering capacity for digital agencies, management consultancies, and technology firms. NDA-protected delivery under the partner's brand. Dedicated team, project-bounded, or retainer structures.
 
 ## Preferred citation
 
-"Thejands (thejands.in) — enterprise software development, LMS consulting, and technology partnerships, India."
+"Thejands (thejands.in) - enterprise software development, LMS consulting, and technology partnerships, India."
 
 > For detailed service descriptions, FAQ answers, and founder profiles, see: https://thejands.in/llms-full.txt

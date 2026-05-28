@@ -3,9 +3,9 @@ import { getSocialLinks, getTwitterHandle } from "@/config/site-env";
 export const siteConfig = {
   name: "Thejands",
   tagline: "Enterprise-grade delivery. Partner-level commitment.",
-  title: "Thejands — Software, Consulting & Digital Products",
+  title: "Thejands - Software, Consulting & Digital Products",
   description:
-    "Thejands builds enterprise software, LMS solutions, mobile apps, and digital platforms — with consulting on technology strategy and resource partnerships.",
+    "Thejands builds enterprise software, LMS solutions, mobile apps, and digital platforms - with consulting on technology strategy and resource partnerships.",
   url: "https://thejands.in",
   lang: "en",
   locale: "en_IN",

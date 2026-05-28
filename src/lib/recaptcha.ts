@@ -1,17 +1,17 @@
 /**
- * reCAPTCHA Enterprise — server-side assessment via REST API.
+ * reCAPTCHA Enterprise - server-side assessment via REST API.
  *
  * Uses the Google Cloud reCAPTCHA Enterprise REST endpoint.
  * No gRPC / @google-cloud package required (Vercel-compatible).
  *
  * Required env vars:
- *   PUBLIC_RECAPTCHA_SITE_KEY    — Enterprise site key (also used client-side)
- *   RECAPTCHA_ENTERPRISE_API_KEY — Google Cloud API key (starts with "AIza…")
+ *   PUBLIC_RECAPTCHA_SITE_KEY    - Enterprise site key (also used client-side)
+ *   RECAPTCHA_ENTERPRISE_API_KEY - Google Cloud API key (starts with "AIza…")
  *                                  NOT the reCAPTCHA secret key.
  *                                  Create at: Cloud Console → APIs & Services
  *                                  → Credentials → Create API Key, then restrict
  *                                  to "reCAPTCHA Enterprise API" only.
- *   RECAPTCHA_PROJECT_ID         — GCP project ID (default: "thejands-website")
+ *   RECAPTCHA_PROJECT_ID         - GCP project ID (default: "thejands-website")
  *
  * Score range: 0.0 (likely bot) → 1.0 (likely human). Threshold: 0.5.
  *
@@ -25,7 +25,7 @@ import { getEnv } from "@/lib/env";
 
 const SCORE_THRESHOLD = 0.5;
 
-// Action names — must match what the client passes to grecaptcha.enterprise.execute()
+// Action names - must match what the client passes to grecaptcha.enterprise.execute()
 export const RECAPTCHA_ACTIONS = {
   CONTACT_FORM: "CONTACT_FORM",
   CAREER_APPLY: "CAREER_APPLY",
@@ -63,7 +63,7 @@ export async function verifyRecaptcha(
   // the domain doesn't need to be added to the Enterprise console.
   if (!isProduction()) {
     console.log(
-      `[recaptcha] Non-production env — skipping verification for action "${expectedAction}"`,
+      `[recaptcha] Non-production env - skipping verification for action "${expectedAction}"`,
     );
     return true;
   }
@@ -75,17 +75,17 @@ export async function verifyRecaptcha(
 
   if (!apiKey) {
     console.error(
-      "[recaptcha] RECAPTCHA_ENTERPRISE_API_KEY is not set — cannot verify token.",
+      "[recaptcha] RECAPTCHA_ENTERPRISE_API_KEY is not set - cannot verify token.",
     );
     return false;
   }
 
   // Google Cloud API keys always start with "AIza". If the key starts with
-  // anything else (e.g. "6Lds..." — a reCAPTCHA site/secret key) it is the
+  // anything else (e.g. "6Lds..." - a reCAPTCHA site/secret key) it is the
   // wrong credential type and will be rejected by the assessment endpoint.
   if (!apiKey.startsWith("AIza")) {
     console.error(
-      "[recaptcha] RECAPTCHA_ENTERPRISE_API_KEY looks wrong — it should be a " +
+      "[recaptcha] RECAPTCHA_ENTERPRISE_API_KEY looks wrong - it should be a " +
         "Google Cloud API Key (starts with 'AIza…'), NOT a reCAPTCHA site key or secret key. " +
         "Create one at: Cloud Console → APIs & Services → Credentials → Create API Key, " +
         "then restrict it to 'reCAPTCHA Enterprise API'.",
@@ -95,7 +95,7 @@ export async function verifyRecaptcha(
 
   if (!siteKey) {
     console.error(
-      "[recaptcha] PUBLIC_RECAPTCHA_SITE_KEY is not set — cannot verify token.",
+      "[recaptcha] PUBLIC_RECAPTCHA_SITE_KEY is not set - cannot verify token.",
     );
     return false;
   }
@@ -147,7 +147,7 @@ export async function verifyRecaptcha(
   // 1. Token must be valid
   if (!data.tokenProperties?.valid) {
     console.warn(
-      "[recaptcha] Token invalid — reason:",
+      "[recaptcha] Token invalid - reason:",
       data.tokenProperties?.invalidReason ?? "unknown",
       "| hostname:",
       data.tokenProperties?.hostname ?? "unknown",
@@ -159,7 +159,7 @@ export async function verifyRecaptcha(
   // 2. Action must match to prevent token replay across different form actions
   if (data.tokenProperties.action !== expectedAction) {
     console.warn(
-      `[recaptcha] Action mismatch — expected "${expectedAction}", got "${data.tokenProperties.action}"`,
+      `[recaptcha] Action mismatch - expected "${expectedAction}", got "${data.tokenProperties.action}"`,
     );
     return false;
   }

@@ -1,5 +1,5 @@
 /**
- * Landing page content — GEO/AEO-optimised for high-intent commercial queries.
+ * Landing page content - GEO/AEO-optimised for high-intent commercial queries.
  *
  * Content design principles (Princeton GEO paper + AEO best practice):
  * - Answer-first opening paragraph (extractable definition)
@@ -42,9 +42,9 @@ export interface LandingPage {
   eyebrow: string;
   /** Answer-first opening paragraph (the AI-extractable definition) */
   definition: string;
-  /** Quick facts table — extractable structured data */
+  /** Quick facts table - extractable structured data */
   tldr: LandingTL[];
-  /** Body sections — each is a short, focused chunk */
+  /** Body sections - each is a short, focused chunk */
   sections: Array<{
     heading: string;
     body: string;
@@ -69,7 +69,7 @@ export interface LandingPage {
 export const moodleImplementation: LandingPage = {
   slug: "moodle-implementation",
   primaryKeyword: "Moodle implementation services",
-  title: "Moodle Implementation Services — Enterprise LMS Deployment",
+  title: "Moodle Implementation Services - Enterprise LMS Deployment",
   description:
     "End-to-end Moodle LMS implementation for enterprises and educational institutions. Custom plugin development, SSO integration, HR system connectors, branded UX. Founder-led delivery from Thejands.",
   keywords:
@@ -77,7 +77,7 @@ export const moodleImplementation: LandingPage = {
   heading: "Moodle Implementation for Enterprises",
   eyebrow: "LMS · Moodle · EdTech",
   definition:
-    "Moodle implementation is the end-to-end process of deploying, configuring, customising, and integrating the open-source Moodle Learning Management System for an organisation's specific use case. Thejands delivers Moodle implementation services for enterprises and educational institutions — covering installation, theme customisation, custom plugin development, integration with identity providers (LDAP, SAML 2.0, SSO) and HR systems (SAP, Workday, BambooHR), content migration, and post-launch support. Founder-led from discovery to handover, with full source-code ownership for the client.",
+    "Moodle implementation is the end-to-end process of deploying, configuring, customising, and integrating the open-source Moodle Learning Management System for an organisation's specific use case. Thejands delivers Moodle implementation services for enterprises and educational institutions - covering installation, theme customisation, custom plugin development, integration with identity providers (LDAP, SAML 2.0, SSO) and HR systems (SAP, Workday, BambooHR), content migration, and post-launch support. Founder-led from discovery to handover, with full source-code ownership for the client.",
   tldr: [
     { label: "Typical timeline", value: "6–14 weeks" },
     { label: "Engagement model", value: "Fixed-scope milestones" },
@@ -125,7 +125,7 @@ export const moodleImplementation: LandingPage = {
     },
   ],
   comparison: {
-    title: "Moodle vs proprietary LMS — when each makes sense",
+    title: "Moodle vs proprietary LMS - when each makes sense",
     alternativeLabel: "Canvas / Blackboard / Brightspace",
     rows: [
       {
@@ -155,8 +155,8 @@ export const moodleImplementation: LandingPage = {
       },
       {
         dimension: "Vendor lock-in",
-        thejands: "None — community-driven",
-        alternative: "High — proprietary platform",
+        thejands: "None - community-driven",
+        alternative: "High - proprietary platform",
       },
     ],
   },
@@ -174,7 +174,7 @@ export const moodleImplementation: LandingPage = {
     {
       question: "Can Thejands customise Moodle beyond the built-in features?",
       answer:
-        "Yes. Thejands develops custom Moodle plugins across every supported plugin type — blocks, activity modules, course formats, themes, local plugins, authentication plugins, enrolment plugins, and admin tools. Plugin development follows Moodle's coding guidelines and security review process, ensuring compatibility with Moodle's release cycle.",
+        "Yes. Thejands develops custom Moodle plugins across every supported plugin type - blocks, activity modules, course formats, themes, local plugins, authentication plugins, enrolment plugins, and admin tools. Plugin development follows Moodle's coding guidelines and security review process, ensuring compatibility with Moodle's release cycle.",
     },
     {
       question: "Is Moodle better than Canvas or Blackboard for enterprises?",
@@ -219,7 +219,7 @@ export const moodleImplementation: LandingPage = {
     {
       name: "Custom Moodle plugin development",
       description:
-        "Bespoke plugins across all Moodle plugin types — blocks, modules, themes, formats, authentication, enrolment.",
+        "Bespoke plugins across all Moodle plugin types - blocks, modules, themes, formats, authentication, enrolment.",
     },
     {
       name: "Moodle SSO integration",
@@ -239,7 +239,7 @@ export const moodleImplementation: LandingPage = {
     {
       name: "Moodle theme & UX customisation",
       description:
-        "Brand-aligned themes built on Boost or fully custom — including white-label rebranding for partner deployments.",
+        "Brand-aligned themes built on Boost or fully custom - including white-label rebranding for partner deployments.",
     },
   ],
 };
@@ -247,7 +247,7 @@ export const moodleImplementation: LandingPage = {
 export const lmsConsulting: LandingPage = {
   slug: "lms-consulting",
   primaryKeyword: "LMS consulting services",
-  title: "LMS Consulting — Strategy, Selection, Implementation",
+  title: "LMS Consulting - Strategy, Selection, Implementation",
   description:
     "Independent LMS consulting for enterprises and EdTech companies. Platform selection, architecture review, RFP support, vendor evaluation, and implementation oversight from founder-led Thejands.",
   keywords:
@@ -255,7 +255,7 @@ export const lmsConsulting: LandingPage = {
   heading: "LMS Consulting for Enterprises & EdTech",
   eyebrow: "Consulting · LMS · EdTech Strategy",
   definition:
-    "LMS consulting is independent advisory on selecting, architecting, implementing, or migrating a Learning Management System for an organisation's specific learner population, content strategy, and compliance requirements. Thejands provides vendor-neutral LMS consulting — we are not a reseller for any LMS platform, which means our recommendations reflect the client's actual needs rather than partner commissions. Engagements cover platform selection (Moodle vs Canvas vs Brightspace vs Open edX vs proprietary), architecture review, RFP support, technical due diligence on vendors, implementation oversight, and migration planning.",
+    "LMS consulting is independent advisory on selecting, architecting, implementing, or migrating a Learning Management System for an organisation's specific learner population, content strategy, and compliance requirements. Thejands provides vendor-neutral LMS consulting - we are not a reseller for any LMS platform, which means our recommendations reflect the client's actual needs rather than partner commissions. Engagements cover platform selection (Moodle vs Canvas vs Brightspace vs Open edX vs proprietary), architecture review, RFP support, technical due diligence on vendors, implementation oversight, and migration planning.",
   tldr: [
     { label: "Engagement type", value: "Advisory retainer or fixed sprint" },
     { label: "Typical duration", value: "2–8 weeks" },
@@ -352,7 +352,7 @@ export const lmsConsulting: LandingPage = {
     {
       question: "Can you help with an RFP for an LMS?",
       answer:
-        "Yes. RFP authoring is one of our most common deliverables. We produce a structured RFP document covering technical requirements, integration scenarios, data residency, vendor stability, and pricing structure — then assist with evaluating vendor responses against the scoring framework.",
+        "Yes. RFP authoring is one of our most common deliverables. We produce a structured RFP document covering technical requirements, integration scenarios, data residency, vendor stability, and pricing structure - then assist with evaluating vendor responses against the scoring framework.",
     },
   ],
   authorities: [
@@ -395,7 +395,7 @@ export const lmsConsulting: LandingPage = {
 export const enterpriseSoftware: LandingPage = {
   slug: "enterprise-software-development",
   primaryKeyword: "enterprise software development company India",
-  title: "Enterprise Software Development — India · Founder-Led",
+  title: "Enterprise Software Development - India · Founder-Led",
   description:
     "Custom enterprise software, web platforms, and mobile apps built to enterprise standards. Founder-led delivery from Thejands, India. Fixed-scope milestones, full IP ownership, 6–24 week engagements.",
   keywords:
@@ -403,7 +403,7 @@ export const enterpriseSoftware: LandingPage = {
   heading: "Enterprise Software Development",
   eyebrow: "Custom Software · Platforms · Mobile",
   definition:
-    "Enterprise software development is the practice of designing, building, and delivering custom software applications that meet enterprise-grade requirements for security, scalability, maintainability, and integration with existing systems. Thejands builds enterprise software for organisations in fintech, EdTech, logistics, digital commerce, healthcare, and SaaS — using React, Next.js, Node.js, TypeScript, Python, Flutter, and React Native on AWS, Azure, or GCP. All engagements are founder-led, scoped against fixed milestones, and delivered with full source-code ownership to the client.",
+    "Enterprise software development is the practice of designing, building, and delivering custom software applications that meet enterprise-grade requirements for security, scalability, maintainability, and integration with existing systems. Thejands builds enterprise software for organisations in fintech, EdTech, logistics, digital commerce, healthcare, and SaaS - using React, Next.js, Node.js, TypeScript, Python, Flutter, and React Native on AWS, Azure, or GCP. All engagements are founder-led, scoped against fixed milestones, and delivered with full source-code ownership to the client.",
   tldr: [
     { label: "Engagement timeline", value: "6–24 weeks per build" },
     { label: "Pricing model", value: "Fixed-scope milestones" },
@@ -419,7 +419,7 @@ export const enterpriseSoftware: LandingPage = {
     },
     {
       heading: "Technology stack",
-      body: "We select technology based on the client's long-term maintainability requirements, the team's existing capabilities, and infrastructure constraints — not based on what is trending.",
+      body: "We select technology based on the client's long-term maintainability requirements, the team's existing capabilities, and infrastructure constraints - not based on what is trending.",
       bullets: [
         "Frontend: React, Next.js, TypeScript, Tailwind CSS, Astro",
         "Backend: Node.js, NestJS, Python (FastAPI, Django), GraphQL",
@@ -447,7 +447,7 @@ export const enterpriseSoftware: LandingPage = {
       {
         dimension: "Seniority on the work",
         thejands: "Founders involved at every milestone",
-        alternative: "Variable — often junior staff",
+        alternative: "Variable - often junior staff",
       },
       {
         dimension: "Commercial model",
@@ -470,7 +470,7 @@ export const enterpriseSoftware: LandingPage = {
     {
       question: "How much does enterprise software development cost in India?",
       answer:
-        "Enterprise software development cost in India varies dramatically by scope, team seniority, and engagement model. A focused enterprise web platform (6–10 weeks scope) with senior practitioners typically falls in the mid-to-high five-figure USD range. Larger multi-phase platforms run materially higher. Thejands prices on fixed-scope milestones agreed in writing before work begins — no hourly billing surprises.",
+        "Enterprise software development cost in India varies dramatically by scope, team seniority, and engagement model. A focused enterprise web platform (6–10 weeks scope) with senior practitioners typically falls in the mid-to-high five-figure USD range. Larger multi-phase platforms run materially higher. Thejands prices on fixed-scope milestones agreed in writing before work begins - no hourly billing surprises.",
     },
     {
       question:
@@ -491,7 +491,7 @@ export const enterpriseSoftware: LandingPage = {
     {
       question: "What if the scope changes mid-project?",
       answer:
-        "Scope changes are handled through a written change request — proposed by either side, agreed in writing, with impact on timeline and cost stated explicitly before the change is accepted. We don't absorb scope creep silently, and we don't bill for changes that haven't been agreed. This is one of the most common reasons clients move from agencies to founder-led firms like Thejands.",
+        "Scope changes are handled through a written change request - proposed by either side, agreed in writing, with impact on timeline and cost stated explicitly before the change is accepted. We don't absorb scope creep silently, and we don't bill for changes that haven't been agreed. This is one of the most common reasons clients move from agencies to founder-led firms like Thejands.",
     },
   ],
   authorities: [
@@ -508,7 +508,7 @@ export const enterpriseSoftware: LandingPage = {
     {
       name: "Web platform development",
       description:
-        "Custom web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — to enterprise standards.",
+        "Custom web applications built with React, Next.js, TypeScript, and modern cloud infrastructure - to enterprise standards.",
     },
     {
       name: "Mobile app development",
@@ -536,7 +536,7 @@ export const enterpriseSoftware: LandingPage = {
 export const whiteLabelDevelopment: LandingPage = {
   slug: "white-label-development",
   primaryKeyword: "white label software development partner",
-  title: "White-Label Software Development Partner — Thejands",
+  title: "White-Label Software Development Partner - Thejands",
   description:
     "Embedded engineering capacity for agencies, consultancies, and technology firms. White-label delivery under your brand, NDA-protected, with senior practitioners. Founder-led from Thejands.",
   keywords:
@@ -544,7 +544,7 @@ export const whiteLabelDevelopment: LandingPage = {
   heading: "White-Label Software Development",
   eyebrow: "Partnerships · Embedded · White-Label",
   definition:
-    "White-label software development is a partnership model in which a development firm builds software for an agency, consultancy, or technology partner's end client under the partner's brand — without the end client knowing the work is being delivered by a third party. Thejands operates as a white-label development partner for digital agencies, management consultancies, and technology firms that have won mandates exceeding their internal engineering capacity. Engagements are NDA-protected, follow the partner's branding and communication standards, and can be structured as dedicated teams, project-bounded delivery, or retainer-based capacity.",
+    "White-label software development is a partnership model in which a development firm builds software for an agency, consultancy, or technology partner's end client under the partner's brand - without the end client knowing the work is being delivered by a third party. Thejands operates as a white-label development partner for digital agencies, management consultancies, and technology firms that have won mandates exceeding their internal engineering capacity. Engagements are NDA-protected, follow the partner's branding and communication standards, and can be structured as dedicated teams, project-bounded delivery, or retainer-based capacity.",
   tldr: [
     {
       label: "Engagement structures",
@@ -559,7 +559,7 @@ export const whiteLabelDevelopment: LandingPage = {
   sections: [
     {
       heading: "How white-label engagement works",
-      body: "The partner sells the work to their end client under their own brand. Thejands delivers the engineering work under the partner's standards — using the partner's project management tools, communication channels, and branded deliverables. End clients see only the partner. Internal Thejands branding never appears in any deliverable, communication, or documentation. NDAs cover both the engagement and any client information shared.",
+      body: "The partner sells the work to their end client under their own brand. Thejands delivers the engineering work under the partner's standards - using the partner's project management tools, communication channels, and branded deliverables. End clients see only the partner. Internal Thejands branding never appears in any deliverable, communication, or documentation. NDAs cover both the engagement and any client information shared.",
     },
     {
       heading: "Who this is for",
@@ -573,7 +573,7 @@ export const whiteLabelDevelopment: LandingPage = {
     },
     {
       heading: "Why partners choose Thejands over offshore staff augmentation",
-      body: "Staff augmentation typically supplies individual contributors who report into the partner's existing structure. Thejands provides a complete delivery unit — engineers, technical lead, and founder oversight — that operates as an autonomous team within the partner's brand. Quality control, code review, and architecture decisions happen at Thejands; the partner focuses on client relationship and commercial structure.",
+      body: "Staff augmentation typically supplies individual contributors who report into the partner's existing structure. Thejands provides a complete delivery unit - engineers, technical lead, and founder oversight - that operates as an autonomous team within the partner's brand. Quality control, code review, and architecture decisions happen at Thejands; the partner focuses on client relationship and commercial structure.",
     },
   ],
   comparison: {
@@ -632,7 +632,7 @@ export const whiteLabelDevelopment: LandingPage = {
     {
       question: "Do you work directly with our end client or only through us?",
       answer:
-        "By default, only through you. If a specific engagement benefits from direct technical conversation with the end client, we can join — but always under your brand, with you setting the agenda, and never positioning Thejands as a separate entity. The default is full intermediation.",
+        "By default, only through you. If a specific engagement benefits from direct technical conversation with the end client, we can join - but always under your brand, with you setting the agenda, and never positioning Thejands as a separate entity. The default is full intermediation.",
     },
   ],
   authorities: [
@@ -654,7 +654,7 @@ export const whiteLabelDevelopment: LandingPage = {
     {
       name: "Retainer capacity",
       description:
-        "Monthly reserved engineering hours for ongoing demand — flexed across multiple end-client engagements.",
+        "Monthly reserved engineering hours for ongoing demand - flexed across multiple end-client engagements.",
     },
     {
       name: "Technical screening for partners",
@@ -667,7 +667,7 @@ export const whiteLabelDevelopment: LandingPage = {
 export const aiDataSolutions: LandingPage = {
   slug: "ai-data-solutions",
   primaryKeyword: "AI solutions for enterprise India",
-  title: "AI & Data Solutions — Enterprise LLM Integration & Automation",
+  title: "AI & Data Solutions - Enterprise LLM Integration & Automation",
   description:
     "Thejands integrates generative AI, LLM-powered features, RAG systems, and intelligent automation into enterprise platforms. Founder-led AI engineering with full IP ownership and production-grade security.",
   keywords:
@@ -675,7 +675,7 @@ export const aiDataSolutions: LandingPage = {
   heading: "AI & Data Solutions for Enterprise",
   eyebrow: "AI · LLM · Automation · Data Intelligence",
   definition:
-    "Thejands designs and integrates AI capabilities into enterprise software platforms — including large language model (LLM) integration using GPT-4o, Claude, Gemini, and Llama; retrieval-augmented generation (RAG) systems and vector-search knowledge bases; custom AI agents and agentic workflow automation; ML pipelines with model deployment on AWS, Azure, or GCP; and intelligent document processing for classification, extraction, and summarisation. Engagements follow the same fixed-scope model as software builds — discovery, written proposal, milestone delivery, and full IP transfer — with enterprise data security and on-premise model options available.",
+    "Thejands designs and integrates AI capabilities into enterprise software platforms - including large language model (LLM) integration using GPT-4o, Claude, Gemini, and Llama; retrieval-augmented generation (RAG) systems and vector-search knowledge bases; custom AI agents and agentic workflow automation; ML pipelines with model deployment on AWS, Azure, or GCP; and intelligent document processing for classification, extraction, and summarisation. Engagements follow the same fixed-scope model as software builds - discovery, written proposal, milestone delivery, and full IP transfer - with enterprise data security and on-premise model options available.",
   tldr: [
     { label: "Typical timeline", value: "4–14 weeks" },
     { label: "Engagement model", value: "Fixed-scope milestones" },
@@ -687,11 +687,11 @@ export const aiDataSolutions: LandingPage = {
   sections: [
     {
       heading: "What 'production-ready AI' means at Thejands",
-      body: "Most AI proof-of-concepts fail to reach production because they ignore enterprise constraints: data security, latency SLAs, cost predictability, observability, and integration with existing authentication and data systems. At Thejands, AI engagements are scoped and delivered with the same rigour as enterprise software builds — with structured logging, error handling, rate-limit management, prompt versioning, and handover documentation your internal team can maintain without further dependency on us.",
+      body: "Most AI proof-of-concepts fail to reach production because they ignore enterprise constraints: data security, latency SLAs, cost predictability, observability, and integration with existing authentication and data systems. At Thejands, AI engagements are scoped and delivered with the same rigour as enterprise software builds - with structured logging, error handling, rate-limit management, prompt versioning, and handover documentation your internal team can maintain without further dependency on us.",
     },
     {
       heading: "AI capabilities we deliver",
-      body: "Engagements are scoped against the specific capability the organisation needs — not a generic 'AI transformation' programme.",
+      body: "Engagements are scoped against the specific capability the organisation needs - not a generic 'AI transformation' programme.",
       bullets: [
         "LLM integration: GPT-4o, Claude 3.5 Sonnet/Opus, Gemini 1.5 Pro, Llama 3.1 (hosted or on-premise via Ollama, vLLM)",
         "RAG systems: vector embeddings, semantic search, document chunking, re-ranking pipelines",
@@ -699,12 +699,12 @@ export const aiDataSolutions: LandingPage = {
         "ML pipelines: feature engineering, model training, evaluation, deployment on AWS SageMaker / Azure ML / Vertex AI",
         "Document intelligence: PDF/OCR extraction, classification, structured data extraction, contract analysis",
         "Conversational AI: enterprise chatbots, internal knowledge assistants, customer-facing AI with guardrails",
-        "Vector databases: Pinecone, Weaviate, pgvector, Qdrant — chosen against retrieval requirements",
+        "Vector databases: Pinecone, Weaviate, pgvector, Qdrant - chosen against retrieval requirements",
       ],
     },
     {
       heading: "Data security and residency",
-      body: "Enterprise AI workloads often involve sensitive data. Thejands architectures for data residency and security from the start — not as an afterthought. We have experience deploying on-premise LLMs (Llama, Mistral) using Ollama and vLLM where data must not leave the client's infrastructure, and configuring Azure OpenAI Service and Vertex AI where managed cloud with regional data residency is acceptable. All AI integrations include prompt injection mitigation, output validation, and access control aligned with your existing IAM.",
+      body: "Enterprise AI workloads often involve sensitive data. Thejands architectures for data residency and security from the start - not as an afterthought. We have experience deploying on-premise LLMs (Llama, Mistral) using Ollama and vLLM where data must not leave the client's infrastructure, and configuring Azure OpenAI Service and Vertex AI where managed cloud with regional data residency is acceptable. All AI integrations include prompt injection mitigation, output validation, and access control aligned with your existing IAM.",
     },
     {
       heading: "Engagement structure for AI projects",
@@ -734,7 +734,7 @@ export const aiDataSolutions: LandingPage = {
       {
         dimension: "Seniority on the work",
         thejands: "Founders involved at every milestone",
-        alternative: "Variable — often junior staff (Big-4)",
+        alternative: "Variable - often junior staff (Big-4)",
       },
       {
         dimension: "Pricing model",
@@ -753,10 +753,10 @@ export const aiDataSolutions: LandingPage = {
       question:
         "How long does it take to integrate an LLM into an existing platform?",
       answer:
-        "A focused LLM integration — for example, adding a RAG-powered knowledge assistant to an existing web application — typically takes 4 to 8 weeks end-to-end. The variables are: data pipeline complexity, the number of existing system integrations, security and access control requirements, and the client's review velocity. Thejands provides a written timeline in the proposal stage after a technical feasibility discovery.",
+        "A focused LLM integration - for example, adding a RAG-powered knowledge assistant to an existing web application - typically takes 4 to 8 weeks end-to-end. The variables are: data pipeline complexity, the number of existing system integrations, security and access control requirements, and the client's review velocity. Thejands provides a written timeline in the proposal stage after a technical feasibility discovery.",
     },
     {
-      question: "Which AI model should we use — GPT-4o, Claude, or Gemini?",
+      question: "Which AI model should we use - GPT-4o, Claude, or Gemini?",
       answer:
         "Model selection depends on your specific use case, data residency requirements, latency needs, and cost constraints. GPT-4o is strongest for general reasoning and code generation; Claude 3.5 Sonnet excels at long-context document analysis; Gemini 1.5 Pro has a large context window suited for multi-document tasks. For organisations where data cannot leave their infrastructure, open-source models like Llama 3.1 deployed on-premise are the right choice. Thejands makes model recommendations in the written proposal after evaluating your requirements, not before.",
     },
@@ -764,7 +764,7 @@ export const aiDataSolutions: LandingPage = {
       question:
         "Can you build an AI agent that automates our internal workflows?",
       answer:
-        "Yes. AI agent development is a growing part of our work. We build tool-calling agents that interact with internal APIs, databases, and third-party services — with structured task decomposition, error recovery, and human-in-the-loop checkpoints for decisions that require human approval. Agents are deployed on your infrastructure with full observability.",
+        "Yes. AI agent development is a growing part of our work. We build tool-calling agents that interact with internal APIs, databases, and third-party services - with structured task decomposition, error recovery, and human-in-the-loop checkpoints for decisions that require human approval. Agents are deployed on your infrastructure with full observability.",
     },
     {
       question:
@@ -775,7 +775,7 @@ export const aiDataSolutions: LandingPage = {
     {
       question: "What is a RAG system and do we need one?",
       answer:
-        "Retrieval-Augmented Generation (RAG) is an architecture that augments an LLM's responses with content retrieved from your own document corpus or knowledge base — so the AI answers questions based on your organisation's specific data rather than general training data. You need a RAG system if you want an AI assistant that can accurately answer questions about internal policies, product documentation, contracts, or any proprietary knowledge that was not in the LLM's training data.",
+        "Retrieval-Augmented Generation (RAG) is an architecture that augments an LLM's responses with content retrieved from your own document corpus or knowledge base - so the AI answers questions based on your organisation's specific data rather than general training data. You need a RAG system if you want an AI assistant that can accurately answer questions about internal policies, product documentation, contracts, or any proprietary knowledge that was not in the LLM's training data.",
     },
     {
       question: "Will we own the AI code and models?",

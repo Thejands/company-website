@@ -29,7 +29,7 @@ export function formatJobDescription(text: string): string {
   for (const line of lines) {
     const trimmed = line.trim();
 
-    // Blank line — close any open list, skip
+    // Blank line - close any open list, skip
     if (!trimmed) {
       closeList();
       continue;

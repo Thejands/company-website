@@ -259,15 +259,15 @@ if (!(await isAdminRequest(Astro.request))) return Astro.redirect("/admin");
   <!-- Stats row -->
   <div class="grid grid-cols-3 gap-4 mb-6">
     <div class="stat-card">
-      <p class="stat-value" id="stat-total">—</p>
+      <p class="stat-value" id="stat-total">-</p>
       <p class="stat-label">Total submissions</p>
     </div>
     <div class="stat-card">
-      <p class="stat-value" id="stat-today">—</p>
+      <p class="stat-value" id="stat-today">-</p>
       <p class="stat-label">Today</p>
     </div>
     <div class="stat-card">
-      <p class="stat-value" id="stat-production">—</p>
+      <p class="stat-value" id="stat-production">-</p>
       <p class="stat-label">Production</p>
     </div>
   </div>

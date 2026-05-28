@@ -18,7 +18,7 @@ export default defineConfig({
         !page.includes("/blog") &&
         !page.includes("/widgets") &&
         !page.includes("/admin"),
-      // Careers is SSR — add manually so it appears in the sitemap
+      // Careers is SSR - add manually so it appears in the sitemap
       customPages: ["https://thejands.in/careers"],
       changefreq: "weekly",
       // Per-page priorities: home > landing pages > core pages > legal

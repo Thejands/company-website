@@ -794,7 +794,7 @@ if (!(await isAdminRequest(Astro.request))) return Astro.redirect("/admin");
               <p class="job-slug">/careers/${escHtml(job.slug)}</p>
             </div>
           </td>
-          <td style="color:var(--color-charcoal,#3f3f46);font-size:0.875rem;">${escHtml(job.department ?? "—")}</td>
+          <td style="color:var(--color-charcoal,#3f3f46);font-size:0.875rem;">${escHtml(job.department ?? "-")}</td>
           <td><span class="${statusBadgeClass(job.status)}">${escHtml(job.status)}</span></td>
           <td>
             <div class="table-actions">

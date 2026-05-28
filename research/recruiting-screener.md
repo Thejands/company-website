@@ -1,4 +1,4 @@
-# Thejands — Contact Form Submission & Sales Demo Flow
+# Thejands - Contact Form Submission & Sales Demo Flow
 
 > This document covers two things:
 >
@@ -13,7 +13,7 @@
 
 ---
 
-**Subject:** We've received your enquiry — Thejands
+**Subject:** We've received your enquiry - Thejands
 
 **Body:**
 
@@ -21,7 +21,7 @@ Hi [First name],
 
 Thank you for reaching out to Thejands.
 
-We've received your message and one of our founders — Linga or Somu — will review it personally and respond within one business day.
+We've received your message and one of our founders - Linga or Somu - will review it personally and respond within one business day.
 
 **What happens next:**
 
@@ -39,11 +39,11 @@ hello@thejands.in
 
 ---
 
-> **Note for devs:** Trigger this via Resend on `POST /api/contact` success. Personalise `[First name]` from the form field. Keep the tone professional — no emojis, no exclamation marks, no "We're excited to hear from you."
+> **Note for devs:** Trigger this via Resend on `POST /api/contact` success. Personalise `[First name]` from the form field. Keep the tone professional - no emojis, no exclamation marks, no "We're excited to hear from you."
 
 ---
 
-## 2. Sales Discovery Call — Structure
+## 2. Sales Discovery Call - Structure
 
 > **Duration:** 30–45 minutes
 > **Participants:** Linga or Somu (Thejands) + prospect
@@ -55,13 +55,13 @@ hello@thejands.in
 
 Introduce yourself briefly. Ask the prospect to describe their organisation and role in two sentences. Don't pitch yet.
 
-> "Before we get into what we do — can you tell me a bit about your organisation and what you're trying to solve? I want to make sure we're spending this call on what actually matters to you."
+> "Before we get into what we do - can you tell me a bit about your organisation and what you're trying to solve? I want to make sure we're spending this call on what actually matters to you."
 
 ---
 
 ### Requirement deep-dive (15 min)
 
-Go through the following — in conversation, not as a checklist:
+Go through the following - in conversation, not as a checklist:
 
 **About the mandate:**
 
@@ -77,7 +77,7 @@ Go through the following — in conversation, not as a checklist:
 
 **About constraints:**
 
-- What's the timeline — is there a hard deadline?
+- What's the timeline - is there a hard deadline?
 - Do you have a budget range in mind?
 - Are there compliance, security, or procurement requirements we should know about upfront?
 
@@ -118,7 +118,7 @@ If there's a clear fit, describe how Thejands would approach it:
 Agree a clear next step. One of:
 
 - **Proposal:** "We'll send a written proposal within [X] business days based on what you've shared. It'll cover scope, timeline, cost, and what we need from your side."
-- **More info needed:** "We need [X] before we can propose accurately — can you send that over by [date]?"
+- **More info needed:** "We need [X] before we can propose accurately - can you send that over by [date]?"
 - **Not a fit:** "Honestly, this isn't a mandate we're best placed to deliver. I'd recommend [alternative approach / referral]."
 
 Never leave the call without a specific next action and a named owner.
@@ -148,9 +148,9 @@ Never leave the call without a specific next action and a named owner.
 
 ### Principles
 
-- All incentives are agreed **in writing before work begins** — no verbal arrangements
+- All incentives are agreed **in writing before work begins** - no verbal arrangements
 - Incentives are tied to **signed outcomes**, not introductions or conversations
-- We do not pay for access to decision-makers — relationships must be earned
+- We do not pay for access to decision-makers - relationships must be earned
 - Commercial terms are revisited annually for long-term partners based on performance
 
 ---

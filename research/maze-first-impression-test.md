@@ -1,4 +1,4 @@
-# Thejands — Maze First Impression Test Script
+# Thejands - Maze First Impression Test Script
 
 > **Tool**: Maze (maze.co) or UsabilityHub (Five Second Test)
 > **Format**: Unmoderated, async
@@ -9,21 +9,21 @@
 
 ## Test Structure
 
-### Task 0 — Introduction (shown to participant)
+### Task 0 - Introduction (shown to participant)
 
-> "This is a short 5-minute test. You'll see a website briefly, then answer a few questions. There are no right or wrong answers — we're testing the website, not you.
+> "This is a short 5-minute test. You'll see a website briefly, then answer a few questions. There are no right or wrong answers - we're testing the website, not you.
 >
 > Please answer based on your genuine first reaction. Don't overthink it."
 
 ---
 
-### Task 1 — Five-second exposure
+### Task 1 - Five-second exposure
 
 **Instruction shown to participant:**
 
-> "You'll see a website for 5 seconds. Look at it naturally — don't try to read everything. When it disappears, answer the questions below."
+> "You'll see a website for 5 seconds. Look at it naturally - don't try to read everything. When it disappears, answer the questions below."
 
-**Show**: Homepage screenshot (full viewport, above the fold only — hero section)
+**Show**: Homepage screenshot (full viewport, above the fold only - hero section)
 **Duration**: 5 seconds
 **Then hide image**
 
@@ -35,7 +35,7 @@
 
 ---
 
-### Task 2 — Full page scroll (30 seconds)
+### Task 2 - Full page scroll (30 seconds)
 
 **Instruction:**
 
@@ -65,7 +65,7 @@
 
 ---
 
-### Task 3 — Navigation intention
+### Task 3 - Navigation intention
 
 **Instruction:**
 
@@ -86,7 +86,7 @@ Expected hot zones:
 
 ---
 
-### Task 4 — CTA intent
+### Task 4 - CTA intent
 
 **Instruction:**
 
@@ -95,19 +95,19 @@ Expected hot zones:
 _(Scale 1–7)_
 `1 = Definitely not` → `7 = Definitely yes`
 
-**Follow-up (conditional — shown if score ≤ 4):**
+**Follow-up (conditional - shown if score ≤ 4):**
 
 > "What would need to change for you to be more likely to reach out?"
 > _(Free text)_
 
-**Follow-up (conditional — shown if score ≥ 5):**
+**Follow-up (conditional - shown if score ≥ 5):**
 
 > "What was the main thing that made you want to reach out?"
 > _(Free text)_
 
 ---
 
-### Task 5 — Positioning check
+### Task 5 - Positioning check
 
 **Instruction:**
 

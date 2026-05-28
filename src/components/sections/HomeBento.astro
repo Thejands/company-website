@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site";
 
 const offerings = servicesPage.offerings;
 
-// Inline SVG paths — no React hydration dependency, always visible
+// Inline SVG paths - no React hydration dependency, always visible
 const icons: Record<string, { paths: string[]; viewBox?: string }> = {
   globe: {
     paths: [
@@ -31,12 +31,12 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
       What we build
     </h2>
     <p class="fade-in is-visible mt-3 max-w-xl text-body-md text-body">
-      Three disciplines, one team that owns all of it — from first brief to
+      Three disciplines, one team that owns all of it - from first brief to
       production release. Faster than you expect.
     </p>
 
     <div class="bento-grid mt-10" role="list">
-      <!-- Software & Product tile — large 2×2 -->
+      <!-- Software & Product tile - large 2×2 -->
       <a
         href={`/services#${offerings[0].id}`}
         class="bento-cell bento-span-2 bento-row-2 card-interactive group flex flex-col justify-between p-6 md:p-8"
@@ -218,7 +218,7 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
         ))
       }
 
-      <!-- Process highlight — dark tile (no bento-cell: that class sets a translucent white bg which would hide text-on-dark) -->
+      <!-- Process highlight - dark tile (no bento-cell: that class sets a translucent white bg which would hide text-on-dark) -->
       <a
         href="/process"
         class="bento-span-2 group relative flex min-h-[140px] flex-col justify-center overflow-hidden rounded-xl bg-surface-dark p-6 text-on-dark transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg md:p-8"
@@ -233,7 +233,7 @@ const icons: Record<string, { paths: string[]; viewBox?: string }> = {
           {processPage.steps.map((s) => s.title).join(" → ")}
         </p>
         <p class="mt-2 text-body-sm text-on-dark-mute">
-          Fixed scope · Weekly demos · Clean handoff — every time
+          Fixed scope · Weekly demos · Clean handoff - every time
         </p>
         <span
           class="mt-4 inline-flex items-center gap-1.5 text-body-sm font-medium text-on-dark opacity-0 transition-opacity group-hover:opacity-100"

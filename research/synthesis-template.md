@@ -1,4 +1,4 @@
-# Thejands Website Research — Synthesis Template
+# Thejands Website Research - Synthesis Template
 
 > Use this after completing moderated sessions or Maze tests.
 > Fill one copy per participant during/after the session, then use the cluster view to identify patterns.
@@ -24,7 +24,7 @@ Copy this block for each participant.
 
 ---
 
-### Participant [P#] — [First name or alias]
+### Participant [P#] - [First name or alias]
 
 **Profile**: A / B / C  
 **Date**: YYYY-MM-DD  
@@ -37,7 +37,7 @@ Copy this block for each participant.
 - First thing they noticed:
 - First click / navigation intent:
 
-#### Quotes — verbatim
+#### Quotes - verbatim
 
 > " "
 
@@ -78,7 +78,7 @@ For each cluster: write the pattern, one representative quote, and the implicati
 
 ---
 
-### CLARITY — Do they understand what Thejands does?
+### CLARITY - Do they understand what Thejands does?
 
 **Pattern** (what multiple participants said/did):
 
@@ -90,7 +90,7 @@ For each cluster: write the pattern, one representative quote, and the implicati
 
 ---
 
-### TRUST — Do they believe the claims?
+### TRUST - Do they believe the claims?
 
 **Pattern**:
 
@@ -102,7 +102,7 @@ For each cluster: write the pattern, one representative quote, and the implicati
 
 ---
 
-### DIFFERENTIATION — Does "founders in the room" land?
+### DIFFERENTIATION - Does "founders in the room" land?
 
 **Pattern**:
 
@@ -114,7 +114,7 @@ For each cluster: write the pattern, one representative quote, and the implicati
 
 ---
 
-### FRICTION — Where do they hesitate or get confused?
+### FRICTION - Where do they hesitate or get confused?
 
 **Pattern**:
 
@@ -126,7 +126,7 @@ For each cluster: write the pattern, one representative quote, and the implicati
 
 ---
 
-### CONVERSION — What triggers or blocks reaching out?
+### CONVERSION - What triggers or blocks reaching out?
 
 **Pattern**:
 

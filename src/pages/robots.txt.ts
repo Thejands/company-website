@@ -28,7 +28,7 @@ Allow: /
 User-agent: AdIdxBot
 Allow: /
 
-# AI search crawlers — allowed to index public content
+# AI search crawlers - allowed to index public content
 User-agent: OAI-SearchBot
 Allow: /
 
